@@ -56,6 +56,7 @@ public class frmProducto extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lblidProducto = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnNuevo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -77,7 +78,7 @@ public class frmProducto extends javax.swing.JInternalFrame {
             }
         };
         jPanel4 = new javax.swing.JPanel();
-        lblidProducto = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -88,6 +89,8 @@ public class frmProducto extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ADMINISTRAR PRODUCTOS");
 
+        lblidProducto.setText("ID");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -95,13 +98,17 @@ public class frmProducto extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(280, 280, 280)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                .addGap(268, 268, 268))
+                .addGap(191, 191, 191)
+                .addComponent(lblidProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblidProducto))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -264,7 +271,13 @@ public class frmProducto extends javax.swing.JInternalFrame {
 
         jPanel4.setBackground(new java.awt.Color(9, 66, 66));
 
-        lblidProducto.setText("ID");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/stockverde32px.png"))); // NOI18N
+        jButton1.setText("Stock");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -272,14 +285,14 @@ public class frmProducto extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblidProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(lblidProducto)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -391,6 +404,7 @@ public class frmProducto extends javax.swing.JInternalFrame {
             btnEditar.setIcon(new ImageIcon("src/Archivos/cancelverde32px.png"));
             btnEditar.setEnabled(true);
             btnEliminar.setEnabled(false);
+            txtNombre.requestFocus();
             return;
         }
 
@@ -540,6 +554,16 @@ public class frmProducto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtPrecioUMKeyTyped
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        frmStock form = new frmStock();
+               int ancho = frmInicio.escritorio.getWidth();
+            int altura = frmInicio.escritorio.getHeight();
+            form.setSize(ancho, altura);
+            frmInicio.escritorio.add(form);
+            form.show();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -580,6 +604,7 @@ public class frmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

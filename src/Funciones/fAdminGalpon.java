@@ -110,7 +110,7 @@ public class fAdminGalpon {
         cn = postsql.conectar();
         String a = "(select \"idave\" from \"tipo_ave\" where \"nombre\" like '%" + ave + "%')";
 
-        sSQL = "insert into \"galpon\" (idgalpon,idave,f_inicio,saldo,descripcion,estado)"
+        sSQL = "insert into \"galpon\" (\"idgalpon\",\"idave\",\"f_inicio\",\"saldo\",\"descripcion\",\"estado\")"
                 + //NumGalpon no se incluye por ser llave primaria
                 "values (?," + a + ",?,?,?,?)";
 

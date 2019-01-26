@@ -7,6 +7,7 @@ package Interfaz;
 
 import Conexion.Conexion;
 import Funciones.fContar;
+import Funciones.fProducto;
 import Funciones.fVenta;
 import Interfaz.diseño.estiloTabla;
 import java.sql.Connection;
@@ -31,7 +32,7 @@ import modelos.mVenta;
  * @author GIMORE
  */
 public class frmVenta extends javax.swing.JInternalFrame {
-    
+
     private Conexion postsql = new Conexion();
     private Connection cn = null; //variable de conexion de sql
     // private Connection cn = postsql.conectar();
@@ -48,7 +49,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
         cargarCombos();
         estiloTabla diseño = new estiloTabla();
         diseño.tabla(tablaVentas);
-        
+
     }
 
     /**
@@ -343,7 +344,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
         try {
             fVenta func = new fVenta();
             modelo = func.mostrar(buscar);
-            
+
             tablaVentas.setModel(modelo);
             // return modelo;
         } catch (Exception e) {
@@ -352,7 +353,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
         }
         postsql.cierraConexion();
     }    // cierre de metodo mostrar
-    
+
     private void cargarCombos() {// carga datos de la BD y los pone en los combobox
         cn = postsql.conectar();
         comboProducto.removeAllItems();
@@ -362,17 +363,17 @@ public class frmVenta extends javax.swing.JInternalFrame {
         for (int i = 0; i < listaProducto.size(); i++) {
             comboProducto.addItem(listaProducto.get(i));
         }
-        
+
         postsql.cierraConexion();
     }
-    
+
     public ArrayList<String> llenar_comboProducto() {
         ArrayList<String> lista = new ArrayList<String>();
         sSQL = "select nombre from producto";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
-            
+
             while (rs.next()) {
                 lista.add(rs.getString("nombre"));
             }
@@ -381,7 +382,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
         }
         return lista;
     }
-    
+
     private void habilitarcampos() {
         //txtIdVenta.setEnabled(true);
         comboProducto.setEnabled(true);
@@ -389,7 +390,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
         jDateFecha.setEnabled(true);
         AtxtDescripcion.setEnabled(true);
     }
-    
+
     private void deshabilitarcampos() {
         lblidVenta.setEnabled(false);
         comboProducto.setEnabled(false);
@@ -397,22 +398,22 @@ public class frmVenta extends javax.swing.JInternalFrame {
         jDateFecha.setEnabled(false);
         AtxtDescripcion.setEnabled(false);
     }
-    
+
     public int contar(String tabla) throws SQLException { //para contar registros de tablas
         int n = 0;
         cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
 
         // sSQL = "select * from venta order by idventa ";
         sSQL = "select count (*) from " + tabla + "";
-        
+
         Statement st = cn.createStatement();
         ResultSet rs = st.executeQuery(sSQL);
         if (rs.next()) {
             //Si hay resultados obtengo el valor. 
             n = rs.getInt(1);
-            
+
         }
-        
+
         postsql.cierraConexion();
         return n;
     }    // cierre de metodo contar
@@ -422,14 +423,20 @@ public class frmVenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCantidadActionPerformed
 
     private void btnNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaVentaActionPerformed
-       
-          try {
+
+        try {
             if (contar("producto") == 0) {
                 JOptionPane.showMessageDialog(rootPane, "No existen Productos registrados para la Venta");
                 return;
             }
         } catch (Exception e) {
         }
+         fProducto validar = new fProducto();
+       if(validar.contar_stock()==0){
+           JOptionPane.showMessageDialog(null," No hay ningun producto en el Stock de ventas");
+           return;
+       }
+        
         if (btnNuevaVenta.getText().equals("Nueva")) {
             habilitarcampos();
             lblidVenta.setText("");
@@ -437,7 +444,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
             txtCantidad.setText("");
             Calendar actual = new GregorianCalendar();
             jDateFecha.setCalendar(actual);
-            
+
             AtxtDescripcion.setText("");
             btnNuevaVenta.setLabel("Procesar");
             btnEditar.setLabel("Cancelar");
@@ -445,20 +452,10 @@ public class frmVenta extends javax.swing.JInternalFrame {
             btnEditar.setEnabled(true);
             return;
         }
-        
-        try {
-            //verifica si hay productos para la venta
-            if (contar("producto") == 0) {
-                JOptionPane.showMessageDialog(rootPane, "No existen Productos registrados para la Venta  ");
-                return;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(frmVenta.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+
         mVenta datos = new mVenta();
         fVenta func = new fVenta();
-        
+/* ------------------------------------------------------------------------*/
         if (btnNuevaVenta.getText().equals("Procesar")) {
             if (comboProducto.getSelectedItem().equals("Seleccionar")) {
                 JOptionPane.showMessageDialog(null, "Selecciona un Producto");
@@ -475,19 +472,20 @@ public class frmVenta extends javax.swing.JInternalFrame {
             java.util.Date fecha = jDateFecha.getDate();//almacena la fecha en formato Date
             long fechaV = fecha.getTime();
             java.sql.Date fechaVenta = new java.sql.Date(fechaV);//establece el formato compatible con sql
-            
+
             datos.setCantidad(Integer.parseInt(txtCantidad.getText()));
             datos.setDescripcion(AtxtDescripcion.getText());
             datos.setFecha(fechaVenta.toString());
 
             //viendo la cantidad disponible para la venta        
-            //JOptionPane.showMessageDialog(null,func.verCantidad(comboProducto.getSelectedItem().toString()));       
-            int disponible = func.verCantidad(comboProducto.getSelectedItem().toString());
+            //JOptionPane.showMessageDialog(null,func.verCantidad(comboProducto.getSelectedItem().toString()));  
+           fContar stock = new fContar();
+            int disponible = stock.Contar("stock",comboProducto.getSelectedItem().toString(),"producto");
             if (disponible < Integer.parseInt(txtCantidad.getText())) {
                 JOptionPane.showMessageDialog(null, "Solo hay Disponible para la venta : " + disponible);
                 return;
             }
-            
+
             func.insertar(datos, comboProducto.getSelectedItem().toString());
             //insertar(comboProducto.getSelectedItem().toString(), Integer.parseInt(txtCantidad.getText()));
             mostrar("");
@@ -502,7 +500,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
             java.util.Date fecha = jDateFecha.getDate();//almacena la fecha en formato Date
             long fechaV = fecha.getTime();
             java.sql.Date fechaVenta = new java.sql.Date(fechaV);//establece el formato compatible con sql
-            
+
             datos.setCantidad(Integer.parseInt(txtCantidad.getText()));
             datos.setDescripcion(AtxtDescripcion.getText());
             datos.setIdVenta(Integer.parseInt(lblidVenta.getText()));
@@ -516,9 +514,9 @@ public class frmVenta extends javax.swing.JInternalFrame {
             btnEditar.setText("Editar");
             mostrar("");
             deshabilitarcampos();
-            
+
         }
-        
+
 
     }//GEN-LAST:event_btnNuevaVentaActionPerformed
 
@@ -545,16 +543,16 @@ public class frmVenta extends javax.swing.JInternalFrame {
         // acciones al dar clic sobre la tabla ventas
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date fecha;
-        
+
         int filaSel = tablaVentas.rowAtPoint(evt.getPoint());// guarda en la variable filaSel la ila que se selecciono en la tabla
 
         btnEditar.setEnabled(true);
         lblidVenta.setText(tablaVentas.getValueAt(filaSel, 0).toString());
         AtxtDescripcion.setText(tablaVentas.getValueAt(filaSel, 6).toString());
         comboProducto.setSelectedItem(tablaVentas.getValueAt(filaSel, 1).toString());
-        
+
         txtCantidad.setText(tablaVentas.getValueAt(filaSel, 2).toString());
-        
+
         try {
             fecha = formatoFecha.parse((String) tablaVentas.getValueAt(filaSel, 3));
             jDateFecha.setDate(fecha);

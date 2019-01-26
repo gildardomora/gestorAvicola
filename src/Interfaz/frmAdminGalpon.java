@@ -538,6 +538,7 @@ public void dimensioncols() {
             btnEditar.setEnabled(true);
             btnEliminar.setEnabled(false);            //Deshabilitar boton Eliminar
             txtNumGalpon.setText("");
+            txtNumGalpon.requestFocus();
             comboTipoAve.setSelectedItem("Seleccionar");
             Calendar actual = new GregorianCalendar();//para asignar la fecha actual
             jDateFechaApe.setCalendar(actual);
@@ -701,7 +702,7 @@ public void dimensioncols() {
         // acciones al dar clic sobre la tabla
         btnEliminar.setEnabled(true);
         btnEditar.setEnabled(true);
-
+ btnEditar.setIcon(new ImageIcon("src/Archivos/Editverde32px.png"));
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date fecha;
         int filaSel = tablaAdminGalpon.rowAtPoint(evt.getPoint());// guarda en la variable filaSel la ila que se selecciono en la tabla

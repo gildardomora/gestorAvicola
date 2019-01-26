@@ -14,14 +14,15 @@ public class mProducto {
     private String nombre;
     private String uniMedida;
     private String Descripcion;
-    private int precioUniMed;
+    private int precioUniMed,stock;
 
-    public mProducto(int idProducto, String nombre, String uniMedida, String Descripcion, int precioUniMed) {
+    public mProducto(int idProducto, String nombre, String uniMedida, String Descripcion, int precioUniMed, int stock) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.uniMedida = uniMedida;
         this.Descripcion = Descripcion;
         this.precioUniMed = precioUniMed;
+        this.stock = stock;
     }
 
     public mProducto() {
@@ -66,7 +67,15 @@ public class mProducto {
     public void setPrecioUniMed(int precioUniMed) {
         this.precioUniMed = precioUniMed;
     }
-    
-    
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+ 
     
 }

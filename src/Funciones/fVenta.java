@@ -142,26 +142,5 @@ public class fVenta {
 
     }//cierre de metodo editar
 
-                  public int verCantidad(String dato) {
-        cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
 
-        sSQL = "select sum(cantidad) as cantidad from produccion inner join producto on produccion.idproducto=producto.idproducto where producto.nombre='"+dato+"'";
-              //  + "select count(*) AS cantidad from \"" +tabla + "\" where  \""+campo+"\" ='"+ dato+"'";
-
-        try {
-            int cantidad = 0;
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sSQL);
-            while (rs.next()) {
-                cantidad = rs.getInt("cantidad");
-            }
-
-            return cantidad;
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            return 0;
-        }
-
-    }//cierre metodo
 }

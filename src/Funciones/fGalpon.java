@@ -41,8 +41,8 @@ public class fGalpon {
         String[] registro = new String[7];//almacenar registros de cada uno de los titulos
         modelo = new DefaultTableModel(null, titulos);
 
-        sSQL = "select nombre,f_inicio,hsaldo,identrada,fecha,cantidad,entrada.descripcion,identrada from galpon "
-                + "inner join tipo_ave on galpon.idave=tipo_ave.idave inner join entrada on entrada.idgalpon=galpon.idgalpon where galpon.idgalpon = '" + buscar + "'";
+        sSQL = "select \"nombre\",\"f_inicio\",\"hsaldo\",\"identrada\",\"fecha\",\"cantidad\",\"entrada\".\"descripcion\",\"identrada\" from \"galpon\" "
+                + "inner join \"tipo_ave\" on \"galpon\".\"idave\"=\"tipo_ave\".\"idave\" inner join \"entrada\" on \"entrada\".\"idgalpon\"=\"galpon\".\"idgalpon\" where \"galpon\".\"idgalpon\" = '" + buscar + "'";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
@@ -79,8 +79,8 @@ public class fGalpon {
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
         //sSQL = "select * from entrada order by identrada ";
-        sSQL = "select nombre,f_inicio,hsaldo,idsalida,fecha,cantidad,salida.descripcion,idsalida from galpon "
-                + "inner join tipo_ave on galpon.idave=tipo_ave.idave inner join salida on salida.idgalpon=galpon.idgalpon where galpon.idgalpon = '" + buscar + "'";
+        sSQL = "select \"nombre\",\"f_inicio\",\"hsaldo\",\"idsalida\",fecha\",\"cantidad\",\"salida\".\"descripcion\",\"idsalida\" from \"galpon\" "
+                + "inner join \"tipo_ave\" on \"galpon\".\"idave\"=\"tipo_ave\".\"idave\" inner join \"salida\" on \"salida\".\"idgalpon\"=\"galpon\".\"idgalpon\" where \"galpon\".\"idgalpon\" = '" + buscar + "'";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
@@ -129,13 +129,13 @@ public class fGalpon {
             cantidad = datoEnt.getCantidad(); //Integer.parseInt(txtCantidadEnt.getText());
             
         //JOptionPane.showMessageDialog(null, "recibi : " + cantidad);
-        String a = "update galpon set saldo =" + saldoTotal + operacion + cantidad + " where idgalpon =" + datoEnt.getIdGalpon();
+        String a = "update \"galpon\" set \"saldo\" =" + saldoTotal + operacion + cantidad + " where \"idgalpon\" =" + datoEnt.getIdGalpon();
         // JOptionPane.showMessageDialog(null, "recibi : " + a);
         // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//Ajusta el formato del DateChooser
 
         //salida
        
-        sSQL = "insert into Entrada (fecha,hsaldo,cantidad,descripcion,idgalpon) values (?,?,?,?," + datoEnt.getIdGalpon() + ");" + a;
+        sSQL = "insert into \"Entrada\" (\"fecha\",\"hsaldo\",\"cantidad\",\"descripcion\",\"idgalpon\") values (?,?,?,?," + datoEnt.getIdGalpon() + ");" + a;
 try {
              PreparedStatement pst = cn.prepareStatement(sSQL);
                     pst.setString(1, datoEnt.getFecha());
@@ -197,7 +197,7 @@ try {
 
         //salida
        
-        sSQL = "insert into Salida (fecha,hsaldo,cantidad,descripcion,idgalpon) values (?,?,?,?," + datoSal.getIdGalpon() + ");" + a;
+        sSQL = "insert into \"Salida\" (\"fecha\",\"hsaldo\",\"cantidad\",\"descripcion\",\"idgalpon\") values (?,?,?,?," + datoSal.getIdGalpon() + ");" + a;
 
         
                 try {
@@ -253,9 +253,9 @@ try {
         
               
         //JOptionPane.showMessageDialog(rootPane, "recibi : " + cantidad);
-        String a = "update galpon set saldo =" + saldoTotal + operacion + cantidad + " where idgalpon =" + datos.getIdGalpon();
+        String a = "update \"galpon\" set \"saldo\" =" + saldoTotal + operacion + cantidad + " where \"idgalpon\" =" + datos.getIdGalpon();
 
-        sSQL = "update Entrada set fecha=?,hsaldo=?,cantidad=?,descripcion=?"
+        sSQL = "update \"Entrada\" set \"fecha\"=?,\"hsaldo\"=?,\"cantidad\"=?,descripcion=?"
                 + " WHERE idgalpon=" + datos.getIdGalpon() + "and idEntrada=" + datos.getIdEntrada() + ";" + a;
 
          try {
