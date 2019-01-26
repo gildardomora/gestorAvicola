@@ -479,8 +479,8 @@ public class frmVenta extends javax.swing.JInternalFrame {
 
             //viendo la cantidad disponible para la venta        
             //JOptionPane.showMessageDialog(null,func.verCantidad(comboProducto.getSelectedItem().toString()));  
-           fContar stock = new fContar();
-            int disponible = stock.Contar("stock",comboProducto.getSelectedItem().toString(),"producto");
+           fContar func2= new fContar();
+            int disponible = func2.Contabilizar("\"producto\" where \"nombre\" = '"+comboProducto.getSelectedItem().toString()+"'");
             if (disponible < Integer.parseInt(txtCantidad.getText())) {
                 JOptionPane.showMessageDialog(null, "Solo hay Disponible para la venta : " + disponible);
                 return;

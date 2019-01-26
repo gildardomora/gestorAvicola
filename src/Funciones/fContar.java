@@ -43,5 +43,27 @@ public class fContar {
         }
 
     }//cierre metodo
+    
+       public int Contabilizar(String consulta) {
+        cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
+
+        sSQL = "select sum(\"stock\") AS cantidad from " + consulta;
+
+        try {
+            int cantidad = 0;
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            while (rs.next()) {
+                cantidad = rs.getInt("cantidad");
+            }
+
+            return cantidad;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            return 0;
+        }
+
+    }//cierre metodo
 
 }
