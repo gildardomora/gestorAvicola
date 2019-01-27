@@ -16,7 +16,7 @@ import modelos.mUsuario;
  * @author GIMORE
  */
 public class frmLogin extends javax.swing.JFrame {
-
+public  static String version="ver 1.2"; // indica la version del programa
     /**
      * Creates new form frmLogin
      */
@@ -24,6 +24,7 @@ public class frmLogin extends javax.swing.JFrame {
         initComponents();
         jScrollPane1.setVisible(false);// para ocultar la tabla del login
         lblSesion.setVisible(false);
+        lblVersion.setText(version);
         if (!ContarUsuarios()) {
 
             this.setVisible(true);
@@ -89,7 +90,7 @@ form.btnNuevo.setText("Guardar");
         jButton3 = new javax.swing.JButton();
         lblSesion = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblVersion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsuarios = new javax.swing.JTable();
 
@@ -224,9 +225,9 @@ form.btnNuevo.setText("Guardar");
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/acess90pxaverde.png"))); // NOI18N
 
-        jLabel4.setForeground(new java.awt.Color(9, 66, 66));
-        jLabel4.setText(" Ver 1.2");
-        jLabel4.setToolTipText("Por Gildardo Mora");
+        lblVersion.setForeground(new java.awt.Color(9, 66, 66));
+        lblVersion.setText("version");
+        lblVersion.setToolTipText("Por Gildardo Mora");
 
         jScrollPane1.setEnabled(false);
 
@@ -253,7 +254,7 @@ form.btnNuevo.setText("Guardar");
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel4)
+                        .addComponent(lblVersion)
                         .addContainerGap(461, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +273,7 @@ form.btnNuevo.setText("Guardar");
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addGap(79, 79, 79)
-                        .addComponent(jLabel4))
+                        .addComponent(lblVersion))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -348,7 +349,8 @@ form.btnNuevo.setText("Guardar");
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane, e);
                 }
-                frmInicioEscritorio.lbluser.setText(txtUsuario.getText());
+                frmInicioEscritorio.usuarioActual=txtUsuario.getText();
+                frmInicioEscritorio.lbluser.setText(frmInicioEscritorio.usuarioActual);
                 if (frmInicio.lblTipo.getText().equals("Estandar")) {
                     
                     frmInicioEscritorio.btnGestUsuarios.setEnabled(false);
@@ -423,12 +425,12 @@ form.btnNuevo.setText("Guardar");
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblSesion;
+    private javax.swing.JLabel lblVersion;
     private javax.swing.JTable tblUsuarios;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtUsuario;

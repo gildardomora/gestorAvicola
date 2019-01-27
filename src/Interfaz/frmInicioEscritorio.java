@@ -17,10 +17,12 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
      * Creates new form frmInicioEscritorio
      */
     
-    
+    public static String usuarioActual="";
     public frmInicioEscritorio() {
         initComponents();
           ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+          lbluser.setText(usuarioActual);
+          lblVersion.setText(frmLogin.version);
     }
 
     
@@ -42,7 +44,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblVersion = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -62,7 +64,6 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("BIENVENIDO");
 
-        jButton1.setBackground(null);
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/infoblanco.png"))); // NOI18N
         jButton1.setToolTipText("Acerca de");
         jButton1.setBorder(null);
@@ -110,9 +111,9 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         jLabel4.setForeground(new java.awt.Color(9, 66, 66));
         jLabel4.setText("Gestor Avicola");
 
-        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel5.setText("Ver 1.2");
-        jLabel5.setToolTipText("Por Gildardo Mora");
+        lblVersion.setForeground(new java.awt.Color(0, 102, 102));
+        lblVersion.setText("version");
+        lblVersion.setToolTipText("Por Gildardo Mora");
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/pollo_blanco.png"))); // NOI18N
 
@@ -129,16 +130,16 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addComponent(lblVersion)
                                 .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(426, 426, 426))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                        .addGap(49, 49, 49)
+                        .addGap(54, 54, 54)
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                        .addGap(53, 53, 53)
+                        .addGap(48, 48, 48)
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                         .addContainerGap())))
         );
@@ -148,7 +149,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel5))
+                        .addComponent(lblVersion))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jLabel4)))
@@ -179,7 +180,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(9, 66, 66));
-        jLabel8.setText("Usuario Actual :");
+        jLabel8.setText("Usuario: ");
 
         lbluser.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbluser.setForeground(new java.awt.Color(9, 66, 66));
@@ -215,11 +216,11 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
                         .addComponent(jSeparator1))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGestUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel8)
-                                .addComponent(lbluser)))
+                                .addComponent(lbluser))
+                            .addComponent(btnGestUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -284,6 +285,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         frmInformacion form = new frmInformacion();
+        
         form.show();
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -346,7 +348,6 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -356,6 +357,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblVersion;
     public static final javax.swing.JLabel lbluser = new javax.swing.JLabel();
     // End of variables declaration//GEN-END:variables
 }

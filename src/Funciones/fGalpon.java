@@ -79,7 +79,7 @@ public class fGalpon {
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
         //sSQL = "select * from entrada order by identrada ";
-        sSQL = "select \"nombre\",\"f_inicio\",\"hsaldo\",\"idsalida\",fecha\",\"cantidad\",\"salida\".\"descripcion\",\"idsalida\" from \"galpon\" "
+        sSQL = "select \"nombre\",\"f_inicio\",\"hsaldo\",\"idsalida\",\"fecha\",\"cantidad\",\"salida\".\"descripcion\",\"idsalida\" from \"galpon\" "
                 + "inner join \"tipo_ave\" on \"galpon\".\"idave\"=\"tipo_ave\".\"idave\" inner join \"salida\" on \"salida\".\"idgalpon\"=\"galpon\".\"idgalpon\" where \"galpon\".\"idgalpon\" = '" + buscar + "'";
         try {
             Statement st = cn.createStatement();

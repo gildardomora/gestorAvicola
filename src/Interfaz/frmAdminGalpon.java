@@ -294,6 +294,7 @@ public class frmAdminGalpon extends javax.swing.JInternalFrame {
 
         jPanel5.setBackground(new java.awt.Color(9, 66, 66));
 
+        txtBuscar.setToolTipText("Bucar por fecha");
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);

@@ -26,7 +26,7 @@ public class frmInicio extends javax.swing.JFrame {
     public frmInicioEscritorio iniescritorio = null;
     public frmVenta venta = null;
     public frmGalpon galpon =null;
-    
+    String usuarioActual;
 
     public frmInicio() {
        
