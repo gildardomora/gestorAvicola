@@ -38,7 +38,7 @@ public class fTipo_ave {
         //modelo=new DefaultTableModel(titulos, ABORT);
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
-        sSQL = "select * from tipo_ave order by idave ";
+        sSQL = "select * from \"tipo_ave\" where \"nombre\"  like '%" + buscar + "%' order by \"idave\" ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);

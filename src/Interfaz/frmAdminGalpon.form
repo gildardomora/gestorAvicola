@@ -356,6 +356,9 @@
                     <Property name="rows" type="int" value="5"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="AtxtDescripcionKeyTyped"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

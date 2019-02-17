@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelos.mProducto;
 import modelos.mVenta;
 
 /**
@@ -87,6 +88,8 @@ public class frmVenta extends javax.swing.JInternalFrame {
         };
         jPanel4 = new javax.swing.JPanel();
         lblidVenta = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -175,6 +178,11 @@ public class frmVenta extends javax.swing.JInternalFrame {
         AtxtDescripcion.setRows(5);
         AtxtDescripcion.setEnabled(false);
         AtxtDescripcion.setName(""); // NOI18N
+        AtxtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                AtxtDescripcionKeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(AtxtDescripcion);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -272,21 +280,36 @@ public class frmVenta extends javax.swing.JInternalFrame {
         lblidVenta.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblidVenta.setText("#");
 
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/searchblanco32px.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblidVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(lblidVenta)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblidVenta)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -425,7 +448,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
     private void btnNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaVentaActionPerformed
 
         try {
-            if (contar("producto") == 0) {
+            if (contar("producto") == 0) {//verifica si hay productos para venta
                 JOptionPane.showMessageDialog(rootPane, "No existen Productos registrados para la Venta");
                 return;
             }
@@ -487,6 +510,9 @@ public class frmVenta extends javax.swing.JInternalFrame {
             }
 
             func.insertar(datos, comboProducto.getSelectedItem().toString());
+            mProducto dato =new mProducto();
+            //dato.setIdProducto(disponible);// ajustando para que actualice 
+            validar.editarStock(dato);
             //insertar(comboProducto.getSelectedItem().toString(), Integer.parseInt(txtCantidad.getText()));
             mostrar("");
             lblidVenta.setText("");
@@ -573,6 +599,21 @@ public class frmVenta extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtCantidadKeyTyped
 
+    private void AtxtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AtxtDescripcionKeyTyped
+        // TODO add your handling code here:
+        if (AtxtDescripcion.getText().length()== 100) {//para que el maximo de caracteres ingresados sea 100
+
+         evt.consume(); }
+    }//GEN-LAST:event_AtxtDescripcionKeyTyped
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+         // txtNumGalpon.setText("");
+
+        mostrar(txtBuscar.getText());
+        //dimensioncols();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -615,6 +656,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> comboProducto;
     private com.toedter.calendar.JDateChooser jDateFecha;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -628,6 +670,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblidVenta;
     private javax.swing.JTable tablaVentas;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCantidad;
     // End of variables declaration//GEN-END:variables
 

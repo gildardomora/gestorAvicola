@@ -37,7 +37,7 @@ public class fVenta {
 
         // sSQL = "select * from venta order by idventa ";
         sSQL = "select \"detalle_venta\".\"idventa\",\"venta\".\"descripcion\", \"nombre\",\"cantidad\",\"fecha\",\"unimedida\",\"preciounimed\",\"valorventa\" from \"detalle_venta\" "
-                + "inner join \"producto\" on \"detalle_venta\".\"idproducto\"=\"producto\".\"idproducto\" inner join \"venta\" on \"detalle_venta\".\"idventa\"=\"venta\".\"idventa\" ";
+                + "inner join \"producto\" on \"detalle_venta\".\"idproducto\"=\"producto\".\"idproducto\" inner join \"venta\" on \"detalle_venta\".\"idventa\"=\"venta\".\"idventa\" where \"nombre\" like '%" + buscar + "%' order by \"idventa\"";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);

@@ -9,11 +9,7 @@ import Conexion.Conexion;
 import Funciones.fAdminGalpon;
 import Funciones.fContar;
 import Interfaz.diseño.estiloTabla;
-import java.awt.Color;
-import java.awt.Component;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,11 +21,7 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelos.mAdminGalpon;
 
@@ -193,6 +185,11 @@ public class frmAdminGalpon extends javax.swing.JInternalFrame {
         AtxtDescripcion.setColumns(20);
         AtxtDescripcion.setRows(5);
         AtxtDescripcion.setEnabled(false);
+        AtxtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                AtxtDescripcionKeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(AtxtDescripcion);
 
         jDateFechaApe.setEnabled(false);
@@ -797,6 +794,13 @@ public void dimensioncols() {
         mostrar(txtBuscar.getText());
         dimensioncols();
     }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void AtxtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AtxtDescripcionKeyTyped
+        // TODO add your handling code here:
+          if (AtxtDescripcion.getText().length()== 100) {//para que el maximo de caracteres ingresados sea 100
+
+         evt.consume(); }
+    }//GEN-LAST:event_AtxtDescripcionKeyTyped
 
     /**
      * @param args the command line arguments

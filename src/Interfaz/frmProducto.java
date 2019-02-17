@@ -42,6 +42,7 @@ public class frmProducto extends javax.swing.JInternalFrame {
          jScrollPane1.getViewport().setBackground(new java.awt.Color(255, 255, 255));
           estiloTabla diseño = new estiloTabla();
         diseño.tabla(tablaProducto);
+        dimensioncols();
     }
 
     /**
@@ -185,6 +186,11 @@ public class frmProducto extends javax.swing.JInternalFrame {
         AtxtDescripcion.setColumns(20);
         AtxtDescripcion.setRows(5);
         AtxtDescripcion.setEnabled(false);
+        AtxtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                AtxtDescripcionKeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(AtxtDescripcion);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -271,8 +277,9 @@ public class frmProducto extends javax.swing.JInternalFrame {
 
         jPanel4.setBackground(new java.awt.Color(9, 66, 66));
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/stockverde32px.png"))); // NOI18N
-        jButton1.setText("Stock");
+        jButton1.setText("Ver Stock");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,7 +293,7 @@ public class frmProducto extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -339,6 +346,12 @@ public class frmProducto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void dimensioncols() {
+        tablaProducto.getColumnModel().getColumn(0).setPreferredWidth(10);//ancho para la primer columna
+
+       // tablaProducto.getColumnModel().getColumn(5).setPreferredWidth(15);//ancho para la primer columna
+    }
+    
     public void mostrar(String buscar) { //para mostrar registros de la tabla galpon
         //DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente
         cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
@@ -564,6 +577,13 @@ public class frmProducto extends javax.swing.JInternalFrame {
             frmInicio.escritorio.add(form);
             form.show();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void AtxtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AtxtDescripcionKeyTyped
+        // TODO add your handling code here:
+                if (AtxtDescripcion.getText().length()== 100) {//para que el maximo de caracteres ingresados sea 100
+
+         evt.consume(); }
+    }//GEN-LAST:event_AtxtDescripcionKeyTyped
 
     /**
      * @param args the command line arguments

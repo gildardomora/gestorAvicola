@@ -9,6 +9,8 @@ import java.awt.TrayIcon;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import static java.time.Clock.system;
+import static javafx.application.Platform.exit;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +21,7 @@ public class Conexion {
     
     public String db="granja_avicola";//nombre de la base de datos
     public String url= "jdbc:postgresql://localhost:5432/" +db; // "jdbc:mysql://127.0.0.1/"+db;//direccion de coneccion
+   // public String url= "jdbc:postgresql://192.168.0.103:5432/" +db; // "jdbc:mysql://127.0.0.1/"+db;//direccion de coneccion
     public String user="postgres";//nombre de usuario
     public String pass="postgres";//contraseña
     private Connection link=null; // inicializa link de conexion
@@ -31,7 +34,7 @@ public class Conexion {
     
     public  Connection conectar (){
      
-        try {
+            try {
             Class.forName("org.postgresql.Driver");//("org.gjt.mm.mysql.Driver");
             link=DriverManager.getConnection(this.url, this.user, this.pass);
             System.err.println("Conectado");
@@ -39,7 +42,8 @@ public class Conexion {
         } catch (ClassNotFoundException | SQLException e) {
            // JOptionPane.showConfirmDialog(null, e);//muestra en un mensaje de confirmacion el error que se presente
             //JOptionPane.showConfirmDialog(null, "No se pudo conectar con la BD");//muestra en un mensaje de confirmacion el error que se presente
-            JOptionPane.showMessageDialog(null, "No se pudo conectar con la BD", "ERROR DE CONEXION", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se pudo conectar con la BD \n Verifique la Conexion...", "ERROR DE CONEXION", JOptionPane.ERROR_MESSAGE);
+           System.exit(0);
         }
         return link;//regresa el link
     }
@@ -49,7 +53,7 @@ public class Conexion {
             System.out.println("Se desconectó de la BD");
             //JOptionPane.showMessageDialog(null, "Se desconectó de la BD");
         } catch (Exception e) {
-            System.out.println("Error al desconectarse de la BD");
+            System.out.println("Error al desconectarse de la BD ");
             //JOptionPane.showMessageDialog(null, "Error al desconectarse de la BD");
         }
     }
