@@ -129,6 +129,11 @@ public class frmProducto extends javax.swing.JInternalFrame {
         jLabel3.setText("Nombre");
 
         txtNombre.setEnabled(false);
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Unidad Medida");
@@ -555,7 +560,9 @@ public class frmProducto extends javax.swing.JInternalFrame {
 
     private void txtUniMedidaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUniMedidaKeyTyped
         // validar que solo se ingrese numeros
+  if (txtUniMedida.getText().length()== 15) {//para que el maximo de caracteres ingresados sea 100
 
+         evt.consume(); }
 
     }//GEN-LAST:event_txtUniMedidaKeyTyped
 
@@ -564,8 +571,11 @@ public class frmProducto extends javax.swing.JInternalFrame {
         char c = evt.getKeyChar();
         if (((c < '0') || (c > '9')) && (c != evt.VK_BACK_SPACE)) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "ingresa solo numeros");
+           // JOptionPane.showMessageDialog(null, "ingresa solo numeros");
         }
+          if (txtPrecioUM.getText().length()== 10) {//para que el maximo de caracteres ingresados sea 100
+
+         evt.consume(); }
     }//GEN-LAST:event_txtPrecioUMKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -584,6 +594,13 @@ public class frmProducto extends javax.swing.JInternalFrame {
 
          evt.consume(); }
     }//GEN-LAST:event_AtxtDescripcionKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+          if (txtNombre.getText().length()== 15) {//para que el maximo de caracteres ingresados sea 15
+
+         evt.consume(); }
+    }//GEN-LAST:event_txtNombreKeyTyped
 
     /**
      * @param args the command line arguments

@@ -301,6 +301,7 @@ public class frmStock extends javax.swing.JInternalFrame {
             fProducto func =new fProducto();
             mProducto datos = new mProducto();            
             datos.setIdProducto(Integer.parseInt(lblidProducto.getText()));
+            datos.setNombre(lblNombre.getText());
             datos.setStock(Integer.parseInt(txtCantStock.getText()));
             func.editarStock(datos);
             func.listarStock("");

@@ -190,6 +190,11 @@ public class frmGalpon extends javax.swing.JInternalFrame {
 
         AtxtDescripcionEnt.setColumns(20);
         AtxtDescripcionEnt.setRows(5);
+        AtxtDescripcionEnt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                AtxtDescripcionEntKeyTyped(evt);
+            }
+        });
         jScrollPane3.setViewportView(AtxtDescripcionEnt);
 
         jDateFechaEnt.setDateFormatString("dd-MM-yyyy");
@@ -278,6 +283,11 @@ public class frmGalpon extends javax.swing.JInternalFrame {
 
         AtxtDescripcionSal.setColumns(20);
         AtxtDescripcionSal.setRows(5);
+        AtxtDescripcionSal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                AtxtDescripcionSalKeyTyped(evt);
+            }
+        });
         jScrollPane4.setViewportView(AtxtDescripcionSal);
 
         jDateFechaSal.setDateFormatString("dd-MM-yyyy");
@@ -809,6 +819,20 @@ public class frmGalpon extends javax.swing.JInternalFrame {
         lblSalida.setText(tablaSalida.getValueAt(filaSel, 6).toString());
         btnEditarSal.setEnabled(true);
     }//GEN-LAST:event_tablaSalidaMouseClicked
+
+    private void AtxtDescripcionEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AtxtDescripcionEntKeyTyped
+        // TODO add your handling code here:
+        if (AtxtDescripcionEnt.getText().length()== 100) {//para que el maximo de caracteres ingresados sea 100
+
+         evt.consume(); }
+    }//GEN-LAST:event_AtxtDescripcionEntKeyTyped
+
+    private void AtxtDescripcionSalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AtxtDescripcionSalKeyTyped
+        // TODO add your handling code here:
+        if (AtxtDescripcionSal.getText().length()== 100) {//para que el maximo de caracteres ingresados sea 100
+
+         evt.consume(); }
+    }//GEN-LAST:event_AtxtDescripcionSalKeyTyped
 
     /**
      * @param args the command line arguments

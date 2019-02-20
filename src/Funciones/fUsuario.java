@@ -130,7 +130,7 @@ public class fUsuario {
         String[] registro = new String[5];
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
-        sSQL = "select * from \"usuario\" ";
+        sSQL = "select * from \"usuario\" where login like '%" + buscar + "%' ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);

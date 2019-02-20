@@ -148,7 +148,7 @@ public class fProducto {
         //JOptionPane.showMessageDialog(rootPane, "el galpon es  : "+galpon+" y el ave es :"+ave);
         // String a = "(select idave from tipo_ave where nombre like '%" + ave + "%')";
         sSQL = "update \"producto\" set \"stock\"=?"
-                + " WHERE \"idproducto\"=" + dato.getIdProducto();
+                + " WHERE \"nombre\"='" + dato.getNombre()+"'";
 
         try {
 

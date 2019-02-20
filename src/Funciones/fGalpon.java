@@ -135,7 +135,7 @@ public class fGalpon {
 
         //salida
        
-        sSQL = "insert into \"Entrada\" (\"fecha\",\"hsaldo\",\"cantidad\",\"descripcion\",\"idgalpon\") values (?,?,?,?," + datoEnt.getIdGalpon() + ");" + a;
+        sSQL = "insert into \"entrada\" (\"fecha\",\"hsaldo\",\"cantidad\",\"descripcion\",\"idgalpon\") values (?,?,?,?," + datoEnt.getIdGalpon() + ");" + a;
 try {
              PreparedStatement pst = cn.prepareStatement(sSQL);
                     pst.setString(1, datoEnt.getFecha());
@@ -197,7 +197,7 @@ try {
 
         //salida
        
-        sSQL = "insert into \"Salida\" (\"fecha\",\"hsaldo\",\"cantidad\",\"descripcion\",\"idgalpon\") values (?,?,?,?," + datoSal.getIdGalpon() + ");" + a;
+        sSQL = "insert into \"salida\" (\"fecha\",\"hsaldo\",\"cantidad\",\"descripcion\",\"idgalpon\") values (?,?,?,?," + datoSal.getIdGalpon() + ");" + a;
 
         
                 try {
