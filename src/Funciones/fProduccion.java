@@ -42,8 +42,8 @@ public class fProduccion {
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
         // sSQL = "select * from produccion order by idproduccion ";
-        sSQL = "select idproduccion,produccion.idgalpon,nombre,cantidad,fecha from produccion"
-                + " inner join galpon on produccion.idgalpon=galpon.idgalpon inner join producto on produccion.idproducto=producto.idproducto";
+        sSQL = "select \"idproduccion\",\"produccion\".\"idgalpon\",\"nombre\",\"cantidad\",\"fecha\" from \"produccion\""
+                + " inner join \"galpon\" on \"produccion\".\"idgalpon\"=\"galpon\".\"idgalpon\" inner join \"producto\" on \"produccion\".\"idproducto\"=\"producto\".\"idproducto\"";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
@@ -73,11 +73,11 @@ public class fProduccion {
     
       public boolean insertar(mProduccion dato, String producto) {// metodo INSERTAR
         cn = postsql.conectar();
-        String a = "(select idproducto from producto where nombre like '%" + producto + "%')";
+        String a = "(select \"idproducto\" from \"producto\" where \"nombre\" like '%" + producto + "%')";
         
         
         
-        sSQL = "insert into produccion (idgalpon,idproducto,cantidad,fecha)"
+        sSQL = "insert into \"produccion\" (\"idgalpon\",\"idproducto\",\"cantidad\",\"fecha\")"
                 + "values (" + dato.getIdGalpon() + "," + a + ",?,?)";
 
         try {
@@ -113,9 +113,9 @@ public class fProduccion {
         //JOptionPane.showMessageDialog(rootPane, "el galpon es  : "+galpon+" y el ave es :"+ave);
 
        
-        String a = "(select idproducto from producto where nombre like '%" + producto + "%')";
-        sSQL = "update produccion set idgalpon=?,idproducto=" + a + ",cantidad=?,fecha=?"
-                + " WHERE idproduccion=" + dato.getIdProduccion();
+        String a = "(select \"idproducto\" from \"producto\" where \"nombre\" like '%" + producto + "%')";
+        sSQL = "update \"produccion\" set \"idgalpon\"=?,\"idproducto\"=" + a + ",\"cantidad\"=?,\"fecha\"=?"
+                + " WHERE \"idproduccion\"=" + dato.getIdProduccion();
 
         try {
 

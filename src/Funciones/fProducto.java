@@ -41,7 +41,7 @@ public class fProducto {
         //modelo=new DefaultTableModel(titulos, ABORT);
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
-        sSQL = "select * from \"producto\" order by \"idproducto\" ";
+        sSQL = "select * from \"producto\" where \"nombre\" like '%"+buscar+"%' order by \"idproducto\" ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
@@ -78,7 +78,7 @@ public class fProducto {
         //modelo=new DefaultTableModel(titulos, ABORT);
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
-        sSQL = "select * from \"producto\" order by \"idproducto\" ";
+        sSQL = "select * from \"producto\" where \"nombre\" like '%"+buscar+"%' order by \"idproducto\" ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);

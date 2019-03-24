@@ -117,6 +117,11 @@ public class frmAdminGalpon extends javax.swing.JInternalFrame {
                 txtNumGalponActionPerformed(evt);
             }
         });
+        txtNumGalpon.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumGalponKeyTyped(evt);
+            }
+        });
 
         comboTipoAve.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
         comboTipoAve.setEnabled(false);
@@ -169,7 +174,7 @@ public class frmAdminGalpon extends javax.swing.JInternalFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Estado");
 
-        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar", "activo", "cerrado", "suspendido", "mantenimiento" }));
+        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "activo", "cerrado", "suspendido", "mantenimiento" }));
         comboEstado.setEnabled(false);
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/deleterojo32px.png"))); // NOI18N
@@ -774,7 +779,7 @@ public void dimensioncols() {
         char c = evt.getKeyChar();
         if (((c < '0') || (c > '9')) && (c != evt.VK_BACK_SPACE)) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "ingresa solo numeros");
+            //JOptionPane.showMessageDialog(null, "ingresa solo numeros");
         }
     }//GEN-LAST:event_txtSaldoAvesKeyTyped
 
@@ -801,6 +806,19 @@ public void dimensioncols() {
 
          evt.consume(); }
     }//GEN-LAST:event_AtxtDescripcionKeyTyped
+
+    private void txtNumGalponKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumGalponKeyTyped
+        // TODO add your handling code here:
+            if (txtNumGalpon.getText().length()== 9) {//para que el maximo de caracteres ingresados sea 15
+
+         evt.consume(); }
+      
+         char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != evt.VK_BACK_SPACE)) {
+            evt.consume();
+            //JOptionPane.showMessageDialog(null, "ingresa solo numeros");
+        }
+    }//GEN-LAST:event_txtNumGalponKeyTyped
 
     /**
      * @param args the command line arguments

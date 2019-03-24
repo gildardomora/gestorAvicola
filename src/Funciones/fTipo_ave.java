@@ -42,7 +42,6 @@ public class fTipo_ave {
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
-
             while (rs.next()) {//navegacion de todos los registros
                 registro[0] = rs.getString("idave");
                 registro[1] = rs.getString("nombre");
@@ -63,7 +62,7 @@ public class fTipo_ave {
 
     public boolean insertar(mTipo_ave dato) {
         cn = postsql.conectar();
-        sSQL = "insert into tipo_ave (nombre)"
+        sSQL = "insert into \"tipo_ave\" (nombre)"
                 + //NumGalpon no se incluye por ser llave primaria
                 "values (?)";
 
@@ -93,8 +92,8 @@ public class fTipo_ave {
      public boolean editar (mTipo_ave datos){
         cn = postsql.conectar();
         
-            sSQL = "update tipo_ave set nombre=?"
-                + " WHERE idave=" + datos.getIdAve();
+            sSQL = "update \"tipo_ave\" set \"nombre\"=?"
+                + " WHERE \"idave\"=" + datos.getIdAve();
        
        try {
            PreparedStatement pst=cn.prepareStatement(sSQL);
@@ -119,7 +118,7 @@ public class fTipo_ave {
         public boolean eliminar (mTipo_ave datos){
              cn = postsql.conectar();
        
-              sSQL = "delete from tipo_ave where idave=?";
+              sSQL = "delete from \"tipo_ave\" where \"idave\"=?";
        try {
            
            PreparedStatement pst=cn.prepareStatement(sSQL);
@@ -139,8 +138,6 @@ public class fTipo_ave {
            JOptionPane.showConfirmDialog(null, e);
            return false;
        }
-   }
-        
-        
-  
+   }        
+          
 }

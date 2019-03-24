@@ -11,33 +11,34 @@ package modelos;
  */
 public class mPersona {
 
-    private int cod_persona;
+   
+    private String cedula_persona;
     private String nombre_persona;
+    private String apellido_persona;
     private String direccion;
-    private String telefono;
+    private String celular;
     private String email;
-    private int celular;
-    private String correo;
+    private String sexo;
 
-    public mPersona(int cod_persona, String nombre_persona, String direccion, String telefono, String email, int celular, String correo) {
-        this.cod_persona = cod_persona;
+    public mPersona(String cedula_persona, String nombre_persona, String apellido_persona, String direccion, String celular, String email, String sexo) {
+        this.cedula_persona = cedula_persona;
         this.nombre_persona = nombre_persona;
+        this.apellido_persona = apellido_persona;
         this.direccion = direccion;
-        this.telefono = telefono;
-        this.email = email;
         this.celular = celular;
-        this.correo = correo;
+        this.email = email;
+        this.sexo = sexo;
     }
 
     public mPersona() {
     }
 
-    public int getCod_persona() {
-        return cod_persona;
+    public String getCedula_persona() {
+        return cedula_persona;
     }
 
-    public void setCod_persona(int cod_persona) {
-        this.cod_persona = cod_persona;
+    public void setCedula_persona(String cedula_persona) {
+        this.cedula_persona = cedula_persona;
     }
 
     public String getNombre_persona() {
@@ -48,6 +49,14 @@ public class mPersona {
         this.nombre_persona = nombre_persona;
     }
 
+    public String getApellido_persona() {
+        return apellido_persona;
+    }
+
+    public void setApellido_persona(String apellido_persona) {
+        this.apellido_persona = apellido_persona;
+    }
+
     public String getDireccion() {
         return direccion;
     }
@@ -56,12 +65,12 @@ public class mPersona {
         this.direccion = direccion;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getCelular() {
+        return celular;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
     public String getEmail() {
@@ -72,20 +81,14 @@ public class mPersona {
         this.email = email;
     }
 
-    public int getCelular() {
-        return celular;
+    public String getSexo() {
+        return sexo;
     }
 
-    public void setCelular(int celular) {
-        this.celular = celular;
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
+    
+   
     }

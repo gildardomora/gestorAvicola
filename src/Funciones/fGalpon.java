@@ -255,8 +255,8 @@ try {
         //JOptionPane.showMessageDialog(rootPane, "recibi : " + cantidad);
         String a = "update \"galpon\" set \"saldo\" =" + saldoTotal + operacion + cantidad + " where \"idgalpon\" =" + datos.getIdGalpon();
 
-        sSQL = "update \"Entrada\" set \"fecha\"=?,\"hsaldo\"=?,\"cantidad\"=?,descripcion=?"
-                + " WHERE idgalpon=" + datos.getIdGalpon() + "and idEntrada=" + datos.getIdEntrada() + ";" + a;
+        sSQL = "update \"Entrada\" set \"fecha\"=?,\"hsaldo\"=?,\"cantidad\"=?,\"descripcion\"=?"
+                + " WHERE \"idgalpon\"=" + datos.getIdGalpon() + "and \"idEntrada\"=" + datos.getIdEntrada() + ";" + a;
 
          try {
 
@@ -311,10 +311,10 @@ try {
             cantidad = dato.getCantidad();
         
        // JOptionPane.showMessageDialog(null, "recibi : " + cantidad);
-        String a = "update galpon set saldo =" + saldoTotal + operacion + cantidad + " where idgalpon =" + dato.getIdGalpon();
+        String a = "update \"galpon\" set \"saldo\" =" + saldoTotal + operacion + cantidad + " where \"idgalpon\" =" + dato.getIdGalpon();
 
-        sSQL = "update Salida set fecha=?,hsaldo=?,cantidad=?,descripcion=?"
-                + " WHERE idgalpon=" + dato.getIdGalpon() + "and idSalida =" + dato.getIdSalida() + ";" + a;
+        sSQL = "update \"Salida\" set \"fecha\"=?,\"hsaldo\"=?,\"cantidad\"=?,\"descripcion\"=?"
+                + " WHERE \"idgalpon\"=" + dato.getIdGalpon() + "and \"idSalida\" =" + dato.getIdSalida() + ";" + a;
 
         
                 try {
@@ -360,7 +360,7 @@ try {
         String n = "";
         cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
 
-        sSQL = "select saldo from galpon where idgalpon =" + galpon;
+        sSQL = "select \"saldo\" from \"galpon\" where \"idgalpon\" =" + galpon;
 
         Statement st = cn.createStatement();
         ResultSet rs = st.executeQuery(sSQL);

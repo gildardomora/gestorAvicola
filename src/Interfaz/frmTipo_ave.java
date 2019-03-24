@@ -120,6 +120,9 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
 
         txtNombreAve.setEnabled(false);
         txtNombreAve.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombreAveKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreAveKeyTyped(evt);
             }
@@ -431,6 +434,7 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
             btnEditar.setIcon(new ImageIcon("src/Archivos/Editverde32px.png"));
             btnEliminar.setEnabled(false);
             btnEditar.setEnabled(false);
+            txtNombreAve.setText("");
 
         } else {
             habilitarcampos();
@@ -480,6 +484,20 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
 
     private void txtNombreAveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreAveKeyTyped
         // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c) || c== evt.VK_DELETE || c==evt.VK_SPACE){
+            
+        }else {
+        
+            evt.consume();
+            getToolkit().beep();
+            //JOptionPane.showMessageDialog(null, "ingresa solo numeros");
+        }
+         if (txtNombreAve.getText().length()== 15) {//para que el maximo de caracteres ingresados sea 100
+
+         evt.consume(); 
+         getToolkit().beep();
+         }
         
     }//GEN-LAST:event_txtNombreAveKeyTyped
 
@@ -490,6 +508,11 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
         mostrar(txtBuscar.getText());
         dimensioncols();
     }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtNombreAveKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreAveKeyReleased
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtNombreAveKeyReleased
 
     /**
      * @param args the command line arguments

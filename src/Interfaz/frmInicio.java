@@ -5,12 +5,14 @@
  */
 package Interfaz;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicDesktopPaneUI;
+import sun.awt.resources.awt;
 
 /**
  *
@@ -59,7 +61,18 @@ public class frmInicio extends javax.swing.JFrame {
 //JOptionPane.showMessageDialog(rootPane, acceso);
     }
 
+  public void botonConMouse(JButton boton){
+      boton.setBorder(new LineBorder(new java.awt.Color(255, 255, 255),2));
+      boton.setBackground(new java.awt.Color(9,66,66));
+      boton.setForeground(new java.awt.Color(255,255,255));     
+      
+  }
   
+  public void botonSinMouse(JButton boton){
+   boton.setBorder(new LineBorder(new java.awt.Color(9, 66, 66),0));
+        boton.setBackground(new java.awt.Color(255,255,255));
+      boton.setForeground(new java.awt.Color(9,66,66));
+  }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,6 +120,14 @@ public class frmInicio extends javax.swing.JFrame {
         jButton1.setText("GALPONES");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton1MouseExited(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -118,8 +139,15 @@ public class frmInicio extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(9, 66, 66));
         jButton3.setText("PRODUCCION");
         jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
-        jButton3.setBorderPainted(false);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton3MouseExited(evt);
+            }
+        });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -132,6 +160,14 @@ public class frmInicio extends javax.swing.JFrame {
         jButton4.setText("VENTAS");
         jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton4MouseExited(evt);
+            }
+        });
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -148,6 +184,9 @@ public class frmInicio extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnProductosMouseEntered(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnProductosMouseExited(evt);
+            }
         });
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +200,14 @@ public class frmInicio extends javax.swing.JFrame {
         jButton2.setText("AVES");
         jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton2MouseExited(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -172,6 +219,14 @@ public class frmInicio extends javax.swing.JFrame {
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/start52pxgreen.png"))); // NOI18N
         btnHome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
         btnHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnHomeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnHomeMouseExited(evt);
+            }
+        });
         btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHomeActionPerformed(evt);
@@ -183,7 +238,7 @@ public class frmInicio extends javax.swing.JFrame {
         lblTipo.setText("Usuario");
 
         jPanel6.setBackground(new java.awt.Color(9, 66, 66));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/user32pxblanco.png"))); // NOI18N
@@ -264,7 +319,7 @@ public class frmInicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -357,7 +412,14 @@ public class frmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProductosMouseEntered
+
         // TODO add your handling code here:
+        botonConMouse(btnProductos);
+     
+        //this.btnProductos.setBackground(new java.awt.Color(9, 66, 66));
+        //this.btnProductos.setForeground(new java.awt.Color(255, 255, 255));
+        
+        //this.btnProductos.setBorder(new LineBorder(new java.awt.Color(0, 51, 51)));
         
     }//GEN-LAST:event_btnProductosMouseEntered
 
@@ -371,6 +433,65 @@ public class frmInicio extends javax.swing.JFrame {
         }
      
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnProductosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProductosMouseExited
+        // TODO add your handling code here:
+        botonSinMouse(btnProductos);
+this.btnProductos.setBorder(new LineBorder(new java.awt.Color(9,66,66),0));
+         //this.btnProductos.setBackground(new java.awt.Color(225, 255, 255));
+        //this.btnProductos.setForeground(new java.awt.Color(9, 66, 66));
+        
+    }//GEN-LAST:event_btnProductosMouseExited
+
+    private void btnHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseEntered
+        // TODO add your handling code here:
+        botonConMouse(btnHome);
+    }//GEN-LAST:event_btnHomeMouseEntered
+
+    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
+        // TODO add your handling code here:
+        botonConMouse(jButton2);
+    }//GEN-LAST:event_jButton2MouseEntered
+
+    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
+        // TODO add your handling code here:
+        botonSinMouse(jButton2);
+    }//GEN-LAST:event_jButton2MouseExited
+
+    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+        // TODO add your handling code here:
+        botonConMouse(jButton1);
+    }//GEN-LAST:event_jButton1MouseEntered
+
+    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
+        // TODO add your handling code here:
+        botonSinMouse(jButton1);
+    }//GEN-LAST:event_jButton1MouseExited
+
+    private void btnHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseExited
+        // TODO add your handling code here:
+        botonSinMouse(btnHome);
+    }//GEN-LAST:event_btnHomeMouseExited
+
+    private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
+        // TODO add your handling code here:
+        botonConMouse(jButton3);
+    }//GEN-LAST:event_jButton3MouseEntered
+
+    private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
+        // TODO add your handling code here:
+        botonSinMouse(jButton3);
+    }//GEN-LAST:event_jButton3MouseExited
+
+    private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
+        // TODO add your handling code here:
+        botonConMouse(jButton4);
+    }//GEN-LAST:event_jButton4MouseEntered
+
+    private void jButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseExited
+        // TODO add your handling code here:
+        botonSinMouse(jButton4);
+    }//GEN-LAST:event_jButton4MouseExited
 
     /**
      * @param args the command line arguments

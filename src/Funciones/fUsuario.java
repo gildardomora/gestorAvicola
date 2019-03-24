@@ -32,7 +32,7 @@ public class fUsuario {
     public int ContarUsuarios() {
         cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
 
-        sSQL = "select count(*) AS cantidadUsuarios from usuario";
+        sSQL = "select count(*) AS cantidadUsuarios from \"usuario\"";
 
         try {
             int cantidad = 0;
@@ -54,7 +54,7 @@ public class fUsuario {
       public int ContarAdmins() {
         cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
 
-        sSQL = "select count(login) AS cantidadAdmins from usuario where tipo_usuario='Administrador'";
+        sSQL = "select count(login) AS cantidadAdmins from \"usuario\" where \"tipo_usuario\"='Administrador'";
 
         try {
             int cantidad = 0;
@@ -130,7 +130,7 @@ public class fUsuario {
         String[] registro = new String[5];
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
-        sSQL = "select * from \"usuario\" where login like '%" + buscar + "%' ";
+        sSQL = "select * from \"usuario\" where \"login\" like '%" + buscar + "%' order by \"cod_usuario\" ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
@@ -155,15 +155,16 @@ public class fUsuario {
 
     public boolean agregar(mUsuario dato) {
         cn = postsql.conectar();
-        sSQL = "insert into \"usuario\" (login,password,estado,tipo_usuario) values (?,?,?,?)";
+        sSQL = "insert into \"usuario\" (\"cedula_persona\",\"login\",\"password\",\"estado\",\"tipo_usuario\") values (?,?,?,?,?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
 
-            pst.setString(1, dato.getUsuario());
-            pst.setString(2, dato.getPassword());
-            pst.setString(3, dato.getEstado());
-            pst.setString(4, dato.getTipo_Usuario());
+            pst.setString(1, dato.getCedula_persona());
+            pst.setString(2, dato.getUsuario());
+            pst.setString(3, dato.getPassword());
+            pst.setString(4, dato.getEstado());
+            pst.setString(5, dato.getTipo_Usuario());
 
             int n = pst.executeUpdate();
 
@@ -212,7 +213,7 @@ public class fUsuario {
      public boolean eliminar(mUsuario datos) {
 cn = postsql.conectar();
         //sSQL = "delete from persona where cod_persona = ?";
-        sSQL = "delete from usuario where login = ?";
+        sSQL = "delete from \"usuario\" where \"login\" = ?";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -244,7 +245,7 @@ cn = postsql.conectar();
          cn = postsql.conectar();
                  //String login = FrmUsuario.txtLogin.getText();
                  //JOptionPane.showMessageDialog(null,"recibi : " +datos);
-        sSQL = "SELECT COUNT(login) AS login FROM usuario WHERE login = '" + datos +"'";
+        sSQL = "SELECT COUNT(login) AS login FROM \"usuario\" WHERE \"login\" = '" + datos +"'";
 
         try {
             int loginResultante = 0;
@@ -267,7 +268,7 @@ cn = postsql.conectar();
         cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
 
         // sSQL = "select * from venta order by idventa ";
-        sSQL = "select tipo_usuario from usuario where login='" + usuario+"'";
+        sSQL = "select \"tipo_usuario\" from \"usuario\" where \"login\"='" + usuario+"'";
 
         Statement st = cn.createStatement();
         ResultSet rs = st.executeQuery(sSQL);

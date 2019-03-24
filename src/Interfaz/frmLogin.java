@@ -23,7 +23,9 @@ import modelos.mUsuario;
  */
 public class frmLogin extends javax.swing.JFrame {
 
-    public static String version = "ver 1.3"; // indica la version del programa
+    public static String version = "ver 1.4"; // indica la version del programa
+ 
+    
 
     /**
      * Creates new form frmLogin
@@ -143,12 +145,7 @@ barra.setVisible(true);
                 }
                 frmInicio.usuarioActual = txtUsuario.getText();
                 frmInicio.lbluser.setText(frmInicio.usuarioActual);
-                if (frmInicio.lblTipo.getText().equals("Estandar")) {
-
-                    frmInicioEscritorio.btnGestUsuarios.setEnabled(false);
-                    frmInicioEscritorio.btnGestUsuarios.hide();
-
-                }
+             
                 //String asa=tblUsuarios.getValueAt(0, 0).toString();
                 //JOptionPane.showMessageDialog(rootPane, "esto sale de la tabla :" + asa);
 
@@ -183,6 +180,7 @@ barra.setVisible(true);
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         lblSesion = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblVersion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -239,6 +237,7 @@ barra.setVisible(true);
         btnEntrar.setForeground(new java.awt.Color(9, 66, 66));
         btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/keyEnter32pxVerde.png"))); // NOI18N
         btnEntrar.setText("INGRESAR");
+        btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
@@ -264,6 +263,7 @@ barra.setVisible(true);
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/exit24pxRed.png"))); // NOI18N
         jButton3.setToolTipText("Click para Salir de Aplicación");
         jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -276,6 +276,10 @@ barra.setVisible(true);
         lblSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/warningamariillo32px.png"))); // NOI18N
         lblSesion.setText("#");
         jPanel2.add(lblSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 249, 380, 30));
+
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Gestion de Granjas Avícolas");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 1, 420, 280));
 
@@ -312,7 +316,9 @@ barra.setVisible(true);
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,6 +404,7 @@ barra.setVisible(true);
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

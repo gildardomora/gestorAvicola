@@ -5,9 +5,14 @@
  */
 package Interfaz;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -18,18 +23,20 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
     /**
      * Creates new form frmInicioEscritorio
      */
-    
-    
     public frmInicioEscritorio() {
         initComponents();
-          ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-          
-          lblVersion.setText(frmLogin.version);
-       
-          
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
-                  }
-   
+        lblVersion.setText(frmLogin.version);
+
+           if (frmInicio.lblTipo.getText().equals("Estandar")) {
+
+                    frmInicioEscritorio.btnGestUsuarios.setEnabled(false);
+                    //frmInicioEscritorio.btnGestUsuarios.hide();
+
+                }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +49,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -60,6 +67,9 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         btnGestUsuarios = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         btnGestClientes = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -72,17 +82,12 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("BIENVENIDO");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/infoblanco.png"))); // NOI18N
-        jButton1.setToolTipText("Acerca de");
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusable(false);
-        jButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton1.setOpaque(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/infoblanco.png"))); // NOI18N
+        jLabel5.setToolTipText("Acerca de");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
             }
         });
 
@@ -92,22 +97,22 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(372, 372, 372)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(369, 369, 369)
-                .addComponent(jButton1)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                .addGap(352, 352, 352)
+                .addComponent(jLabel5)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel5))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(9, 66, 66));
@@ -137,6 +142,12 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
         });
 
         jLabel3.setForeground(new java.awt.Color(9, 66, 66));
@@ -150,6 +161,12 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel7MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel7MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel7MouseExited(evt);
             }
         });
 
@@ -172,15 +189,15 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                        .addComponent(jSeparator5, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(71, 71, 71)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15))
@@ -193,17 +210,18 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator3)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator5)
-                    .addComponent(jSeparator4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                        .addComponent(jSeparator5)
+                        .addComponent(jSeparator4))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel8))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -230,7 +248,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -243,6 +261,14 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         btnGestUsuarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
         btnGestUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGestUsuarios.setFocusable(false);
+        btnGestUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGestUsuariosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGestUsuariosMouseExited(evt);
+            }
+        });
         btnGestUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGestUsuariosActionPerformed(evt);
@@ -258,46 +284,89 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         btnGestClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
         btnGestClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGestClientes.setFocusable(false);
+        btnGestClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGestClientesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGestClientesMouseExited(evt);
+            }
+        });
         btnGestClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGestClientesActionPerformed(evt);
             }
         });
 
+        jLabel10.setForeground(new java.awt.Color(9, 66, 66));
+        jLabel10.setText("Herramientas");
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/calc-verde-32px.png"))); // NOI18N
+        jLabel9.setToolTipText("Calculadora");
+        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel9MouseEntered(evt);
+            }
+        });
+
+        jSeparator6.setBackground(new java.awt.Color(9, 66, 66));
+        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addComponent(jLabel6)
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGestUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGestClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(134, 134, 134)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(777, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel9)))
+                .addGap(24, 24, 24))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel6)
-                .addGap(0, 6, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnGestUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGestClientes)
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jSeparator2)
-                    .addContainerGap()))
+                .addComponent(jLabel9)
+                .addContainerGap(46, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator6)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnGestUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGestClientes)
+                                .addGap(8, 8, 8))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jSeparator2))))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -308,16 +377,16 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(21, 21, 21))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(26, 26, 26)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -339,7 +408,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -356,14 +425,6 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        frmInformacion form = new frmInformacion();
-        
-        form.show();
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btnGestUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestUsuariosActionPerformed
         // TODO add your handling code here:
 
@@ -375,18 +436,32 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         //form.toFront();
         //form.setVisible(true);
         form.show();
+       
         //form.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_btnGestUsuariosActionPerformed
 
+     public void botonConMouse(JButton boton){
+     // boton.setBorder(new LineBorder(new java.awt.Color(255, 255, 255),2));
+      boton.setBackground(new java.awt.Color(9,66,66));
+      boton.setForeground(new java.awt.Color(255,255,255));     
+      
+  }
+  
+  public void botonSinMouse(JButton boton){
+   //boton.setBorder(new LineBorder(new java.awt.Color(9, 66, 66),0));
+        boton.setBackground(new java.awt.Color(255,255,255));
+      boton.setForeground(new java.awt.Color(9,66,66));
+  }
+    
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         // TODO add your handling code here:
-      
+
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
-          frmStock form = new frmStock();
+        frmStock form = new frmStock();
         int ancho = frmInicio.escritorio.getWidth();
         int altura = frmInicio.escritorio.getHeight();
         form.setSize(ancho, altura);
@@ -400,9 +475,76 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void btnGestClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestClientesActionPerformed
-      // TODO add your handling code here:
-      JOptionPane.showMessageDialog(rootPane, "Se agregará esta caracteristica \n en las proximas versiones");
+        // TODO add your handling code here:
+        // JOptionPane.showMessageDialog(rootPane, "Se agregará esta caracteristica \n en las proximas versiones");
+
+        frmClientes form = new frmClientes();
+        int ancho = frmInicio.escritorio.getWidth();
+        int altura = frmInicio.escritorio.getHeight();
+        form.setSize(ancho, altura);
+        frmInicio.escritorio.add(form);
+        form.show();
     }//GEN-LAST:event_btnGestClientesActionPerformed
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+          new Interfaz.frmDiagAcerca(new JFrame(), true).setVisible(true);
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // TODO add your handling code here:
+        try {
+            Runtime rt =Runtime.getRuntime();
+            Process p = rt.exec("calc");
+            p.waitFor();
+    } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+        // TODO add your handling code here:
+        this.jLabel2.setIcon(new ImageIcon("src/Archivos/Control-de-stock-mouse.png"));
+    }//GEN-LAST:event_jLabel2MouseEntered
+
+    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+        // TODO add your handling code here:
+         this.jLabel2.setIcon(new ImageIcon("src/Archivos/Control-de-stock.png"));
+    }//GEN-LAST:event_jLabel2MouseExited
+
+    private void btnGestUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestUsuariosMouseEntered
+        // TODO add your handling code here:
+        botonConMouse(btnGestUsuarios);
+    }//GEN-LAST:event_btnGestUsuariosMouseEntered
+
+    private void btnGestUsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestUsuariosMouseExited
+        // TODO add your handling code here:
+        botonSinMouse(btnGestUsuarios);
+    }//GEN-LAST:event_btnGestUsuariosMouseExited
+
+    private void btnGestClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestClientesMouseEntered
+        // TODO add your handling code here:
+        botonConMouse(btnGestClientes);
+    }//GEN-LAST:event_btnGestClientesMouseEntered
+
+    private void btnGestClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestClientesMouseExited
+        // TODO add your handling code here:
+        botonSinMouse(btnGestClientes);
+    }//GEN-LAST:event_btnGestClientesMouseExited
+
+    private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
+        // TODO add your handling code here:
+         this.jLabel7.setIcon(new ImageIcon("src/Archivos/informe2.png"));
+    }//GEN-LAST:event_jLabel7MouseEntered
+
+    private void jLabel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseExited
+        // TODO add your handling code here:
+        this.jLabel7.setIcon(new ImageIcon("src/Archivos/informe.png"));
+    }//GEN-LAST:event_jLabel7MouseExited
+
+    private void jLabel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseEntered
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jLabel9MouseEntered
 
     /**
      * @param args the command line arguments
@@ -442,14 +584,16 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGestClientes;
     public static javax.swing.JButton btnGestUsuarios;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -460,6 +604,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel lblVersion;
     // End of variables declaration//GEN-END:variables
 }

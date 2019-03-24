@@ -9,13 +9,6 @@ import Conexion.Conexion;
 import Funciones.fProducto;
 import Interfaz.diseño.estiloTabla;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -42,7 +35,7 @@ public class frmProducto extends javax.swing.JInternalFrame {
          jScrollPane1.getViewport().setBackground(new java.awt.Color(255, 255, 255));
           estiloTabla diseño = new estiloTabla();
         diseño.tabla(tablaProducto);
-        dimensioncols();
+        
     }
 
     /**
@@ -80,6 +73,8 @@ public class frmProducto extends javax.swing.JInternalFrame {
         };
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -292,12 +287,29 @@ public class frmProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/searchblanco32px.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(9, 9, 9)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -305,7 +317,13 @@ public class frmProducto extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -375,6 +393,7 @@ public class frmProducto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        dimensioncols();
         postsql.cierraConexion();
     }    // cierre de metodo
 
@@ -597,10 +616,31 @@ public class frmProducto extends javax.swing.JInternalFrame {
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
-          if (txtNombre.getText().length()== 15) {//para que el maximo de caracteres ingresados sea 15
+         
+           char c = evt.getKeyChar();
+        if(Character.isLetter(c) || c== evt.VK_DELETE || c==evt.VK_SPACE){
+            
+        }else {
+        
+            evt.consume();
+            getToolkit().beep();
+            //JOptionPane.showMessageDialog(null, "ingresa solo numeros");
+        }
+         if (txtNombre.getText().length()== 15) {//para que el maximo de caracteres ingresados sea 100
 
-         evt.consume(); }
+         evt.consume(); 
+         getToolkit().beep();
+         }
     }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+        mostrar(txtBuscar.getText());
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
     /**
      * @param args the command line arguments
@@ -644,6 +684,7 @@ public class frmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -657,6 +698,7 @@ public class frmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblidProducto;
     private javax.swing.JTable tablaProducto;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecioUM;
     private javax.swing.JTextField txtUniMedida;

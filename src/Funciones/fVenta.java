@@ -37,7 +37,7 @@ public class fVenta {
 
         // sSQL = "select * from venta order by idventa ";
         sSQL = "select \"detalle_venta\".\"idventa\",\"venta\".\"descripcion\", \"nombre\",\"cantidad\",\"fecha\",\"unimedida\",\"preciounimed\",\"valorventa\" from \"detalle_venta\" "
-                + "inner join \"producto\" on \"detalle_venta\".\"idproducto\"=\"producto\".\"idproducto\" inner join \"venta\" on \"detalle_venta\".\"idventa\"=\"venta\".\"idventa\" where \"nombre\" like '%" + buscar + "%' order by \"idventa\"";
+                + "inner join \"producto\" on \"detalle_venta\".\"idproducto\"=\"producto\".\"idproducto\" inner join \"venta\" on \"detalle_venta\".\"idventa\"=\"venta\".\"idventa\" where \"nombre\" like '%" + buscar + "%' or \"fecha\" like '%"+buscar+"%' order by \"idventa\" ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
@@ -64,18 +64,26 @@ public class fVenta {
         //postsql.cierraConexion();
     }    // cierre de metodo mostrar
        
-          public boolean insertar(mVenta dato,String producto) {// metodo INSERTAR
+          public boolean insertar(mVenta dato,String producto, String usuario, String cliente) {// metodo INSERTAR
         cn = postsql.conectar();
-        String a = "(select sum (preciounimed *" + dato.getCantidad() + ") from producto where nombre like '%" + producto + "%')";
-        String b = "(select idproducto from producto where nombre like '%" + producto + "%')";
-        //String c = "(select idproducto from producto where nombre like '%" + producto + "%')";
+        String a = "(select sum (\"preciounimed\" *" + dato.getCantidad() + ") from \"producto\" where \"nombre\" like '%" + producto + "%')";
+        String b = "(select \"idproducto\" from \"producto\" where \"nombre\" like '%" + producto + "%')";
+        String c=null;
+        if(!(cliente.isEmpty() || cliente.equals(""))){
+            c=cliente;
+        }
+        String d="(select \"cod_usuario\" from \"usuario\" where \"login\"='"+usuario+"')";
+        
+       
+        
         //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//Ajusta el formato del DateChooser
         //String fechaInicio = (txtFechaApe.getText());
 
         
-        sSQL = "insert into venta (cantidad,descripcion,valorventa,fecha)"
+        sSQL = "insert into \"venta\" (\"cantidad\",\"descripcion\",\"valorventa\",\"fecha\")"
                 + //NumGalpon no se incluye por ser llave primaria
-                "values (?,?," + a + ",?) ; insert into detalle_venta (idproducto) values (" + b + ")";
+                "values (?,?," + a + ",?); "
+                + "insert into \"detalle_venta\" (\"idproducto\",\"cod_usuario\",\"cod_cliente\") values (" + b +","+ d +","+ c +");";
 
         // insert into detalle_venta (iddetalle,idproducto,idventa) values ('03',(select idproducto from producto where nombre like '%Huevo%'),'7')
         try {
@@ -86,6 +94,7 @@ public class fVenta {
             pst.setInt(1, dato.getCantidad());
             pst.setString(2, dato.getDescripcion());
             pst.setString(3, dato.getFecha());
+            
 
             int n = pst.executeUpdate();
 
@@ -113,9 +122,9 @@ public class fVenta {
         //JOptionPane.showMessageDialog(rootPane, "el galpon es  : "+galpon+" y el ave es :"+ave);
         
 
-        String a = "(select idproducto from producto where nombre like '%" + producto + "%')";
-        sSQL = "update venta set cantidad=?,fecha=?,descripcion=?"
-                + " WHERE idventa=" + dato.getIdVenta() + "; update detalle_venta set idproducto=" + a;
+        String a = "(select \"idproducto\" from \"producto\" where \"nombre\" like '%" + producto + "%')";
+        sSQL = "update \"venta\" set \"cantidad\"=?,\"fecha\"=?,\"descripcion\"=?"
+                + " WHERE \"idventa\"=" + dato.getIdVenta() + "; update \"detalle_venta\" set \"idproducto\"=" + a;
 
         try {
 

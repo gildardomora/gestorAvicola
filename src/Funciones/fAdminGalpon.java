@@ -42,7 +42,8 @@ public class fAdminGalpon {
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
         // sSQL = "select * from galpon order by idgalpon ";
-        sSQL = "select \"idgalpon\",\"tipo_ave\".\"nombre\", \"f_inicio\", \"saldo\", \"descripcion\",\"estado\" from \"galpon\" inner join \"tipo_ave\" on \"galpon\".\"idave\"=\"tipo_ave\".\"idave\"  where \"f_inicio\" like '%" + buscar + "%' order by \"idgalpon\" ";
+        sSQL = "select \"idgalpon\",\"tipo_ave\".\"nombre\", \"f_inicio\", \"saldo\", \"descripcion\",\"estado\" from \"galpon\" inner join \"tipo_ave\" on \"galpon\".\"idave\"=\"tipo_ave\".\"idave\"  "
+                + "where \"f_inicio\" like '%" + buscar + "%' or \"nombre\" like '%"+buscar+"%' order by \"idgalpon\" ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
@@ -148,7 +149,7 @@ public class fAdminGalpon {
         cn = postsql.conectar();
 
         String a = "(select \"idave\" from \"tipo_ave\" where \"nombre\" like '%" + ave + "%')";
-        sSQL = "update \"galpon\" set \"idave\"=" + a + ",f_inicio=?,saldo=?,descripcion=?,estado=?"
+        sSQL = "update \"galpon\" set \"idave\"=" + a + ",\"f_inicio\"=?,\"saldo\"=?,\"descripcion\"=?,\"estado\"=?"
                 + " WHERE \"idgalpon\"=" + datos.getIdGalpon();
 
         try {
@@ -186,21 +187,21 @@ public class fAdminGalpon {
         String c = "";
         try {//comprueba si hay entradas para ese galpon
             if (contar("entrada") > 0) {
-                a = "delete from entrada where idgalpon=" + dato.getIdGalpon() + ";";
+                a = "delete from \"entrada\" where \"idgalpon\"=" + dato.getIdGalpon() + ";";
             }
         } catch (SQLException ex) {
             Logger.getLogger(frmAdminGalpon.class.getName()).log(Level.SEVERE, null, ex);
         }
         try { //comprueba si hay salidas para ese galpon
             if (contar("salida") > 0) {
-                b = "delete from salida where idgalpon=" + dato.getIdGalpon() + ";";
+                b = "delete from \"salida\" where \"idgalpon\"=" + dato.getIdGalpon() + ";";
             }
         } catch (SQLException ex) {
             Logger.getLogger(frmAdminGalpon.class.getName()).log(Level.SEVERE, null, ex);
         }
         try { //comprueba si hay produccion para ese galpon
             if (contar("produccion") > 0) {
-                c = "delete from produccion where idgalpon=" + dato.getIdGalpon() + ";";
+                c = "delete from \"produccion\" where \"idgalpon\"=" + dato.getIdGalpon() + ";";
             }
         } catch (SQLException ex) {
             Logger.getLogger(frmAdminGalpon.class.getName()).log(Level.SEVERE, null, ex);
