@@ -802,7 +802,7 @@ public void dimensioncols() {
 
     private void AtxtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AtxtDescripcionKeyTyped
         // TODO add your handling code here:
-          if (AtxtDescripcion.getText().length()== 100) {//para que el maximo de caracteres ingresados sea 100
+          if (AtxtDescripcion.getText().length()== 200) {//para que el maximo de caracteres ingresados sea 200
 
          evt.consume(); }
     }//GEN-LAST:event_AtxtDescripcionKeyTyped

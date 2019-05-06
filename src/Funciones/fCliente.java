@@ -9,6 +9,7 @@ import Conexion.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -151,5 +152,22 @@ public class fCliente {
            JOptionPane.showConfirmDialog(null, e);
            return false;
        }
-   }
+   }//cierre eliminar
+        public int contar(String tabla) throws SQLException { //para contar registros de tablas
+        int n = 0;
+        cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
+
+        // sSQL = "select * from venta order by idventa ";
+        sSQL = "select count (*) from " + tabla;
+
+        Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sSQL);
+        if (rs.next()) {
+            //Si hay resultados obtengo el valor. 
+            n = rs.getInt(1);
+        }
+
+        //postsql.cierraConexion();
+        return n;
+    }    // cierre de metodo conta
 }

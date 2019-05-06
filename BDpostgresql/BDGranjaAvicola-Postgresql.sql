@@ -1,18 +1,18 @@
-﻿create database granja_avicola;	
+﻿-- create database granja_avicola;	
 
 CREATE TABLE tipo_ave (
 IdAve serial NOT NULL,
-Nombre varchar (25) NOT NULL,
+Nombre varchar (35) NOT NULL,
 PRIMARY KEY (IdAve)
 );
 
 create table galpon (
 IdGalpon int not null,
 IdAve  int not null,
-F_Inicio varchar(25) not null,
+F_Inicio varchar(35) not null,
 saldo int not null,
-Descripcion varchar (30),
-Estado varchar (25),
+Descripcion varchar (255),
+Estado varchar (35),
 PRIMARY KEY (IdGalpon),
 FOREIGN KEY (IdAve) REFERENCES tipo_ave (IdAve)
 );
@@ -20,10 +20,10 @@ FOREIGN KEY (IdAve) REFERENCES tipo_ave (IdAve)
 CREATE TABLE entrada (
 IdEntrada serial NOT NULL,
 IdGalpon int NOT NULL,
-Fecha varchar(30),
+Fecha varchar(35),
 HSaldo int,
 Cantidad int,
-Descripcion varchar (30),
+Descripcion varchar (255),
 PRIMARY KEY (idEntrada),
 FOREIGN KEY (IdGalpon) REFERENCES galpon (IdGalpon)
 );
@@ -31,10 +31,10 @@ FOREIGN KEY (IdGalpon) REFERENCES galpon (IdGalpon)
 CREATE TABLE salida (
 IdSalida serial NOT NULL,
 IdGalpon int NOT NULL,
-Fecha varchar(30),
+Fecha varchar(35),
 HSaldo int,
 Cantidad int,
-Descripcion varchar (30),
+Descripcion varchar (255),
 PRIMARY KEY (IdSalida),
 FOREIGN KEY (IdGalpon) REFERENCES galpon (IdGalpon)
 );
@@ -42,9 +42,9 @@ FOREIGN KEY (IdGalpon) REFERENCES galpon (IdGalpon)
 
 create table producto (
 IdProducto serial NOT NULL,
-Nombre varchar (30),
-UniMedida varchar (25),
-descripcion varchar (30),
+Nombre varchar (35),
+UniMedida varchar (35),
+descripcion varchar (255),
 preciounimed int,
 stock int,
 PRIMARY KEY (IdProducto)
@@ -55,7 +55,7 @@ IdProduccion  SERIAL not null,
 IdGalpon int not null,
 IdProducto int not null,
 Cantidad int not null,
-fecha varchar (25),
+fecha varchar (35),
 PRIMARY KEY (IdProduccion),
 FOREIGN KEY (IdGalpon) REFERENCES galpon (IdGalpon),
 FOREIGN Key (IdProducto) REFERENCES producto (IdProducto)
@@ -73,18 +73,18 @@ PRIMARY KEY (IdVenta)
 
 create table persona (
   
-  cedula_persona varchar(15) not null,
+  cedula_persona varchar(20) not null,
   nombre_persona VARCHAR(35) NOT NULL,
   apellido_persona varchar(35) not null,
-  direccion VARCHAR(40) NOT NULL,
-  celular VARCHAR(15),
-  email VARCHAR(40),
-  sexo VARCHAR(15) not null ,
+  direccion VARCHAR(45) NOT NULL,
+  celular VARCHAR(35),
+  email VARCHAR(45),
+  sexo VARCHAR(25) not null ,
   primary key (cedula_persona)
 );
 create table usuario (
 cod_usuario serial not null,
-cedula_persona varchar(15) not null,
+cedula_persona varchar(20) not null,
 login varchar not null,
 password varchar (45) not null,
 estado varchar(45) not null,
@@ -94,7 +94,7 @@ FOREIGN KEY (cedula_persona) REFERENCES persona (cedula_persona) on update casca
 );
 create table cliente (
   cod_cliente serial not null,
-  cedula_persona varchar (15) not null,
+  cedula_persona varchar (20) not null,
   primary key  (cod_cliente),
   FOREIGN KEY (cedula_persona) REFERENCES persona (cedula_persona) on update cascade
  );
@@ -117,7 +117,7 @@ FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario)
 --------------------------------------------------
 -------------------------------------------------
 -- borrar tablas
-drop table galpon cascade;
+/*drop table galpon cascade;
 drop table entrada cascade;
 drop table salida cascade;
 drop table venta cascade;
@@ -146,7 +146,7 @@ alter table "detalle_venta" add column "cant_disponible" int;
 alter table "producto" add column "stock" int;
 ------------------------------------
 
-/* insertando datos */
+ --insertando datos 
 
 --tabla tipo_ave--
 insert into tipo_ave values ('1','Gallina Ponedora');
@@ -195,7 +195,7 @@ insert into produccion (IdGalpon,IdProducto,cantidad,fecha) values ('1','1','25'
 --tabla detalle_venta
 insert into detalle_venta values ('01','1','1')
 ------------------------------------
-/* VACIAR TABLAS */
+--VACIAR TABLAS 
 
 -- Vaciar tabla tipo-ave --
 truncate table tipo_ave cascade;
@@ -227,7 +227,7 @@ truncate table detalle_venta cascade;
 
 ------------------------------------
 
-/* CONSULTAS */
+-- CONSULTAS 
 
 select * from galpon order by idgalpon;
 select * from tipo_ave
@@ -316,5 +316,6 @@ select * from galpon
 select venta.idventa from detalle_venta inner join venta on detalle_venta.idventa = venta.idventa where idproducto=1
 
 
-select count(stock) as cantidad from producto where nombre='*'
+select count(stock) as cantidad from producto where nombre='*' 
+*/
   

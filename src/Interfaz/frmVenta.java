@@ -6,6 +6,7 @@
 package Interfaz;
 
 import Conexion.Conexion;
+import Funciones.fCliente;
 import Funciones.fContar;
 import Funciones.fProducto;
 import Funciones.fVenta;
@@ -46,7 +47,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
     public frmVenta() {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        mostrar("");
+        mostrar("");         
         jScrollPane1.getViewport().setBackground(new java.awt.Color(255, 255, 255));//fondo blanco detras de la tabla
         cargarCombos();
         estiloTabla diseño = new estiloTabla();
@@ -515,9 +516,17 @@ public class frmVenta extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, " No hay ningun producto en el Stock de ventas");
             return;
         }
-
+ fCliente funcC = new fCliente();
+       
         if (btnNuevaVenta.getText().equals("Nueva")) {
             habilitarcampos();
+             try {
+            if( funcC.contar("cliente")==0){
+                txtCliente.setEnabled(false);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(frmVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
             lblidVenta.setText("");
             comboProducto.setSelectedItem("Seleccionar");
             txtCantidad.setText("");

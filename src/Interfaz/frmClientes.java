@@ -9,20 +9,12 @@ import Conexion.Conexion;
 import Funciones.fCliente;
 import Funciones.fPersona;
 import Interfaz.diseño.estiloTabla;
-import static Interfaz.frmAdminGalpon.tablaAdminGalpon;
-import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelos.mCliente;
 import modelos.mPersona;
-import modelos.mTipo_ave;
 
 /**
  *
@@ -42,7 +34,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
      * Creates new form frmClientes
      */
     public frmClientes() {
-        initComponents();
+        initComponents();       
         mostrar("");
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         jScrollPane1.getViewport().setBackground(new java.awt.Color(255, 255, 255));
