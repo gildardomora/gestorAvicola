@@ -187,7 +187,7 @@ public class frmAdminGalpon extends javax.swing.JInternalFrame {
             }
         });
 
-        AtxtDescripcion.setColumns(20);
+        AtxtDescripcion.setColumns(10);
         AtxtDescripcion.setRows(5);
         AtxtDescripcion.setEnabled(false);
         AtxtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {

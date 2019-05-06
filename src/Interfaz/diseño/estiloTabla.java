@@ -5,8 +5,6 @@
  */
 package Interfaz.diseño;
 
-import Interfaz.frmAdminGalpon;
-import static Interfaz.frmAdminGalpon.tablaAdminGalpon;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JLabel;
@@ -20,7 +18,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class estiloTabla {
    
-    
+    //Da el diseño de color a las tablas ---
     public void tabla(JTable tabla){
        tabla.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
                @Override

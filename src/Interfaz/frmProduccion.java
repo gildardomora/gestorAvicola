@@ -7,6 +7,7 @@ package Interfaz;
 
 import Conexion.Conexion;
 import Funciones.fProduccion;
+import Funciones.fProducto;
 import Interfaz.diseño.estiloTabla;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import modelos.mProduccion;
+import modelos.mProducto;
 
 /**
  *
@@ -435,10 +437,23 @@ public class frmProduccion extends javax.swing.JInternalFrame {
             datos.setFecha(fechaProd.toString());
             datos.setIdGalpon(Integer.parseInt(comboGalpon.getSelectedItem().toString()));
 
-            if (func.insertar(datos, comboProducto.getSelectedItem().toString())) {
+           if (func.insertar(datos, comboProducto.getSelectedItem().toString())) {
                 JOptionPane.showMessageDialog(rootPane, "Produccion Guardada Correctamente");
             }
 
+           int confirmar= (JOptionPane.showConfirmDialog(rootPane, "Agregar la produccion al Stock de ventas", "Confirmar", 2));
+           if(confirmar==0){
+               
+               fProducto funcP =new fProducto();
+            mProducto datosP = new mProducto();            
+            //datosP.setIdProducto(Integer.parseInt(lblidProducto.getText()));
+            datosP.setNombre(comboProducto.getSelectedItem().toString());
+            datosP.setStock(Integer.parseInt(txtCantidad.getText())+funcP.cantidadProducto(datosP) );
+         //funcP.cantidadProducto(datosP); 
+            funcP.editarStock(datosP);
+            
+               
+           }
             //insertar(comboGalpon.getSelectedItem().toString(), comboProducto.getSelectedItem().toString());
             mostrar("");
             deshabilitarcampos();
@@ -461,7 +476,6 @@ public class frmProduccion extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Datos de produccion actualizados");
             }
 
-            //editar(txtIdProduccion.getText(), comboProducto.getSelectedItem().toString());
             mostrar("");
             deshabilitarcampos();
             limpiarCampos();

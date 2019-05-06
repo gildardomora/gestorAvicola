@@ -493,7 +493,7 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
             getToolkit().beep();
             //JOptionPane.showMessageDialog(null, "ingresa solo numeros");
         }
-         if (txtNombreAve.getText().length()== 15) {//para que el maximo de caracteres ingresados sea 100
+         if (txtNombreAve.getText().length()== 25) {//para que el maximo de caracteres ingresados sea 25
 
          evt.consume(); 
          getToolkit().beep();

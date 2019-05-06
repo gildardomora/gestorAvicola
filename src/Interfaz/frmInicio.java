@@ -5,14 +5,10 @@
  */
 package Interfaz;
 
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
+import static Interfaz.diseño.estiloBoton.botonConMouse;
+import static Interfaz.diseño.estiloBoton.botonSinMouse;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.basic.BasicDesktopPaneUI;
-import sun.awt.resources.awt;
 
 /**
  *
@@ -61,18 +57,6 @@ public class frmInicio extends javax.swing.JFrame {
 //JOptionPane.showMessageDialog(rootPane, acceso);
     }
 
-  public void botonConMouse(JButton boton){
-      boton.setBorder(new LineBorder(new java.awt.Color(255, 255, 255),2));
-      boton.setBackground(new java.awt.Color(9,66,66));
-      boton.setForeground(new java.awt.Color(255,255,255));     
-      
-  }
-  
-  public void botonSinMouse(JButton boton){
-   boton.setBorder(new LineBorder(new java.awt.Color(9, 66, 66),0));
-        boton.setBackground(new java.awt.Color(255,255,255));
-      boton.setForeground(new java.awt.Color(9,66,66));
-  }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -255,6 +239,14 @@ public class frmInicio extends javax.swing.JFrame {
         btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCerrarSesion.setFocusable(false);
         btnCerrarSesion.setOpaque(false);
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseExited(evt);
+            }
+        });
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarSesionActionPerformed(evt);
@@ -492,6 +484,16 @@ this.btnProductos.setBorder(new LineBorder(new java.awt.Color(9,66,66),0));
         // TODO add your handling code here:
         botonSinMouse(jButton4);
     }//GEN-LAST:event_jButton4MouseExited
+
+    private void btnCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseEntered
+        // TODO add your handling code here:
+        botonConMouse(btnCerrarSesion);
+    }//GEN-LAST:event_btnCerrarSesionMouseEntered
+
+    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
+        // TODO add your handling code here:
+        botonSinMouse(btnCerrarSesion);
+    }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     /**
      * @param args the command line arguments

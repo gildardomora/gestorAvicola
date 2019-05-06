@@ -349,6 +349,30 @@ public class fProducto {
         } catch (SQLException ex) {
             Logger.getLogger(fUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }//
+    
+      public int cantidadProducto(mProducto dato) {
+      
+        cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
+
+        sSQL = "select sum(\"stock\") as cantidad from \"producto\" where \"nombre\"='"+dato.getNombre()+"' ";
+        //  + "select count(*) AS cantidad from \"" +tabla + "\" where  \""+campo+"\" ='"+ dato+"'";
+
+        try {
+            int cantidad = 0;
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            while (rs.next()) {
+                cantidad = rs.getInt("cantidad");
+            }
+
+            return cantidad;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            return 0;
+        }
+
+    }//cierre metodo
     
 }

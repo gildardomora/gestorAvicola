@@ -6,12 +6,8 @@
 package Interfaz;
 
 import Funciones.fUsuario;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import Interfaz.diseño.estiloBoton;
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +19,8 @@ import modelos.mUsuario;
  */
 public class frmLogin extends javax.swing.JFrame {
 
-    public static String version = "ver 1.4"; // indica la version del programa
+    public static String version = "ver 1.4"; // indica la version del programa  
+// Recordatorio GIMORE--- mover despues a una clase
  
     
 
@@ -32,7 +29,7 @@ public class frmLogin extends javax.swing.JFrame {
      */
     public frmLogin() {
         initComponents();
-        barra.setVisible(false);
+      
         jScrollPane1.setVisible(false);// para ocultar la tabla del login
 
         lblSesion.setVisible(false);
@@ -84,7 +81,7 @@ public class frmLogin extends javax.swing.JFrame {
     }
 
     public void iniciarSesion() {
-barra.setVisible(true);
+
         //para hacer un timeout o pausa de tiempo
 //        try {
 //            //Ponemos a "Dormir" el programa durante los ms que queremos
@@ -146,7 +143,7 @@ barra.setVisible(true);
                 frmInicio.usuarioActual = txtUsuario.getText();
                 frmInicio.lbluser.setText(frmInicio.usuarioActual);
              
-                //String asa=tblUsuarios.getValueAt(0, 0).toString();
+                //String asa=tblUsuarios.getValueAt(0, 0).toString(); --- para prueba de error
                 //JOptionPane.showMessageDialog(rootPane, "esto sale de la tabla :" + asa);
 
             } else {
@@ -159,7 +156,8 @@ barra.setVisible(true);
         } catch (Exception e) {
         }
 
-    }
+    }//fin metodo iniciar sesion
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -185,7 +183,6 @@ barra.setVisible(true);
         lblVersion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsuarios = new javax.swing.JTable();
-        barra = new rojerusan.componentes.RSProgressMaterial();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -238,6 +235,14 @@ barra.setVisible(true);
         btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/keyEnter32pxVerde.png"))); // NOI18N
         btnEntrar.setText("INGRESAR");
         btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEntrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEntrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEntrarMouseExited(evt);
+            }
+        });
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
@@ -260,7 +265,7 @@ barra.setVisible(true);
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/exit24pxRed.png"))); // NOI18N
+        jButton3.setText("X");
         jButton3.setToolTipText("Click para Salir de Aplicación");
         jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -308,9 +313,6 @@ barra.setVisible(true);
         jScrollPane1.setViewportView(tblUsuarios);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 17, 35, 21));
-
-        barra.setForeground(new java.awt.Color(9, 66, 66));
-        jPanel1.add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 50, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -361,6 +363,17 @@ barra.setVisible(true);
 
     }//GEN-LAST:event_txtContraseñaKeyPressed
 
+    private void btnEntrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseEntered
+        // TODO add your handling code here:
+                estiloBoton.botonConMouse(btnEntrar);
+
+    }//GEN-LAST:event_btnEntrarMouseEntered
+
+    private void btnEntrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseExited
+        // TODO add your handling code here:
+        estiloBoton.botonSinMouse(btnEntrar);
+    }//GEN-LAST:event_btnEntrarMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -398,8 +411,7 @@ barra.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private rojerusan.componentes.RSProgressMaterial barra;
-    private javax.swing.JButton btnEntrar;
+    public static javax.swing.JButton btnEntrar;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
