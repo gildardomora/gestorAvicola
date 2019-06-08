@@ -65,7 +65,7 @@ FOREIGN Key (IdProducto) REFERENCES producto (IdProducto)
 create table venta (
 IdVenta serial NOT NULL,
 Cantidad int ,
-Descripcion varchar(50),
+Descripcion varchar(255),
 ValorVenta int,
 fecha varchar(30),
 PRIMARY KEY (IdVenta)
@@ -112,12 +112,14 @@ FOREIGN KEY (IdVenta) REFERENCES venta (IdVenta) on update cascade,
 FOREIGN KEY (cod_cliente) REFERENCES cliente (cod_cliente),
 FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario)
 );
+
+
 -----------------------------------
 
 --------------------------------------------------
 -------------------------------------------------
--- borrar tablas
-/*drop table galpon cascade;
+--/*-- borrar tablas
+drop table galpon cascade;
 drop table entrada cascade;
 drop table salida cascade;
 drop table venta cascade;
@@ -130,7 +132,8 @@ drop table usuario cascade;
 drop table persona cascade;
 drop table cliente cascade;
 -----------------------
-
+*/
+/*
 -- agregue campo descripcion que me faltaba // tabla producto
 alter table "producto" add column "descripcion" varchar (30);
 
