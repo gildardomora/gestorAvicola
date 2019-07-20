@@ -6,24 +6,18 @@
 package Interfaz;
 
 import Conexion.Conexion;
-import Funciones.fAdminGalpon;
-import Funciones.fContar;
-import Interfaz.diseño.estiloTabla;
+import Consultas.fAdminGalpon;
+import Estilos.estiloTabla;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelos.mAdminGalpon;
+import Modelos.mAdminGalpon;
+import javax.swing.JFrame;
 
 /**
  *
@@ -31,16 +25,18 @@ import modelos.mAdminGalpon;
  */
 public class frmAdminGalpon extends javax.swing.JInternalFrame {
 
-    public frmGalpon galpon = null;
+    public FrmGalponEnSal formgalpon = null;
 
     //conexion prueba
     private Conexion postsql = new Conexion();
     private Connection cn = null; //variable de conexion de sql
     // private Connection cn = postsql.conectar();
     private String sSQL = "";//para almacenar cadena de conexion 
+    public static String accion = "";
+    public static String[] datostabla = new String[9];
 
     /**
-     * Creates new form frmGalpon
+     * Creates new form FrmGalponEnSal
      */
     public frmAdminGalpon() {
         initComponents();
@@ -51,8 +47,6 @@ public class frmAdminGalpon extends javax.swing.JInternalFrame {
         dimensioncols();//tamaño columnas
         estiloTabla diseño = new estiloTabla();
         diseño.tabla(tablaAdminGalpon);
-
-        cargarCombos();
 
     }
 
@@ -66,217 +60,100 @@ public class frmAdminGalpon extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        btnNuevo = new javax.swing.JButton();
-        txtNumGalpon = new javax.swing.JTextField();
-        comboTipoAve = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtSaldoAves = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        btnEditar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        comboEstado = new javax.swing.JComboBox<>();
-        btnEliminar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        AtxtDescripcion = new javax.swing.JTextArea();
-        jDateFechaApe = new com.toedter.calendar.JDateChooser();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaAdminGalpon = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
-        txtBuscar = new javax.swing.JTextField();
-        btnEntradaSalida = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaAdminGalpon = new javax.swing.JTable();
+        btnNuevo = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnEntradaSalida = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        btnGastos = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(9, 66, 66));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 51)), "REGISTRAR GALPON", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel2.setPreferredSize(new java.awt.Dimension(360, 529));
+        jPanel4.setBackground(new java.awt.Color(9, 66, 66));
 
-        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/addverde32px.png"))); // NOI18N
-        btnNuevo.setText("Nuevo");
-        btnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("GESTION DE GALPONES");
 
-        txtNumGalpon.setEnabled(false);
-        txtNumGalpon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumGalponActionPerformed(evt);
-            }
-        });
-        txtNumGalpon.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNumGalponKeyTyped(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("GRANJA AVICOLA");
 
-        comboTipoAve.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
-        comboTipoAve.setEnabled(false);
-
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Tipo de ave");
-
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Numero de Galpon");
-
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Fecha de Apertura");
-
-        txtSaldoAves.setEnabled(false);
-        txtSaldoAves.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSaldoAvesActionPerformed(evt);
-            }
-        });
-        txtSaldoAves.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtSaldoAvesKeyTyped(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Saldo Aves");
-
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Descripcion");
-
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/editverde32px.png"))); // NOI18N
-        btnEditar.setText("Editar");
-        btnEditar.setEnabled(false);
-        btnEditar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/galpon.png"))); // NOI18N
-
-        jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Estado");
-
-        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "activo", "cerrado", "suspendido", "mantenimiento" }));
-        comboEstado.setEnabled(false);
-
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/deleterojo32px.png"))); // NOI18N
-        btnEliminar.setText("Eliminar");
-        btnEliminar.setEnabled(false);
-        btnEliminar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
-        AtxtDescripcion.setColumns(10);
-        AtxtDescripcion.setRows(5);
-        AtxtDescripcion.setEnabled(false);
-        AtxtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                AtxtDescripcionKeyTyped(evt);
-            }
-        });
-        jScrollPane2.setViewportView(AtxtDescripcion);
-
-        jDateFechaApe.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel8))
-                        .addGap(3, 3, 3)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(comboTipoAve, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jDateFechaApe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtSaldoAves)
-                                .addComponent(comboEstado, 0, 179, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2)
-                                .addComponent(txtNumGalpon))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(245, 245, 245)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                .addGap(103, 103, 103)
+                .addComponent(jLabel1)
+                .addGap(15, 15, 15))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNumGalpon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboTipoAve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(13, 13, 13)
-                        .addComponent(jDateFechaApe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSaldoAves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jLabel7))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 51)), "LISTA DE GALPONES ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(5, 65, 55))); // NOI18N
-        jPanel3.setForeground(new java.awt.Color(11, 87, 87));
+        jPanel5.setBackground(new java.awt.Color(9, 66, 66));
+
+        txtBuscar.setToolTipText("Bucar por fecha");
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
+
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/searchblanco32px.png"))); // NOI18N
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("BUSCAR");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel8)))
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
 
         tablaAdminGalpon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -293,123 +170,113 @@ public class frmAdminGalpon extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tablaAdminGalpon);
 
-        jPanel5.setBackground(new java.awt.Color(9, 66, 66));
-
-        txtBuscar.setToolTipText("Bucar por fecha");
-        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyTyped(evt);
+        btnNuevo.setBackground(new java.awt.Color(255, 255, 255));
+        btnNuevo.setForeground(new java.awt.Color(9, 66, 66));
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/addverde32px.png"))); // NOI18N
+        btnNuevo.setText("NUEVO");
+        btnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
             }
         });
 
+        btnEditar.setBackground(new java.awt.Color(255, 255, 255));
+        btnEditar.setForeground(new java.awt.Color(9, 66, 66));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/editverde32px.png"))); // NOI18N
+        btnEditar.setText("EDITAR");
+        btnEditar.setEnabled(false);
+        btnEditar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setBackground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setForeground(new java.awt.Color(9, 66, 66));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/deleterojo32px.png"))); // NOI18N
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.setEnabled(false);
+        btnEliminar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnEntradaSalida.setBackground(new java.awt.Color(255, 255, 255));
+        btnEntradaSalida.setForeground(new java.awt.Color(9, 66, 66));
         btnEntradaSalida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/addpropverde32px.png"))); // NOI18N
-        btnEntradaSalida.setText("Nueva [ Entrada / Salida ]");
+        btnEntradaSalida.setText("REG [ Entrada / Salida ]");
+        btnEntradaSalida.setEnabled(false);
         btnEntradaSalida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntradaSalidaActionPerformed(evt);
             }
         });
 
-        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/searchblanco32px.png"))); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(9, 66, 66));
+        jLabel11.setText("Lista de Galpones Registrados");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEntradaSalida)
-                .addGap(17, 17, 17))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEntradaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel10)))
-                .addContainerGap(13, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1))
-        );
-
-        jPanel4.setBackground(new java.awt.Color(9, 66, 66));
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("ADMINISTRAR GALPONES");
-
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("GRANJA AVICOLA");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(245, 245, 245)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(103, 103, 103)
-                .addComponent(jLabel1)
-                .addGap(15, 15, 15))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        btnGastos.setBackground(new java.awt.Color(255, 255, 255));
+        btnGastos.setForeground(new java.awt.Color(9, 66, 66));
+        btnGastos.setText("REGISTRAR GASTOS");
+        btnGastos.setEnabled(false);
+        btnGastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGastosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel11)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEntradaSalida)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEntradaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -420,25 +287,20 @@ public class frmAdminGalpon extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 public void dimensioncols() {
         tablaAdminGalpon.getColumnModel().getColumn(0).setPreferredWidth(25);//ancho para la primer columna
-
         tablaAdminGalpon.getColumnModel().getColumn(5).setPreferredWidth(15);//ancho para la primer columna
     }
 
     public void mostrar(String buscar) { //para mostrar registros de la tabla galpon
         //DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente
-        cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
-        if (cn == null) { // confirma si no hay conexion de la BD para no proceder con las consultas..
-            JOptionPane.showMessageDialog(rootPane, " No se pueden  cargar Registros \n"
-                    + " debido a un problema de Conexion a la BD. ");
-            return;
-        }
 
         try {
             DefaultTableModel modelo;
@@ -448,253 +310,51 @@ public void dimensioncols() {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        postsql.cierraConexion();
-    }    // cierre de metodo
 
-    private void cargarCombos() {// carga datos de la BD y los pone en los combobox
-        cn = postsql.conectar();
-        if (cn == null) { // confirma si no hay conexion de la BD para no proceder con las consultas..
-            //JOptionPane.showMessageDialog(rootPane, " No se pueden  cargar Registros \n"
-            //      + " debido a un problema de Conexion a la BD. ");
-            return;
-        }
-        comboTipoAve.removeAllItems();
-
-        comboTipoAve.addItem("Seleccionar");
-
-        ArrayList<String> listaAve = new ArrayList<String>();
-        listaAve = llenar_comboAve();
-        for (int i = 0; i < listaAve.size(); i++) {
-            comboTipoAve.addItem(listaAve.get(i));
-        }
-
-        postsql.cierraConexion();
-    }//cierre metodo
-
-    public ArrayList<String> llenar_comboAve() {//metodo para cargar el contenido en el combobox
-        ArrayList<String> lista = new ArrayList<String>();
-        sSQL = "select nombre from tipo_ave";
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sSQL);
-
-            while (rs.next()) {
-                lista.add(rs.getString("nombre"));
-
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        return lista;
-    }
-
-    private void habilitarcampos() {
-        txtNumGalpon.setEnabled(true);
-        comboTipoAve.setEnabled(true);
-        txtSaldoAves.setEnabled(true);
-        jDateFechaApe.setEnabled(true);
-        AtxtDescripcion.setEnabled(true);
-        comboEstado.setEnabled(true);
-        comboTipoAve.setEnabled(true);
-
-    }
-
-    private void deshabilitarcampos() {
-        txtNumGalpon.setEnabled(false);
-        comboTipoAve.setEnabled(false);
-        txtSaldoAves.setEnabled(false);
-        jDateFechaApe.setEnabled(false);
-        AtxtDescripcion.setEnabled(false);
-        comboEstado.setEnabled(false);
-        comboTipoAve.setEnabled(false);
-    }
-
+    }    // cierre de metodo  
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // BOTON NUEVO
-        mAdminGalpon datos = new mAdminGalpon();
-        fAdminGalpon func = new fAdminGalpon();
-        try {
-
-            if (func.contar("tipo_ave") == 0) {
-                JOptionPane.showMessageDialog(rootPane, "No hay tipos de Aves registradas para crear un Galpon");
-                return;
-            }
-            if (func.contar("producto") == 0) {
-                JOptionPane.showMessageDialog(rootPane, "No hay productos Registrados para crear un Galpon");
-                return;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(frmAdminGalpon.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        /* -----------------------------------------------------------*/
-        if (btnNuevo.getText().equals("Nuevo")) {
-            //activar campos deshabilitados
-            habilitarcampos();
-
-            //cambiar nombres de botones
-            btnNuevo.setLabel("Guardar");
-            btnNuevo.setIcon(new ImageIcon("src/Archivos/saveverde32px.png"));
-            btnEditar.setLabel("Cancelar");
-            btnEditar.setIcon(new ImageIcon("src/Archivos/cancelverde32px.png"));
-            btnEditar.setEnabled(true);
-            btnEliminar.setEnabled(false);            //Deshabilitar boton Eliminar
-            txtNumGalpon.setText("");
-            txtNumGalpon.requestFocus();
-            comboTipoAve.setSelectedItem("Seleccionar");
-            Calendar actual = new GregorianCalendar();//para asignar la fecha actual
-            jDateFechaApe.setCalendar(actual);
-            txtSaldoAves.setText("");
-            comboEstado.setSelectedItem("seleccionar");
-            AtxtDescripcion.setText("");
-            return;
-        }//cierre Nuevo
-
-        btnEditar.setEnabled(true);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//Ajusta el formato del DateChooser
-/* -----------------------------------------------------------*/
-        if (btnNuevo.getText().equals("Guardar")) {// para guardar la informacion
-            if (txtNumGalpon.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Debes ingresar un Numero de Galpon");
-                txtNumGalpon.requestFocus();
-                return;// para que salte y no siga el codigo  
-            }
-            if (comboTipoAve.getSelectedItem().equals("Seleccionar")) {//validar que se seleccione Ave
-                JOptionPane.showMessageDialog(rootPane, "Debes elegir un tipo de Ave");
-                comboTipoAve.requestFocus();
-                return;// para que salte y no siga el codigo
-            }
-
-            if (jDateFechaApe.getDate() == null) {//validar que se ingrese la fecha
-                JOptionPane.showMessageDialog(rootPane, "Debes ingresar una fecha Valida");
-                jDateFechaApe.requestFocus();
-                return;
-            }
-            if (txtSaldoAves.getText().equals("")) {//validar que se ingrese la fecha
-                JOptionPane.showMessageDialog(rootPane, "Debes ingresar una Saldo de aves Valido");
-                txtSaldoAves.requestFocus();
-                return;
-            }
-            if (comboEstado.getSelectedItem().toString().equals("Seleccionar")) {
-                JOptionPane.showMessageDialog(rootPane, "Debes elegir un estado para el galpon");
-                comboEstado.requestFocus();
-                return;
-            }
-
-            fContar contando = new fContar();
-
-            if (contando.Contar("idgalpon", txtNumGalpon.getText(), "galpon") == 1) {//validar que el numero de galpon no se halla guardado antes.
-                JOptionPane.showMessageDialog(null, "El numero de Galpon ya esta en uso"
-                        + "\n\n Ingrese un numero diferente");
-                txtNumGalpon.requestFocus();
-                return;
-            }
-
-            java.util.Date fecha = jDateFechaApe.getDate();//almacena la fecha en formato Date
-            long fechaI = fecha.getTime();
-            java.sql.Date fechaInicio = new java.sql.Date(fechaI);//establece el formato compatible con sql
-            //String fechaInicio = (txtFechaApe.getText());
-            datos.setDescripcion(AtxtDescripcion.getText());
-            datos.setfInicio(fechaInicio.toString());
-            datos.setEstado(comboEstado.getSelectedItem().toString());
-            datos.setIdGalpon(Integer.parseInt(txtNumGalpon.getText()));
-            datos.setSaldo(Integer.parseInt(txtSaldoAves.getText()));
-
-            if (func.insertar(datos, comboTipoAve.getSelectedItem().toString())) {
-                JOptionPane.showMessageDialog(rootPane, "Galpon Agregado correctamente");
-            }
-            deshabilitarcampos();
-            btnEditar.setText("Editar");
-            btnEditar.setEnabled(false);
-            btnNuevo.setText("Nuevo");
-            btnEliminar.setEnabled(false);
-
-            mostrar("");// para recargar los datos en la tabla
-            dimensioncols();
-            postsql.cierraConexion();
-            return;
-        }// cierre  guardar
-/* -----------------------------------------------------------*/
-        if (btnNuevo.getText().equals("Actualizar")) {
-            cn = postsql.conectar();
-            //JOptionPane.showMessageDialog(rootPane, "el galpon es  : "+galpon+" y el ave es :"+ave);
-            java.util.Date fecha = jDateFechaApe.getDate();//almacena la fecha en formato Date
-            long fechaI = fecha.getTime();
-            java.sql.Date fechaInicio = new java.sql.Date(fechaI);//establece el formato compatible con sql
-            //String fechaInicio = (txtFechaApe.getText());
-            datos.setDescripcion(AtxtDescripcion.getText());
-            datos.setfInicio(fechaInicio.toString());
-            datos.setEstado(comboEstado.getSelectedItem().toString());
-            datos.setIdGalpon(Integer.parseInt(txtNumGalpon.getText()));
-            datos.setSaldo(Integer.parseInt(txtSaldoAves.getText()));
-            if (func.editar(datos, comboTipoAve.getSelectedItem().toString())) {
-                JOptionPane.showMessageDialog(rootPane, "Galpon Editado correctamente");
-            }
-            //editar(txtNumGalpon.getText(), comboTipoAve.getSelectedItem().toString());
-            deshabilitarcampos();
-            btnEliminar.setEnabled(false);
-            btnNuevo.setLabel("Nuevo");
-            btnEditar.setEnabled(false);
-            btnEditar.setLabel("Editar");
-
-            comboTipoAve.setSelectedItem("Seleccionar");
-            jDateFechaApe.setDate(null);
-            txtSaldoAves.setText("");
-            comboEstado.setSelectedItem("seleccionar");
-            AtxtDescripcion.setText("");
-            mostrar("");
-            dimensioncols();
-            postsql.cierraConexion();
-        }
-
-
+        accion = "nuevo";
+        DiagGalpon datosgalpon = new DiagGalpon(new JFrame(), true);
+        datosgalpon.lblTitulo.setText("REGISTRAR NUEVO GALPON");
+        datosgalpon.setVisible(true);
+        mostrar("");// para recargar los datos en la tabla
+        dimensioncols();
+btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnEntradaSalida.setEnabled(false);
+        
     }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void txtSaldoAvesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoAvesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSaldoAvesActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         //BOTON EDITAR
         // cambiar nombre de botones
-
-        if (btnEditar.getLabel().equals("Cancelar")) {
-            btnEditar.setLabel("Editar");
-            btnEditar.setIcon(new ImageIcon("src/Archivos/editverde32px.png"));
-            btnNuevo.setLabel("Nuevo");
-            btnNuevo.setIcon(new ImageIcon("src/Archivos/addverde32px.png"));
-            deshabilitarcampos();
-            //habilitar boton Eliminar
-            btnEliminar.setEnabled(false);
-            btnEditar.setEnabled(false);
-            jDateFechaApe.setCalendar(null);
-
-        } else {
-            btnNuevo.setLabel("Actualizar");
-            btnNuevo.setIcon(new ImageIcon("src/Archivos/saveverde32px.png"));
-            btnEditar.setLabel("Cancelar");
-            btnEditar.setIcon(new ImageIcon("src/Archivos/cancelverde32px.png"));
-            habilitarcampos();
-            txtNumGalpon.setEnabled(false);
-            btnEliminar.setEnabled(false);
-            btnEditar.setEnabled(true);
-
-        }
+        accion = "editar";
+        DiagGalpon datosgalpon = new DiagGalpon(new JFrame(), true);
+        datosgalpon.lblTitulo.setText("EDITAR GALPON");
+        datosgalpon.setVisible(true);
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnEntradaSalida.setEnabled(false);
+        btnGastos.setEnabled(false);
+        mostrar("");// para recargar los datos en la tabla
+        dimensioncols();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEntradaSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaSalidaActionPerformed
         // TODO add your handling code here:
-        if (!txtNumGalpon.getText().equals("")) {
-            galpon = new frmGalpon();
-            galpon.frmGalpon(txtNumGalpon.getText());
+
+        if (datostabla[0] == null) {
+            JOptionPane.showMessageDialog(null, "Elija Primero un Galpon");
+        } else {
+            formgalpon = new FrmGalponEnSal();
+            formgalpon.frmGalpon(datostabla[0]);
             int ancho = frmInicio.escritorio.getWidth();
             int altura = frmInicio.escritorio.getHeight();
-            galpon.setSize(ancho, altura);
-            frmInicio.escritorio.add(galpon);
-            galpon.show();
-        } else {
-            JOptionPane.showMessageDialog(null, "Elija Primero un Galpon");
+            formgalpon.setSize(ancho, altura);
+            frmInicio.escritorio.add(formgalpon);
+            formgalpon.show();
         }
 
 
@@ -704,87 +364,71 @@ public void dimensioncols() {
         // acciones al dar clic sobre la tabla
         btnEliminar.setEnabled(true);
         btnEditar.setEnabled(true);
- btnEditar.setIcon(new ImageIcon("src/Archivos/Editverde32px.png"));
+        btnEntradaSalida.setEnabled(true);
+        btnGastos.setEnabled(true);
+        //btnEditar.setIcon(new ImageIcon("src/Archivos/Editverde32px.png"));
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date fecha;
         int filaSel = tablaAdminGalpon.rowAtPoint(evt.getPoint());// guarda en la variable filaSel la ila que se selecciono en la tabla
         //pasa el contenido de la fila 0 al campo NumGalpon
+        datostabla[0] = tablaAdminGalpon.getValueAt(filaSel, 0).toString();
+        datostabla[1] = tablaAdminGalpon.getValueAt(filaSel, 1).toString();
+        datostabla[2] = tablaAdminGalpon.getValueAt(filaSel, 2).toString();
+        datostabla[3] = tablaAdminGalpon.getValueAt(filaSel, 3).toString();
+        datostabla[4] = tablaAdminGalpon.getValueAt(filaSel, 4).toString();
+        datostabla[5] = tablaAdminGalpon.getValueAt(filaSel, 5).toString();
+//datostabla[6]=tablaAdminGalpon.getValueAt(filaSel, 6).toString();
+//datostabla[7]=tablaAdminGalpon.getValueAt(filaSel, 7).toString();
+//datostabla[8]=tablaAdminGalpon.getValueAt(filaSel, 8).toString();
 
-        txtNumGalpon.setText(tablaAdminGalpon.getValueAt(filaSel, 0).toString());
-        comboTipoAve.setSelectedItem(tablaAdminGalpon.getValueAt(filaSel, 1).toString());
-        try {
-            //        jDateFecha.setDateFormatString(tablaEntrada.getValueAt(filaSel, 3).toString());
-            fecha = formatoFecha.parse((String) tablaAdminGalpon.getValueAt(filaSel, 2));
-            jDateFechaApe.setDate(fecha);
-        } catch (ParseException ex) {
-            Logger.getLogger(frmGalpon.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        txtSaldoAves.setText(tablaAdminGalpon.getValueAt(filaSel, 3).toString());
-        AtxtDescripcion.setText(tablaAdminGalpon.getValueAt(filaSel, 4).toString());
-        comboEstado.setSelectedItem(tablaAdminGalpon.getValueAt(filaSel, 5).toString());
     }//GEN-LAST:event_tablaAdminGalponMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // BOTON ELIMINAR
+        DiagEliminar advertencia = new DiagEliminar(new JFrame(), true);
+        advertencia.lblTitulo.setText("ELIMINAR GALPON");
+        advertencia.AtxtAdvertencia.setText("Si elimina el GALPON, la información correspondiente a"
+                + "\n Ventas, Gastos, Producción y Estadísticas será  afectada.");
+        advertencia.lblmsgConfirmar.setText("¿ Confirma que desea ELIMINAR el GALPON ?  ");
+        advertencia.setVisible(true);
 
-        if (!txtNumGalpon.getText().equals("")) {//confirma  si esta seleccionado un registro
-            int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Desea eliminar el galpon seleccionado?", "confirmar", 2);
-            if (confirmacion == 0) {
-                mAdminGalpon datos = new mAdminGalpon();
-                fAdminGalpon func = new fAdminGalpon();
-                try {
-                    if ((func.contar("entrada") > 0) || func.contar("salida") > 0 || func.contar("produccion") > 0) {
-                        int adv = JOptionPane.showConfirmDialog(rootPane, "Se eliminará por completo la informacion del galpon", "confirmar", 2);
-
-                        if (adv == 0) {
-
-                            datos.setIdGalpon(Integer.parseInt(txtNumGalpon.getText()));
-                            if (func.eliminar(datos)) {
-                                JOptionPane.showMessageDialog(rootPane, "Galpon Eliminado Correctamente");
-                            }
-                            // eliminar(Integer.parseInt(txtNumGalpon.getText()));
-                            mostrar("");
-                            dimensioncols();//tamaño columnas
-                            deshabilitarcampos();
+        if (advertencia.respuesta.equals("eliminar")) {
+            mAdminGalpon datos = new mAdminGalpon();
+            fAdminGalpon func = new fAdminGalpon();
+            try {
+                if ((func.contar("entrada") > 0) || func.contar("salida") > 0 || func.contar("produccion") > 0) {
+                    int adv = JOptionPane.showConfirmDialog(rootPane, "Se eliminará por completo la informacion del galpon", "confirmar", 2);
+                    if (adv == 0) {
+                        datos.setIdGalpon(Integer.parseInt(datostabla[0]));
+                        if (func.eliminar(datos)) {
+                            JOptionPane.showMessageDialog(rootPane, "Galpon Eliminado Correctamente");
                         }
-
-                    }//cierre comprobacion 
-                    // Si no hay entradas, salidas o producciones  elimina el galpon 
-
-                    datos.setIdGalpon(Integer.parseInt(txtNumGalpon.getText()));
-                    if (func.eliminar(datos)) {
-                        JOptionPane.showMessageDialog(rootPane, "Galpon Eliminado Correctamente");
+                        // eliminar(Integer.parseInt(txtNumGalpon.getText()));
+                        mostrar("");
+                        dimensioncols();//tamaño columnas                           
                     }
-                    // eliminar(Integer.parseInt(txtNumGalpon.getText()));
-                    mostrar("");
-                    dimensioncols();
-                    btnEditar.setEnabled(false);
-                    btnEliminar.setEnabled(false);
-                    deshabilitarcampos();
+                }//cierre comprobacion 
+                // Si no hay entradas, salidas o producciones  elimina el galpon 
 
-                } catch (SQLException ex) {
-                    Logger.getLogger(frmAdminGalpon.class.getName()).log(Level.SEVERE, null, ex);
+                datos.setIdGalpon(Integer.parseInt(datostabla[0]));
+                if (func.eliminar(datos)) {
+                    JOptionPane.showMessageDialog(rootPane, "Galpon Eliminado Correctamente");
                 }
+                // eliminar(Integer.parseInt(txtNumGalpon.getText()));
+                mostrar("");
+                dimensioncols();
 
+            } catch (SQLException ex) {
+                Logger.getLogger(frmAdminGalpon.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "No seleccionó ningun Registro");
+
         }
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnEntradaSalida.setEnabled(false);
+        btnGastos.setEnabled(false);
 
     }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void txtSaldoAvesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoAvesKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        if (((c < '0') || (c > '9')) && (c != evt.VK_BACK_SPACE)) {
-            evt.consume();
-            //JOptionPane.showMessageDialog(null, "ingresa solo numeros");
-        }
-    }//GEN-LAST:event_txtSaldoAvesKeyTyped
-
-    private void txtNumGalponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumGalponActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumGalponActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
         // TODO add your handling code here:
@@ -793,31 +437,22 @@ public void dimensioncols() {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
-        txtNumGalpon.setText("");
+        // txtNumGalpon.setText("");
 
         mostrar(txtBuscar.getText());
         dimensioncols();
     }//GEN-LAST:event_txtBuscarKeyReleased
 
-    private void AtxtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AtxtDescripcionKeyTyped
+    private void btnGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGastosActionPerformed
         // TODO add your handling code here:
-          if (AtxtDescripcion.getText().length()== 200) {//para que el maximo de caracteres ingresados sea 200
-
-         evt.consume(); }
-    }//GEN-LAST:event_AtxtDescripcionKeyTyped
-
-    private void txtNumGalponKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumGalponKeyTyped
-        // TODO add your handling code here:
-            if (txtNumGalpon.getText().length()== 9) {//para que el maximo de caracteres ingresados sea 15
-
-         evt.consume(); }
-      
-         char c = evt.getKeyChar();
-        if (((c < '0') || (c > '9')) && (c != evt.VK_BACK_SPACE)) {
-            evt.consume();
-            //JOptionPane.showMessageDialog(null, "ingresa solo numeros");
-        }
-    }//GEN-LAST:event_txtNumGalponKeyTyped
+        FrmGastosGalpon formgastos = new FrmGastosGalpon();
+        int ancho=frmInicio.escritorio.getWidth();
+        int altura=frmInicio.escritorio.getHeight();
+        formgastos.setSize(ancho, altura);
+        frmInicio.escritorio.add(formgastos);
+        formgastos.show();
+        
+    }//GEN-LAST:event_btnGastosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -858,34 +493,21 @@ public void dimensioncols() {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea AtxtDescripcion;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEntradaSalida;
+    private javax.swing.JButton btnGastos;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JComboBox<String> comboEstado;
-    private javax.swing.JComboBox<String> comboTipoAve;
-    private com.toedter.calendar.JDateChooser jDateFechaApe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JTable tablaAdminGalpon;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtNumGalpon;
-    private javax.swing.JTextField txtSaldoAves;
     // End of variables declaration//GEN-END:variables
 }

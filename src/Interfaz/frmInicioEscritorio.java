@@ -5,11 +5,10 @@
  */
 package Interfaz;
 
-import static Interfaz.diseño.estiloBoton.botonConMouse;
-import static Interfaz.diseño.estiloBoton.botonSinMouse;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import static Estilos.estiloBoton.botonColor;
 
 /**
  *
@@ -77,7 +76,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("BIENVENIDO");
+        jLabel1.setText("BIENVENIDO A GAVISOFT");
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/infoblanco.png"))); // NOI18N
         jLabel5.setToolTipText("Acerca de");
@@ -94,7 +93,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(372, 372, 372)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(352, 352, 352)
                 .addComponent(jLabel5)
                 .addContainerGap())
@@ -119,7 +118,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(9, 66, 66));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Gestor Avicola");
+        jLabel4.setText("GESTION AVICOLA");
 
         lblVersion.setForeground(new java.awt.Color(0, 102, 102));
         lblVersion.setText("version");
@@ -150,7 +149,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(9, 66, 66));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Administrar Stock de Productos");
+        jLabel3.setText("STOCK DE PRODUCTOS");
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -175,7 +174,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(9, 66, 66));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Ver Reportes");
+        jLabel8.setText("REPORTES Y ESTIDISTICAS");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -189,11 +188,11 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(jSeparator4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(27, 27, 27)
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
+                        .addGap(51, 51, 51)
                         .addComponent(jSeparator5)
                         .addGap(47, 47, 47)
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -201,7 +200,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(215, 215, 215)
+                        .addGap(200, 200, 200)
                         .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(136, 136, 136))))
         );
@@ -212,12 +211,12 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                            .addComponent(jSeparator3)
                             .addComponent(jSeparator5)
-                            .addComponent(jSeparator4))
+                            .addComponent(jSeparator4)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -231,7 +230,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblVersion)
                 .addContainerGap())
@@ -254,8 +253,9 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
 
         btnGestUsuarios.setBackground(new java.awt.Color(255, 255, 255));
         btnGestUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/usersverde32px.png"))); // NOI18N
-        btnGestUsuarios.setText("Gestionar Usuarios");
+        btnGestUsuarios.setText("GESTIONAR USUARIOS");
         btnGestUsuarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
+        btnGestUsuarios.setBorderPainted(false);
         btnGestUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGestUsuarios.setFocusable(false);
         btnGestUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -277,8 +277,9 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
 
         btnGestClientes.setBackground(new java.awt.Color(255, 255, 255));
         btnGestClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/usersverde32px.png"))); // NOI18N
-        btnGestClientes.setText("Gestionar Clientes");
+        btnGestClientes.setText("GESTIONAR CLIENTES");
         btnGestClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
+        btnGestClientes.setBorderPainted(false);
         btnGestClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGestClientes.setFocusable(false);
         btnGestClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -297,7 +298,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
 
         jLabel10.setForeground(new java.awt.Color(9, 66, 66));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Herramientas");
+        jLabel10.setText("HERRAMIENTAS");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/calc-verde-32px.png"))); // NOI18N
@@ -325,9 +326,9 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGestUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnGestClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnGestUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                    .addComponent(btnGestClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -343,12 +344,15 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGestClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnGestUsuarios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator2)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jSeparator2)))
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(btnGestUsuarios)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnGestClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,7 +454,13 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Se agregaran opciones de \n generar Reporte e Imprimirlos \n despues..");
+       // JOptionPane.showMessageDialog(rootPane, "Se agregaran opciones de \n generar Reporte e Imprimirlos \n despues..");
+        frmReportes form = new frmReportes();
+        int ancho= frmInicio.escritorio.getWidth();
+        int altura=frmInicio.escritorio.getHeight();
+        form.setSize(ancho,altura);
+        frmInicio.escritorio.add(form);
+        form.show();
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void btnGestClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestClientesActionPerformed
@@ -467,7 +477,7 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-          new Interfaz.frmDiagAcerca(new JFrame(), true).setVisible(true);
+          new Interfaz.DiagAcerca(new JFrame(), true).setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -492,22 +502,22 @@ public class frmInicioEscritorio extends javax.swing.JInternalFrame {
 
     private void btnGestUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestUsuariosMouseEntered
         // TODO add your handling code here:
-        botonConMouse(btnGestUsuarios);
+       // botonConMouse(btnGestUsuarios);
     }//GEN-LAST:event_btnGestUsuariosMouseEntered
 
     private void btnGestUsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestUsuariosMouseExited
         // TODO add your handling code here:
-        botonSinMouse(btnGestUsuarios);
+        botonColor(btnGestUsuarios,"","");
     }//GEN-LAST:event_btnGestUsuariosMouseExited
 
     private void btnGestClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestClientesMouseEntered
         // TODO add your handling code here:
-        botonConMouse(btnGestClientes);
+       // botonConMouse(btnGestClientes);
     }//GEN-LAST:event_btnGestClientesMouseEntered
 
     private void btnGestClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestClientesMouseExited
         // TODO add your handling code here:
-        botonSinMouse(btnGestClientes);
+        botonColor(btnGestClientes,"","");
     }//GEN-LAST:event_btnGestClientesMouseExited
 
     private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered

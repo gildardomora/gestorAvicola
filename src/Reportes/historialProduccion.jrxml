@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="historialProduccion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a2c58bb-9055-489b-baf3-b1fa8d4962f2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="16"/>
+	<queryString>
+		<![CDATA[SELECT
+     produccion."idproduccion" AS produccion_idproduccion,
+     produccion."idgalpon" AS produccion_idgalpon,
+     produccion."idproducto" AS produccion_idproducto,
+     produccion."cantidad" AS produccion_cantidad,
+     produccion."fecha" AS produccion_fecha,
+     producto."idproducto" AS producto_idproducto,
+     producto."nombre" AS producto_nombre
+FROM
+     "public"."producto" producto INNER JOIN "public"."produccion" produccion ON producto."idproducto" = produccion."idproducto"]]>
+	</queryString>
+	<field name="produccion_idproduccion" class="java.lang.Integer"/>
+	<field name="produccion_idgalpon" class="java.lang.Integer"/>
+	<field name="produccion_idproducto" class="java.lang.Integer"/>
+	<field name="produccion_cantidad" class="java.lang.Integer"/>
+	<field name="produccion_fecha" class="java.lang.String"/>
+	<field name="producto_idproducto" class="java.lang.Integer"/>
+	<field name="producto_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="249" y="22" width="100" height="20" uuid="10704f0b-77cc-4984-8cec-41be0b352275"/>
+				<text><![CDATA[PRODUCCION]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="48" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="14" width="100" height="20" uuid="096ebfcf-6b78-4396-bb1a-d5650791607a"/>
+				<text><![CDATA[ID Produccion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="14" width="100" height="20" uuid="7d5ce776-2f71-4f30-bb66-cffd13d2ff1f"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="14" width="100" height="20" uuid="3a410291-600c-4be7-9334-fa7cb6e8e95e"/>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="364" y="14" width="100" height="20" uuid="486f5bac-189e-4247-b65c-d82b823481d7"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="474" y="14" width="100" height="20" uuid="409ad5de-f4c3-4383-8843-29d2beb46846"/>
+				<text><![CDATA[Galpón N°]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="10" width="100" height="20" uuid="7f5776aa-5c3c-4554-af93-f52a8142dce5"/>
+				<textFieldExpression><![CDATA[$F{produccion_idproduccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="10" width="100" height="20" uuid="ddf2c744-fc3e-4b55-aaa5-fa151fd6ea7e"/>
+				<textFieldExpression><![CDATA[$F{produccion_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="10" width="100" height="20" uuid="9b509e94-61a0-4402-aea3-6b6a0ed5208a"/>
+				<textFieldExpression><![CDATA[$F{producto_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="10" width="100" height="20" uuid="749b92ef-8604-4876-be38-c0181b6fcd40"/>
+				<textFieldExpression><![CDATA[$F{produccion_fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="10" width="100" height="20" uuid="2afd37bd-c5b5-4c14-9894-94c1f40512c3"/>
+				<textFieldExpression><![CDATA[$F{produccion_idgalpon}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

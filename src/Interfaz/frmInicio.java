@@ -5,10 +5,11 @@
  */
 package Interfaz;
 
-import static Interfaz.diseño.estiloBoton.botonConMouse;
-import static Interfaz.diseño.estiloBoton.botonSinMouse;
+
+
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
+import static Estilos.estiloBoton.botonColor;
 
 /**
  *
@@ -25,7 +26,7 @@ public class frmInicio extends javax.swing.JFrame {
     public frmProducto producto = null;
     public frmInicioEscritorio iniescritorio = null;
     public frmVenta venta = null;
-    public frmGalpon galpon =null;
+    public FrmGalponEnSal galpon =null;
     public static String  usuarioActual="";
 
     public frmInicio() {
@@ -75,10 +76,11 @@ public class frmInicio extends javax.swing.JFrame {
         btnProductos = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnHome = new javax.swing.JButton();
-        lblTipo = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
+        lblTipo = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,7 +91,7 @@ public class frmInicio extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 799, Short.MAX_VALUE)
+            .addGap(0, 802, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,6 +99,7 @@ public class frmInicio extends javax.swing.JFrame {
         );
 
         jPanel1.setBackground(new java.awt.Color(9, 66, 66));
+        jPanel1.setAlignmentX(0.1F);
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -201,6 +204,7 @@ public class frmInicio extends javax.swing.JFrame {
         btnHome.setBackground(new java.awt.Color(255, 255, 255));
         btnHome.setForeground(new java.awt.Color(9, 66, 66));
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/start52pxgreen.png"))); // NOI18N
+        btnHome.setText("INICIO");
         btnHome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
         btnHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -217,22 +221,24 @@ public class frmInicio extends javax.swing.JFrame {
             }
         });
 
-        lblTipo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTipo.setText("Usuario");
-
-        jPanel6.setBackground(new java.awt.Color(9, 66, 66));
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel5.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel5.setForeground(new java.awt.Color(102, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/user32pxblanco.png"))); // NOI18N
+        jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 8, 161, 70));
 
         lbluser.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lbluser.setForeground(new java.awt.Color(255, 255, 255));
+        lbluser.setForeground(new java.awt.Color(0, 0, 0));
         lbluser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbluser.setText("user");
+        jPanel6.add(lbluser, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 161, -1));
 
-        btnCerrarSesion.setBackground(new java.awt.Color(9, 66, 66));
+        btnCerrarSesion.setBackground(new java.awt.Color(153, 0, 0));
         btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -252,28 +258,33 @@ public class frmInicio extends javax.swing.JFrame {
                 btnCerrarSesionActionPerformed(evt);
             }
         });
+        jPanel6.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 122, 173, 25));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbluser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbluser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        lblTipo.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        lblTipo.setForeground(new java.awt.Color(0, 0, 0));
+        lblTipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTipo.setText("Usuario");
+        jPanel6.add(lblTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 99, 173, 20));
+
+        jButton5.setBackground(new java.awt.Color(255, 255, 255));
+        jButton5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(9, 66, 66));
+        jButton5.setText("GASTOS");
+        jButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton5MouseExited(evt);
+            }
+        });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -283,40 +294,40 @@ public class frmInicio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnHome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 3, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addComponent(lblTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnProductos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(btnProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btnProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTipo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -324,7 +335,7 @@ public class frmInicio extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(escritorio))
         );
@@ -406,7 +417,7 @@ public class frmInicio extends javax.swing.JFrame {
     private void btnProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProductosMouseEntered
 
         // TODO add your handling code here:
-        botonConMouse(btnProductos);
+//        botonConMouse(btnProductos);
      
         //this.btnProductos.setBackground(new java.awt.Color(9, 66, 66));
         //this.btnProductos.setForeground(new java.awt.Color(255, 255, 255));
@@ -428,7 +439,7 @@ public class frmInicio extends javax.swing.JFrame {
 
     private void btnProductosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProductosMouseExited
         // TODO add your handling code here:
-        botonSinMouse(btnProductos);
+       
 this.btnProductos.setBorder(new LineBorder(new java.awt.Color(9,66,66),0));
          //this.btnProductos.setBackground(new java.awt.Color(225, 255, 255));
         //this.btnProductos.setForeground(new java.awt.Color(9, 66, 66));
@@ -437,63 +448,84 @@ this.btnProductos.setBorder(new LineBorder(new java.awt.Color(9,66,66),0));
 
     private void btnHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseEntered
         // TODO add your handling code here:
-        botonConMouse(btnHome);
+//        botonConMouse(btnHome);
     }//GEN-LAST:event_btnHomeMouseEntered
 
     private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
         // TODO add your handling code here:
-        botonConMouse(jButton2);
+       // botonConMouse(jButton2);
     }//GEN-LAST:event_jButton2MouseEntered
 
     private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
         // TODO add your handling code here:
-        botonSinMouse(jButton2);
+       
     }//GEN-LAST:event_jButton2MouseExited
 
     private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
         // TODO add your handling code here:
-        botonConMouse(jButton1);
+      //  botonConMouse(jButton1);
     }//GEN-LAST:event_jButton1MouseEntered
 
     private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
         // TODO add your handling code here:
-        botonSinMouse(jButton1);
+       
     }//GEN-LAST:event_jButton1MouseExited
 
     private void btnHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseExited
         // TODO add your handling code here:
-        botonSinMouse(btnHome);
+   
     }//GEN-LAST:event_btnHomeMouseExited
 
     private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
         // TODO add your handling code here:
-        botonConMouse(jButton3);
+      //  botonConMouse(jButton3);
     }//GEN-LAST:event_jButton3MouseEntered
 
     private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
         // TODO add your handling code here:
-        botonSinMouse(jButton3);
+      
     }//GEN-LAST:event_jButton3MouseExited
 
     private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
         // TODO add your handling code here:
-        botonConMouse(jButton4);
+           
+        botonColor(jButton4,"blanco","verdeOscuro");
     }//GEN-LAST:event_jButton4MouseEntered
 
     private void jButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseExited
         // TODO add your handling code here:
-        botonSinMouse(jButton4);
+         botonColor(jButton4,"verdeOscuro","blanco");
+     
     }//GEN-LAST:event_jButton4MouseExited
 
     private void btnCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseEntered
         // TODO add your handling code here:
-        botonConMouse(btnCerrarSesion);
+    
     }//GEN-LAST:event_btnCerrarSesionMouseEntered
 
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
         // TODO add your handling code here:
-        botonSinMouse(btnCerrarSesion);
+       
     }//GEN-LAST:event_btnCerrarSesionMouseExited
+
+    private void jButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5MouseEntered
+
+    private void jButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5MouseExited
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        FrmGastos gastos = new FrmGastos();
+        int ancho=frmInicio.escritorio.getWidth();
+        int altura=frmInicio.escritorio.getHeight();
+        gastos.setSize(ancho, altura);
+        frmInicio.escritorio.add(gastos);
+        gastos.show();
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -539,6 +571,7 @@ this.btnProductos.setBorder(new LineBorder(new java.awt.Color(9,66,66),0));
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel6;

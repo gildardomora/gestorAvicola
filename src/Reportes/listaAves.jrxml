@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listaAves" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be9294a6-1324-4fbd-ab59-32ffbb3368ec">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     tipo_ave."idave" AS tipo_ave_idave,
+     tipo_ave."nombre" AS tipo_ave_nombre
+FROM
+     "public"."tipo_ave" tipo_ave]]>
+	</queryString>
+	<field name="tipo_ave_idave" class="java.lang.Integer"/>
+	<field name="tipo_ave_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="227" y="8" width="124" height="20" uuid="b8b19899-126f-451e-86bd-865d9f64dd62"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[AVES REGISTRADAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="31" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="12" y="12" width="100" height="20" uuid="03ccfb17-33d3-4ac3-ab23-b44b8c8af60d"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="12" width="100" height="20" uuid="e5ad764b-1781-4fb3-b83f-d3b5effbaedf"/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="12" width="100" height="20" uuid="9a4143a8-db49-4f16-82db-f9cc554ad2f3"/>
+				<textFieldExpression><![CDATA[$F{tipo_ave_idave}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="127" y="12" width="100" height="20" uuid="8097839d-e687-4657-a65f-3cd015599137"/>
+				<textFieldExpression><![CDATA[$F{tipo_ave_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="40" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="209" y="11" width="80" height="20" uuid="04d3e4cb-57d2-4aad-9c45-ba313facae7a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="300" y="10" width="40" height="20" uuid="073d1cc4-c8e9-426f-a059-61b64e02aeb9"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

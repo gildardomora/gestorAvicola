@@ -5,13 +5,13 @@
  */
 package Interfaz;
 
-import Funciones.fUsuario;
-import Interfaz.diseño.estiloBoton;
+import Consultas.fUsuario;
+import Estilos.estiloBoton;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelos.mUsuario;
+import Modelos.mUsuario;
 
 /**
  *
@@ -233,7 +233,7 @@ public class frmLogin extends javax.swing.JFrame {
         btnEntrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(9, 66, 66));
         btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/keyEnter32pxVerde.png"))); // NOI18N
-        btnEntrar.setText("INGRESAR");
+        btnEntrar.setText("INICIAR SESIÓN");
         btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEntrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -248,7 +248,7 @@ public class frmLogin extends javax.swing.JFrame {
                 btnEntrarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 205, -1));
+        jPanel2.add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 180, -1));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -265,6 +265,7 @@ public class frmLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jButton3.setForeground(new java.awt.Color(102, 0, 0));
         jButton3.setText("X");
         jButton3.setToolTipText("Click para Salir de Aplicación");
         jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
@@ -282,8 +283,9 @@ public class frmLogin extends javax.swing.JFrame {
         lblSesion.setText("#");
         jPanel2.add(lblSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 249, 380, 30));
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Gestion de Granjas Avícolas");
+        jLabel4.setText("GAVISOFT");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 1, 420, 280));
@@ -365,13 +367,13 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void btnEntrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseEntered
         // TODO add your handling code here:
-                estiloBoton.botonConMouse(btnEntrar);
+               // estiloBoton.botonConMouse(btnEntrar);
 
     }//GEN-LAST:event_btnEntrarMouseEntered
 
     private void btnEntrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseExited
         // TODO add your handling code here:
-        estiloBoton.botonSinMouse(btnEntrar);
+        estiloBoton.botonColor(btnEntrar,"","");
     }//GEN-LAST:event_btnEntrarMouseExited
 
     /**

@@ -6,8 +6,8 @@
 package Interfaz;
 
 import Conexion.Conexion;
-import Funciones.fUsuario;
-import Interfaz.diseño.estiloTabla;
+import Consultas.fUsuario;
+import Estilos.estiloTabla;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelos.mUsuario;
+import Modelos.mUsuario;
 
 /**
  *

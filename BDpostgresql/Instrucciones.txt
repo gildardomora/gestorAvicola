@@ -1,0 +1,15 @@
+Para usar el proyecto hay que instalar postgresql
+
+Despues de instalado postgres
+
+crean una nueva base de datos llamada granja_avicola
+
+luego de creada se situan en ella le dan clic derecho
+ y clic donde dice CREATE Script
+se abre una ventana, van a la opcion abrir 
+y luego abren el script BDGranjaAvicola-Postgresql
+
+y ejecutan el codigo para que haga las tablas con los campos
+
+ahora ya se puede abrir el proyecto en Netbeans y ejecutarlo..
+

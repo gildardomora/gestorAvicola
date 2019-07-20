@@ -6,8 +6,8 @@
 package Interfaz;
 
 import Conexion.Conexion;
-import Funciones.fTipo_ave;
-import Interfaz.diseño.estiloTabla;
+import Consultas.fTipo_ave;
+import Estilos.estiloTabla;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +16,8 @@ import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelos.mTipo_ave;
+import Modelos.mTipo_ave;
+import javax.swing.JFrame;
 
 /**
  *
@@ -28,19 +29,20 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
     private Connection cn = null; //variable de conexion de sql
     // private Connection cn = postsql.conectar();
     private String sSQL = "";//para almacenar cadena de conexion 
-
+ String [] medida= new String[7];
     /**
      * Creates new form frmTipo_ave
      */
     public frmTipo_ave() {
         initComponents();
-  ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);//para que no se vea el bordo del escritorio
-  
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);//para que no se vea el bordo del escritorio
+ cargarCombos();
         mostrar("");
-         jScrollPane1.getViewport().setBackground(new java.awt.Color(255, 255, 255));
-          estiloTabla diseño = new estiloTabla();
+        jScrollPane1.getViewport().setBackground(new java.awt.Color(255, 255, 255));
+        estiloTabla diseño = new estiloTabla();
         diseño.tabla(tablaAdminAves);
         dimensioncols();
+       
     }
 
     /**
@@ -57,18 +59,21 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         lblidAve = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btnNuevo = new javax.swing.JButton();
-        txtNombreAve = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        txtNombreAve = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        comboNombre = new javax.swing.JComboBox<>();
+        txtDescripcion = new javax.swing.JTextField();
+        btnNuevo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaAdminAves = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         txtBuscar = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaAdminAves = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -80,7 +85,7 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ADMINISTRAR AVES");
+        jLabel1.setText("GESTION DE AVES");
 
         lblidAve.setText("#");
 
@@ -102,21 +107,15 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblidAve))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(9, 66, 66));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 51)), "Registrar tipo de Ave", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel3.setPreferredSize(new java.awt.Dimension(363, 310));
 
-        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/addverde32px.png"))); // NOI18N
-        btnNuevo.setText("Nuevo");
-        btnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Nombre");
 
         txtNombreAve.setEnabled(false);
         txtNombreAve.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -128,32 +127,28 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Nombre");
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("DESCRIPCIÓN");
 
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/editverde32px.png"))); // NOI18N
-        btnEditar.setText("Editar");
-        btnEditar.setEnabled(false);
-        btnEditar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
+        comboNombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
+        comboNombre.setEnabled(false);
+        comboNombre.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboNombreItemStateChanged(evt);
             }
         });
 
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/deleterojo32px.png"))); // NOI18N
-        btnEliminar.setText("Eliminar");
-        btnEliminar.setEnabled(false);
-        btnEliminar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
+        txtDescripcion.setBackground(new java.awt.Color(255, 255, 255));
+        txtDescripcion.setForeground(new java.awt.Color(9, 66, 66));
+        txtDescripcion.setEnabled(false);
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
             }
         });
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/gallina.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -161,63 +156,67 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(21, 21, 21)
-                        .addComponent(txtNombreAve))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(txtNombreAve, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(comboNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(49, 49, 49)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreAve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap(200, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(comboNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 51)), "TIPOS DE AVES REGISTRADOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        jPanel4.setAutoscrolls(true);
-
-        tablaAdminAves.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "ID Ave", "Nombre"
-            }
-        ));
-        tablaAdminAves.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaAdminAvesMouseClicked(evt);
+        btnNuevo.setBackground(new java.awt.Color(255, 255, 255));
+        btnNuevo.setForeground(new java.awt.Color(9, 66, 66));
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/addverde32px.png"))); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
+        btnNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaAdminAves);
+
+        btnEditar.setBackground(new java.awt.Color(255, 255, 255));
+        btnEditar.setForeground(new java.awt.Color(9, 66, 66));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/editverde32px.png"))); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
+        btnEditar.setEnabled(false);
+        btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setBackground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setForeground(new java.awt.Color(9, 66, 66));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/deleterojo32px.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
+        btnEliminar.setEnabled(false);
+        btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         jPanel5.setBackground(new java.awt.Color(9, 66, 66));
 
@@ -229,45 +228,56 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/searchblanco32px.png"))); // NOI18N
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("BUSCAR");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jLabel2)
+                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel5)))
+                .addGap(14, 14, 14))
         );
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        tablaAdminAves.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID Ave", "Nombre", "Descripcion"
+            }
+        ));
+        tablaAdminAves.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaAdminAvesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaAdminAves);
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(9, 66, 66));
+        jLabel6.setText("Lista de aves Registradas");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -275,20 +285,44 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1046, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1034, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -305,21 +339,31 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-      public void dimensioncols() {
+    public void dimensioncols() {
         tablaAdminAves.getColumnModel().getColumn(0).setPreferredWidth(10);//ancho para la primer columna
 
-       // tablaProducto.getColumnModel().getColumn(5).setPreferredWidth(15);//ancho para la primer columna
+        // tablaProducto.getColumnModel().getColumn(5).setPreferredWidth(15);//ancho para la primer columna
     }
-    
-    
+ private void cargarCombos() {// carga datos de la BD y los pone en los combobox
+
+        //   comboUniMedida.removeAllItems();
+        // comboUniMedida.addItem("Seleccionar");
+      
+        medida [0]="Gallina Ponedora";
+        medida [1]="Gallina Criolla";
+        medida [2]="Pollo Blanco";
+        medida [3]="Pollo Peruano";
+        medida [4]="Codorniz";
+        medida [5]="Pato";        
+        medida [6]="Otro";        
+        for (int i = 0; i < medida.length; i++) {
+          comboNombre.addItem(medida[i]);          
+        } 
+    }//cierre metodo
+ 
     void mostrar(String buscar) { //para mostrar registros de la tabla galpon
         // DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente
-        cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
-        if (cn == null) { // confirma si no hay conexion de la BD para no proceder con las consultas..
-            JOptionPane.showMessageDialog(rootPane, " No se pueden  cargar Registros \n"
-                    + " debido a un problema de Conexion a la BD. ");
-            return;
-        }
+
         try {
             DefaultTableModel modelo;
             fTipo_ave func = new fTipo_ave();
@@ -329,33 +373,22 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
 
-        //postsql.cierraConexion();
     }    // cierre de metodo mostrar
 
     private void habilitarcampos() {
         lblidAve.setEnabled(true);
         txtNombreAve.setEnabled(true);
+          txtDescripcion.setEnabled(true);
+          comboNombre.setEnabled(true);
+          
+      
     }
 
     private void deshabilitarcampos() {
         lblidAve.setEnabled(false);
         txtNombreAve.setEnabled(false);
-    }
-
-    private void validar() {
-        sSQL = "select count (*) from galpon where idave='1'";
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sSQL);
-
-            while (rs.next()) {
-                JOptionPane.showMessageDialog(rootPane, "obtuve : " + rs.getString(""));
-                // lista.add(rs.getString("nombre"));
-
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+        txtDescripcion.setEnabled(false);
+        comboNombre.setEnabled(false);
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -367,7 +400,7 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
             btnNuevo.setLabel("Guardar");
             btnNuevo.setIcon(new ImageIcon("src/Archivos/saveverde32px.png"));
             btnEditar.setLabel("Cancelar");
-                  btnEditar.setIcon(new ImageIcon("src/Archivos/cancelverde32px.png"));
+            btnEditar.setIcon(new ImageIcon("src/Archivos/cancelverde32px.png"));
             btnEditar.setEnabled(true);
 
             btnEliminar.setEnabled(false);
@@ -375,10 +408,9 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
             return;
         }
         mTipo_ave datos = new mTipo_ave();
-        fTipo_ave func = new fTipo_ave();        
-        
+        fTipo_ave func = new fTipo_ave();
 
-        if (btnNuevo.getText().equals("Guardar")) {          
+        if (btnNuevo.getText().equals("Guardar")) {
 
             if (txtNombreAve.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Ingrese un Nombre para el tipo de Ave");
@@ -393,7 +425,7 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
                 mostrar("");
                 deshabilitarcampos();
             }
-            postsql.cierraConexion();
+
             btnNuevo.setText("Nuevo");
             btnEditar.setEnabled(false);
             btnEliminar.setEnabled(false);
@@ -403,7 +435,7 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
         }// cierre Guardar
 
         if (btnNuevo.getText().equals("Actualizar")) {
-            
+
             datos.setIdAve(Integer.parseInt(lblidAve.getText()));
             if (func.editar(datos)) {
                 JOptionPane.showMessageDialog(rootPane, "El Ave fue Editada satisfactoriamente");
@@ -443,6 +475,7 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
             btnEliminar.setEnabled(false);
             lblidAve.setEnabled(false);
             btnEditar.setEnabled(true);
+            txtNombreAve.requestFocus();
         }
 
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -454,6 +487,12 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
 
         lblidAve.setText(tablaAdminAves.getValueAt(filaSel, 0).toString());
         txtNombreAve.setText(tablaAdminAves.getValueAt(filaSel, 1).toString());
+       // comboNombre.setSelectedItem(tablaAdminAves.getValueAt(filaSel, 1).toString());
+//       if(tablaAdminAves.getValueAt(filaSel, 2).toString()==""){
+//           System.out.println("es nulo");
+//           //txtDescripcion.setText(tablaAdminAves.getValueAt(filaSel, 2).toString());
+//       }
+        
         btnEditar.setEnabled(true);
         btnEliminar.setEnabled(true);
         txtNombreAve.requestFocus();
@@ -461,9 +500,17 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if (!lblidAve.getText().equals("")) {//confirma  si esta seleccionado un registro
-            int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Desea eliminar el ave?", "confirmar", 2);
-            if (confirmacion == 0) {
+
+        DiagEliminar advertencia = new DiagEliminar(new JFrame(), true);
+        advertencia.lblTitulo.setText("ELIMINAR TIPO DE AVE");
+        advertencia.AtxtAdvertencia.setText("Si elimina el AVE, la información correspondiente a"
+                + "\n Ventas, Gastos, Producción y Estadísticas será  afectada.");
+        advertencia.lblmsgConfirmar.setText("¿ Confirma que desea ELIMINAR el AVE ?  ");
+        advertencia.setVisible(true);
+
+        if (DiagEliminar.respuesta.equals("eliminar")) {
+            if (!lblidAve.getText().equals("")) {//confirma  si esta seleccionado un registro
+
                 fTipo_ave func = new fTipo_ave();
                 mTipo_ave datos = new mTipo_ave();
                 datos.setIdAve(Integer.parseInt(lblidAve.getText()));
@@ -474,36 +521,34 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
                 //eliminar(Integer.parseInt(txtIdAve.getText()));
                 mostrar("");
                 deshabilitarcampos();
-                postsql.cierraConexion();
-            }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "No seleccionó ningun Registro");
-        }
 
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "No seleccionó ningun Registro");
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtNombreAveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreAveKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if(Character.isLetter(c) || c== evt.VK_DELETE || c==evt.VK_SPACE){
-            
-        }else {
-        
+        if (Character.isLetter(c) || c == evt.VK_DELETE || c == evt.VK_SPACE) {
+
+        } else {
+
             evt.consume();
             getToolkit().beep();
             //JOptionPane.showMessageDialog(null, "ingresa solo numeros");
         }
-         if (txtNombreAve.getText().length()== 25) {//para que el maximo de caracteres ingresados sea 25
+        if (txtNombreAve.getText().length() == 25) {//para que el maximo de caracteres ingresados sea 25
 
-         evt.consume(); 
-         getToolkit().beep();
-         }
-        
+            evt.consume();
+            getToolkit().beep();
+        }
+
     }//GEN-LAST:event_txtNombreAveKeyTyped
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
-          
 
         mostrar(txtBuscar.getText());
         dimensioncols();
@@ -511,8 +556,47 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
 
     private void txtNombreAveKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreAveKeyReleased
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txtNombreAveKeyReleased
+
+    private void txtDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescripcionKeyReleased
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+        // TODO add your handling code here:
+          char c = evt.getKeyChar();
+        if (Character.isLetter(c) || c == evt.VK_DELETE || c == evt.VK_SPACE) {
+
+        } else {
+
+            evt.consume();
+            getToolkit().beep();
+            //JOptionPane.showMessageDialog(null, "ingresa solo numeros");
+        }
+        if (txtDescripcion.getText().length() == 60) {//para que el maximo de caracteres ingresados sea 25
+
+            evt.consume();
+            getToolkit().beep();
+        }
+    }//GEN-LAST:event_txtDescripcionKeyTyped
+
+    private void comboNombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboNombreItemStateChanged
+        // TODO add your handling code here:
+          String seleccionado = (String) comboNombre.getSelectedItem();
+        if (seleccionado.equals("Otro")) {
+            txtNombreAve.setText("");
+            txtNombreAve.setEnabled(true);
+        } else {
+            if(seleccionado.equals("Seleccionar")){
+                   txtNombreAve.setText("");
+            txtNombreAve.setEnabled(true);
+            }
+            txtNombreAve.setEnabled(false);
+            txtNombreAve.setText(seleccionado);
+        }
+
+    }//GEN-LAST:event_comboNombreItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -553,19 +637,22 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JComboBox<String> comboNombre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblidAve;
     private javax.swing.JTable tablaAdminAves;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtNombreAve;
     // End of variables declaration//GEN-END:variables
 }

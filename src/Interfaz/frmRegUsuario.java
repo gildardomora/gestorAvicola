@@ -5,12 +5,12 @@
  */
 package Interfaz;
 
-import Funciones.fPersona;
-import Funciones.fUsuario;
+import Consultas.fPersona;
+import Consultas.fUsuario;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import modelos.mPersona;
-import modelos.mUsuario;
+import Modelos.mPersona;
+import Modelos.mUsuario;
 
 /**
  *
@@ -155,7 +155,7 @@ public class frmRegUsuario extends javax.swing.JFrame {
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 489, 660, 50));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)), "Datos de inicio de Sesion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(9, 66, 66))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)), "Datos de inicio de Sesion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(9, 66, 66))); // NOI18N
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Estandar" }));
@@ -234,7 +234,7 @@ public class frmRegUsuario extends javax.swing.JFrame {
         jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 220, 80));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)), "Informacion Personal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(9, 66, 66))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)), "Informacion Personal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(9, 66, 66))); // NOI18N
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setForeground(new java.awt.Color(9, 66, 66));
@@ -344,6 +344,7 @@ public class frmRegUsuario extends javax.swing.JFrame {
         jPanel5.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 207, -1, -1));
 
         comboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Masculino", "Femenino" }));
+        comboSexo.setEnabled(false);
         comboSexo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboSexoActionPerformed(evt);

@@ -6,15 +6,15 @@
 package Interfaz;
 
 import Conexion.Conexion;
-import Funciones.fCliente;
-import Funciones.fPersona;
-import Interfaz.diseño.estiloTabla;
+import Consultas.fCliente;
+import Consultas.fPersona;
+import Estilos.estiloTabla;
 import java.sql.Connection;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelos.mCliente;
-import modelos.mPersona;
+import Modelos.mCliente;
+import Modelos.mPersona;
 
 /**
  *
@@ -22,7 +22,7 @@ import modelos.mPersona;
  */
 public class frmClientes extends javax.swing.JInternalFrame {
 
-    public frmGalpon galpon = null;
+    public FrmGalponEnSal galpon = null;
 
     //conexion prueba
     private Conexion postsql = new Conexion();
