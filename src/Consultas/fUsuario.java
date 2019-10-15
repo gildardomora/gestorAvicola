@@ -105,7 +105,7 @@ public class fUsuario {
                 registro[0] = rs.getString("cod_usuario");
                 registro[1] = rs.getString("login");
                 registro[2] = rs.getString("password");
-                registro[3] = rs.getString("estado");
+                registro[3] = rs.getString("estado_usuario");
                 registro[4] = rs.getString("tipo_usuario");
 
                 totalRegistros = totalRegistros + 1;
@@ -139,7 +139,7 @@ public class fUsuario {
                 registro[0] = rs.getString("cod_usuario");
                 registro[1] = rs.getString("login");
                 registro[2] = rs.getString("password");
-                registro[3] = rs.getString("estado");
+                registro[3] = rs.getString("estado_usuario");
                 registro[4] = rs.getString("tipo_usuario");
                 modelo.addRow(registro);
             }
@@ -155,15 +155,15 @@ public class fUsuario {
 
     public boolean agregar(mUsuario dato) {
         cn = postsql.conectar();
-        sSQL = "insert into \"usuario\" (\"cedula_persona\",\"login\",\"password\",\"estado\",\"tipo_usuario\") values (?,?,?,?,?)";
+        sSQL = "insert into \"usuario\" (\"cedula_persona\",\"login\",\"password\",\"estado_usuario\",\"tipo_usuario\") values (?,?,?,?,?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
 
             pst.setString(1, dato.getCedula_persona());
-            pst.setString(2, dato.getUsuario());
-            pst.setString(3, dato.getPassword());
-            pst.setString(4, dato.getEstado());
+            pst.setString(2, dato.getLogin_usuario());
+            pst.setString(3, dato.getPassword_usuario());
+            pst.setString(4, dato.getEstado_usuario());
             pst.setString(5, dato.getTipo_Usuario());
 
             int n = pst.executeUpdate();
@@ -200,7 +200,7 @@ public class fUsuario {
                 registro[0] = rs.getString("cod_usuario");
                 registro[1] = rs.getString("login");
                 registro[2] = rs.getString("password");
-                registro[3] = rs.getString("estado");
+                registro[3] = rs.getString("estado_usuario");
                 registro[4] = rs.getString("tipo_usuario");
                 modelo.addRow(registro);
             }
@@ -220,18 +220,11 @@ cn = postsql.conectar();
             //PreparedStatement pst2 = cn.prepareStatement(sSQL2);
 
            // pst.setInt(1, datos.getCod_persona());
-            pst.setString(1, datos.getUsuario());
+            pst.setString(1, datos.getLogin_usuario());
 
             int N = pst.executeUpdate();
             //int N2 = pst2.executeUpdate();
-
-            if (N != 0 ) {
-
-                return true;
-
-            } else {
-                return false;
-            }
+    return N != 0;
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);

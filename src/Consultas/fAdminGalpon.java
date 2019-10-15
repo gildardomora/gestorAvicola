@@ -46,26 +46,26 @@ public class fAdminGalpon {
     public DefaultTableModel mostrar(String buscar) { //para mostrar registros de la tabla galpon
         DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente
         establecerConexion();
-        String[] titulos = {"Num Galpon", "Ave", "Fecha Apertura", "Saldo", "Descripcion", "Estado"};//vector para los titulos para las columnas del Jtable
+        String[] titulos = {"# GALPON", "AVE", "FECHA APERTURA", "SALDO", "DESCRIPCION", "ESTADO"};//vector para los titulos para las columnas del Jtable
         String[] registro = new String[6];//almacenar registros de cada uno de los titulos
         //totalregistros=0;
 
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
         // sSQL = "select * from galpon order by idgalpon ";
-        sSQL = "select \"idgalpon\",\"tipo_ave\".\"nombre\", \"f_inicio\", \"saldo\", \"descripcion\",\"estado\" from \"galpon\" inner join \"tipo_ave\" on \"galpon\".\"idave\"=\"tipo_ave\".\"idave\"  "
-                + "where \"f_inicio\" like '%" + buscar + "%' or \"nombre\" like '%" + buscar + "%' order by \"idgalpon\" ";
+        sSQL = "select \"id_galpon\",\"tipo_ave\".\"nombre_ave\", \"fecha_apertura\", \"saldo_galpon\", \"galpon\".\"descripcion_galpon\",\"estado_galpon\" from \"galpon\" inner join \"tipo_ave\" on \"galpon\".\"id_ave\"=\"tipo_ave\".\"id_ave\" "
+                + " where \"fecha_apertura\" like '%"+buscar+"%' or \"nombre_ave\" like '%"+buscar+"%' order by \"id_galpon\" ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
 
             while (rs.next()) {//navegacion de todos los registros
-                registro[0] = rs.getString("idgalpon");
-                registro[1] = rs.getString("nombre");
-                registro[2] = rs.getString("f_inicio");
-                registro[3] = rs.getString("saldo");
-                registro[4] = rs.getString("descripcion");
-                registro[5] = rs.getString("estado");
+                registro[0] = rs.getString("id_galpon");
+                registro[1] = rs.getString("nombre_ave");
+                registro[2] = rs.getString("fecha_apertura");
+                registro[3] = rs.getString("saldo_galpon");
+                registro[4] = rs.getString("descripcion_galpon");
+                registro[5] = rs.getString("estado_galpon");
 
                 //  totalregistros=totalregistros+1;
                 modelo.addRow(registro);
@@ -90,7 +90,7 @@ public class fAdminGalpon {
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-        sSQL = "select \"idgalpon\",\"tipo_ave\".\"nombre\", \"f_inicio\", \"saldo\", \"descripcion\",\"estado\" from \"galpon\" inner join \"tipo_ave\" on \"galpon\".\"idave\"=\"tipo_ave\".\"idave\"  where \"f_inicio\" like '%" + buscar + "%' order by \"idgalpon\" ";
+        sSQL = "select \"id_galpon\",\"tipo_ave\".\"nombre_ave\", \"fecha_apertura\", \"saldo_galpon\", \"galpon\".\"descripcion_galpon\",\"estado\" from \"galpon\" inner join \"tipo_ave\" on \"galpon\".\"id_ave\"=\"tipo_ave\".\"id_ave\"  where \"fecha_apertura\" like '%" + buscar + "%' order by \"id_galpon\" ";
 
         String registro[] = new String[6];
         try {
@@ -98,12 +98,12 @@ public class fAdminGalpon {
             ResultSet rs = st.executeQuery(sSQL);
 
             while (rs.next()) {
-                registro[0] = rs.getString("idgalpon");
-                registro[1] = rs.getString("nombre");
-                registro[2] = rs.getString("f_inicio");
-                registro[3] = rs.getString("saldo");
-                registro[4] = rs.getString("descripcion");
-                registro[5] = rs.getString("estado");
+                registro[0] = rs.getString("id_galpon");
+                registro[1] = rs.getString("nombre_ave");
+                registro[2] = rs.getString("fecha_apertura");
+                registro[3] = rs.getString("saldo_galpon");
+                registro[4] = rs.getString("descripcion_galpon");
+                registro[5] = rs.getString("estado_galpon");
 
                 modelo.addRow(registro);
                 desconectarse();
@@ -115,9 +115,9 @@ public class fAdminGalpon {
 
     public boolean insertar(mAdminGalpon dato, String ave) {// metodo INSERTAR
         establecerConexion();
-        String a = "(select \"idave\" from \"tipo_ave\" where \"nombre\" like '%" + ave + "%')";
+        String a = "(select \"id_ave\" from \"tipo_ave\" where \"nombre_ave\" like '%" + ave + "%')";
 
-        sSQL = "insert into \"galpon\" (\"idgalpon\",\"idave\",\"f_inicio\",\"saldo\",\"descripcion\",\"estado\")"
+        sSQL = "insert into \"galpon\" (\"id_galpon\",\"id_ave\",\"fecha_apertura\",\"saldo_galpon\",\"descripcion_galpon\",\"estado_galpon\")"
                 + //NumGalpon no se incluye por ser llave primaria
                 "values (?," + a + ",?,?,?,?)";
 
@@ -154,9 +154,9 @@ public class fAdminGalpon {
     public boolean editar(mAdminGalpon datos, String ave) {// metodo editar datos de galpon
         //
         establecerConexion();
-        String a = "(select \"idave\" from \"tipo_ave\" where \"nombre\" like '%" + ave + "%')";
-        sSQL = "update \"galpon\" set \"idave\"=" + a + ",\"f_inicio\"=?,\"saldo\"=?,\"descripcion\"=?,\"estado\"=?"
-                + " WHERE \"idgalpon\"=" + datos.getIdGalpon();
+        String a = "(select \"id_ave\" from \"tipo_ave\" where \"nombre_ave\" like '%" + ave + "%')";
+        sSQL = "update \"galpon\" set \"id_ave\"=" + a + ",\"fecha_apertura\"=?,\"saldo_galpon\"=?,\"descripcion_galpon\"=?,\"estado_galpon\"=?"
+                + " WHERE \"id_galpon\"=" + datos.getIdGalpon();
 
         try {
 
@@ -186,26 +186,26 @@ public class fAdminGalpon {
         String c = "";
         try {//comprueba si hay entradas para ese galpon
             if (contar("entrada") > 0) {
-                a = "delete from \"entrada\" where \"idgalpon\"=" + dato.getIdGalpon() + ";";
+                a = "delete from \"entrada\" where \"id_galpon\"=" + dato.getIdGalpon() + ";";
             }
         } catch (SQLException ex) {
             Logger.getLogger(frmAdminGalpon.class.getName()).log(Level.SEVERE, null, ex);
         }
         try { //comprueba si hay salidas para ese galpon
             if (contar("salida") > 0) {
-                b = "delete from \"salida\" where \"idgalpon\"=" + dato.getIdGalpon() + ";";
+                b = "delete from \"salida\" where \"id_galpon\"=" + dato.getIdGalpon() + ";";
             }
         } catch (SQLException ex) {
             Logger.getLogger(frmAdminGalpon.class.getName()).log(Level.SEVERE, null, ex);
         }
         try { //comprueba si hay produccion para ese galpon
             if (contar("produccion") > 0) {
-                c = "delete from \"produccion\" where \"idgalpon\"=" + dato.getIdGalpon() + ";";
+                c = "delete from \"produccion\" where \"id_galpon\"=" + dato.getIdGalpon() + ";";
             }
         } catch (SQLException ex) {
             Logger.getLogger(frmAdminGalpon.class.getName()).log(Level.SEVERE, null, ex);
         }
-        sSQL = a + b + c + "delete from \"galpon\" where \"idgalpon\"=?";
+        sSQL = a + b + c + "delete from \"galpon\" where \"id_galpon\"=?";
 
         try {
 
@@ -249,13 +249,13 @@ public class fAdminGalpon {
     public ArrayList<String> llenar_comboAve() {//metodo para cargar el contenido en el combobox
         ArrayList<String> lista = new ArrayList<String>();
         establecerConexion();
-        sSQL = "select nombre from tipo_ave";
+        sSQL = "select nombre_ave from tipo_ave";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
 
             while (rs.next()) {
-                lista.add(rs.getString("nombre"));
+                lista.add(rs.getString("nombre_ave"));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);

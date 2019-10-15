@@ -539,10 +539,10 @@ public class frmClientes extends javax.swing.JInternalFrame {
             datosP.setCedula_persona(txtCedula.getText());
             datosP.setNombre_persona(txtNombre.getText());
             datosP.setApellido_persona(txtApellido.getText());
-            datosP.setDireccion(txtDireccion.getText());
-            datosP.setCelular(txtCelular.getText());
-            datosP.setEmail(txtEmail.getText());
-            datosP.setSexo(comboSexo.getSelectedItem().toString());
+            datosP.setDireccion_persona(txtDireccion.getText());
+            datosP.setCelular_persona(txtCelular.getText());
+            datosP.setEmail_persona(txtEmail.getText());
+            datosP.setSexo_persona(comboSexo.getSelectedItem().toString());
 
             // datos.setUniMedida(txtUniMedida.getText());
             //datos.setDescripcion(AtxtDescripcion.getText());
@@ -568,14 +568,12 @@ public class frmClientes extends javax.swing.JInternalFrame {
             datos.setCedula_persona(txtCedula.getText());
             datos.setNombre_persona(txtNombre.getText());
             datos.setApellido_persona(txtApellido.getText());
-            datos.setDireccion(txtDireccion.getText());
-            datos.setCelular(txtCelular.getText());
-            datos.setEmail(txtEmail.getText());
-            datos.setSexo(comboSexo.getSelectedItem().toString());
-
+            datos.setDireccion_persona(txtDireccion.getText());
+            datos.setCelular_persona(txtCelular.getText());
+            datos.setEmail_persona(txtEmail.getText());
+            datos.setSexo_persona(comboSexo.getSelectedItem().toString());
             if (func.editar(datos, lblId.getText())) {
                 JOptionPane.showMessageDialog(rootPane, "Informacion de cliente Actualizada");
-
             }
 
             mostrar("");

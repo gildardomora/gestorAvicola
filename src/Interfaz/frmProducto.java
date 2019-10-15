@@ -26,7 +26,7 @@ public class frmProducto extends javax.swing.JInternalFrame {
     // private Connection cn = postsql.conectar();
     private String sSQL = "";//para almacenar cadena de conexion 
     public static String accion="";
- public static String [] datostabla={"","","","",""}; //vector para almacenar la informacion de la tabla
+ public static String [] datostabla={"","","","","","",""}; //vector para almacenar la informacion de la tabla
     /**
      * Creates new form frmProducto
      */
@@ -97,13 +97,13 @@ public class frmProducto extends javax.swing.JInternalFrame {
 
         tablaProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID Producto", "Nombre", "Unidad de Medida", "Descripcion", "Precio Unidad de Medida"
+                "ID Producto", "Nombre", "Unidad de Medida", "Descripcion", "Precio Unidad de Medida", "Categoria"
             }
         ));
         tablaProducto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -294,19 +294,11 @@ public class frmProducto extends javax.swing.JInternalFrame {
     public static void dimensioncols() {
         tablaProducto.getColumnModel().getColumn(0).setPreferredWidth(10);//ancho para la primer columna
 
-       // tablaProducto.getColumnModel().getColumn(5).setPreferredWidth(15);//ancho para la primer columna
     }
     
     public  void mostrar(String buscar) { //para mostrar registros de la tabla galpon
         //DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente
-        cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
-
-        if (cn == null) { // confirma si no hay conexion de la BD para no proceder con las consultas..
-            JOptionPane.showMessageDialog(rootPane, " No se pueden  cargar Registros \n"
-                    + " debido a un problema de Conexion a la BD. ");
-            return;
-        }
-
+        
         try {
             DefaultTableModel modelo;
             fProducto func = new fProducto();
@@ -316,118 +308,17 @@ public class frmProducto extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         dimensioncols();
-        postsql.cierraConexion();
+       
     }    // cierre de metodo
 
-    private void habilitarcampos() {
-        lblidProducto.setEnabled(true);
-        /*txtNombre.setEnabled(true);
-        txtUniMedida.setEnabled(true);
-        AtxtDescripcion.setEnabled(true);
-        txtPrecioUM.setEnabled(true);*/
-    }
-
-    private void deshabilitarcampos() {
-        lblidProducto.setEnabled(false);
-       /* txtNombre.setEnabled(false);
-        txtUniMedida.setEnabled(false);
-        AtxtDescripcion.setEnabled(false);
-        txtPrecioUM.setEnabled(false);*/
-    }
-
-    private void limpiarCampos() {
-        lblidProducto.setText("");
-       /* txtNombre.setText("");
-        AtxtDescripcion.setText("");
-        txtUniMedida.setText("");
-        txtPrecioUM.setText("");*/
-
-    }
+  
 
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // 
         accion="nuevo";
          new Interfaz.DiagProducto(new JFrame(), true).setVisible(true);
-       /* 
-        if (btnNuevo.getText().equals("Nuevo")) {
-            habilitarcampos();
-            limpiarCampos();
-            btnNuevo.setLabel("Guardar");
-            btnNuevo.setIcon(new ImageIcon("src/Archivos/saveverde32px.png"));
-            btnEditar.setLabel("Cancelar");
-            btnEditar.setIcon(new ImageIcon("src/Archivos/cancelverde32px.png"));
-            btnEditar.setEnabled(true);
-            btnEliminar.setEnabled(false);
-            txtNombre.requestFocus();
-            return;
-        }
-
-        mProducto datos = new mProducto();
-        fProducto func = new fProducto();
-
-        if (btnNuevo.getText().equals("Guardar")) {
-            // datos.setIdProducto(Integer.parseInt(lblidProducto.getText()));
-
-            if (txtNombre.getText().equals("")) {//validar que se seleccione Ave
-                JOptionPane.showMessageDialog(rootPane, "Debes asignar un nombre al producto");
-                txtNombre.requestFocus();
-                return;// para que salte y no siga el codigo
-            }
-            if (txtUniMedida.getText().equals("")) {//validar que se seleccione Ave
-                JOptionPane.showMessageDialog(rootPane, "Debes asignar una Unidad de Medida");
-                txtUniMedida.requestFocus();
-                return;// para que salte y no siga el codigo
-            }
-            if (txtPrecioUM.getText().equals("")) {//validar que se seleccione Ave
-                JOptionPane.showMessageDialog(rootPane, "Debes asignar una Precio a la Unidad de Medida");
-                txtPrecioUM.requestFocus();
-                return;// para que salte y no siga el codigo
-            }
-            datos.setNombre(txtNombre.getText());
-            datos.setUniMedida(txtUniMedida.getText());
-            datos.setDescripcion(AtxtDescripcion.getText());
-            datos.setPrecioUniMed(Integer.parseInt(txtPrecioUM.getText()));
-            validarDatoTipoNumero(txtPrecioUM.getText());
-            if (func.insertar(datos)) {
-                JOptionPane.showMessageDialog(rootPane, "Producto registrado Correctamente");
-                mostrar("");
-                deshabilitarcampos();
-            }
-
-            //insertar();
-            limpiarCampos();
-            deshabilitarcampos();
-            btnNuevo.setLabel("Nuevo");
-            btnNuevo.setIcon(new ImageIcon("src/Archivos/addverde32px.png"));
-            btnEditar.setLabel("Editar");
-            btnEditar.setIcon(new ImageIcon("src/Archivos/editverde32px.png"));
-            btnEliminar.setEnabled(false);
-            return;
-        }
-        if (btnNuevo.getText().equals("Actualizar")) {
-            // datos.setIdProducto(Integer.parseInt(lblidProducto.getText()));
-            datos.setNombre(txtNombre.getText());
-            datos.setUniMedida(txtUniMedida.getText());
-            datos.setDescripcion(AtxtDescripcion.getText());
-            datos.setPrecioUniMed(Integer.parseInt(txtPrecioUM.getText()));
-            datos.setIdProducto(Integer.parseInt(lblidProducto.getText()));
-            if (func.editar(datos)) {
-                JOptionPane.showMessageDialog(rootPane, "El Producto fue Editado satisfactoriamente");
-
-            }
-            mostrar("");
-            postsql.cierraConexion();
-            //editar(txtIdProducto.getText());
-            limpiarCampos();
-            deshabilitarcampos();
-            btnNuevo.setLabel("Nuevo");
-            btnNuevo.setIcon(new ImageIcon("src/Archivos/addverde32px.png"));
-            btnEditar.setLabel("Editar");
-            btnEditar.setIcon(new ImageIcon("src/Archivos/editverde32px.png"));
-            btnEliminar.setEnabled(false);
-
-         } */ 
+     
 
 
     }//GEN-LAST:event_btnNuevoActionPerformed
@@ -469,17 +360,14 @@ if ( DiagEliminar.respuesta.equals("eliminar")){
             
                if (func.eliminar(datos)) {
                     JOptionPane.showMessageDialog(rootPane, "Producto Eliminado Correctamente");
-
                }
                //eliminar(Integer.parseInt(txtIdProducto.getText()));
-               mostrar("");
-               deshabilitarcampos();
+               mostrar("");            
                postsql.cierraConexion();
           
        } else {
            JOptionPane.showMessageDialog(rootPane, "No seleccionó ningun Registro");
        }
-
 }
 //       
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -488,21 +376,19 @@ if ( DiagEliminar.respuesta.equals("eliminar")){
         // TODO add your handling code here:
         btnEditar.setEnabled(true);
         btnEliminar.setEnabled(true);
-        int filaSel = tablaProducto.rowAtPoint(evt.getPoint());
-       
+        int filaSel = tablaProducto.rowAtPoint(evt.getPoint());       
         
         datostabla[0]=tablaProducto.getValueAt(filaSel, 0).toString();//idproducto
         datostabla[1]=tablaProducto.getValueAt(filaSel, 1).toString();//nombre
         datostabla[2]=tablaProducto.getValueAt(filaSel, 2).toString();//unidad de medida
         datostabla[3]=tablaProducto.getValueAt(filaSel, 3).toString();//descripcion
         datostabla[4]=tablaProducto.getValueAt(filaSel, 4).toString();//precio unidad de medida
+        datostabla[5]=tablaProducto.getValueAt(filaSel, 5).toString();//precio unidad de medida
+        datostabla[6]=tablaProducto.getValueAt(filaSel, 6).toString();//precio unidad de medida
         
         
        lblidProducto.setText(datostabla[0]);
-/*        txtNombre.setText(tablaProducto.getValueAt(filaSel, 1).toString());
-        txtUniMedida.setText(tablaProducto.getValueAt(filaSel, 2).toString());
-        AtxtDescripcion.setText(tablaProducto.getValueAt(filaSel, 3).toString());
-        txtPrecioUM.setText(tablaProducto.getValueAt(filaSel, 4).toString());*/
+
     }//GEN-LAST:event_tablaProductoMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

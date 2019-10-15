@@ -297,14 +297,14 @@ public class DiagGalponEnSal extends javax.swing.JDialog {
             datosEnt.setFecha(fecha.toString());
             datosEnt.setCantidad(Integer.parseInt(txtSaldo.getText()));
             datosEnt.setDescripcion(AtxtObservaciones.getText());
-            datosEnt.sethSaldo(Integer.parseInt(lblSaldoActual.getText()));
+            datosEnt.setSaldo_aves(Integer.parseInt(lblSaldoActual.getText()));
         }
         if (FrmGalponEnSal.accion.equals("nueva salida") || FrmGalponEnSal.accion.equals("editar salida")) {
             datosSal.setIdGalpon(Integer.parseInt(lblNumGalpon.getText()));
             datosSal.setFecha(fecha.toString());
             datosSal.setCantidad(Integer.parseInt(txtSaldo.getText()));
             datosSal.setDescripcion(AtxtObservaciones.getText());
-            datosSal.sethSaldo(Integer.parseInt(lblSaldoActual.getText()));
+            datosSal.setSaldo_aves(Integer.parseInt(lblSaldoActual.getText()));
         }
         switch (FrmGalponEnSal.accion) {
             case "nueva entrada":

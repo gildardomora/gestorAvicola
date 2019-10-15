@@ -9,10 +9,6 @@ import Conexion.Conexion;
 import Consultas.fTipo_ave;
 import Estilos.estiloTabla;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -347,14 +343,13 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
  private void cargarCombos() {// carga datos de la BD y los pone en los combobox
 
         //   comboUniMedida.removeAllItems();
-        // comboUniMedida.addItem("Seleccionar");
-      
-        medida [0]="Gallina Ponedora";
-        medida [1]="Gallina Criolla";
-        medida [2]="Pollo Blanco";
-        medida [3]="Pollo Peruano";
-        medida [4]="Codorniz";
-        medida [5]="Pato";        
+        // comboUniMedida.addItem("Seleccionar");      
+        medida [0]="GALLINA PONEDORA";
+        medida [1]="GALLINA CRIOLLA";
+        medida [2]="POLLO BLANCO";
+        medida [3]="POLLO PERUANO";
+        medida [4]="CODORNIZ";
+        medida [5]="PATO";        
         medida [6]="Otro";        
         for (int i = 0; i < medida.length; i++) {
           comboNombre.addItem(medida[i]);          
@@ -379,8 +374,7 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
         lblidAve.setEnabled(true);
         txtNombreAve.setEnabled(true);
           txtDescripcion.setEnabled(true);
-          comboNombre.setEnabled(true);
-          
+          comboNombre.setEnabled(true);         
       
     }
 
@@ -402,7 +396,6 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
             btnEditar.setLabel("Cancelar");
             btnEditar.setIcon(new ImageIcon("src/Archivos/cancelverde32px.png"));
             btnEditar.setEnabled(true);
-
             btnEliminar.setEnabled(false);
             txtNombreAve.requestFocus();
             return;
@@ -530,7 +523,10 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
 
     private void txtNombreAveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreAveKeyTyped
         // TODO add your handling code here:
+        
+        
         char c = evt.getKeyChar();
+        
         if (Character.isLetter(c) || c == evt.VK_DELETE || c == evt.VK_SPACE) {
 
         } else {
@@ -539,6 +535,12 @@ public class frmTipo_ave extends javax.swing.JInternalFrame {
             getToolkit().beep();
             //JOptionPane.showMessageDialog(null, "ingresa solo numeros");
         }
+        if (Character.isLowerCase(c)) {
+            String mayus=(""+c).toUpperCase();
+            c=mayus.charAt(0);
+            evt.setKeyChar(c);
+        }
+        
         if (txtNombreAve.getText().length() == 25) {//para que el maximo de caracteres ingresados sea 25
 
             evt.consume();

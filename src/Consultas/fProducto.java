@@ -7,6 +7,7 @@ package Consultas;
 
 import Conexion.Conexion;
 import Interfaz.frmAdminGalpon;
+import Interfaz.frmInicio;
 import Interfaz.frmStock;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +35,7 @@ public class fProducto {
         cn = postsql.conectar(); // asigna la cadena de conexion a la variable de conexion SQL
         if (cn == null) { // confirma si no hay conexion de la BD para no proceder con las consultas..
             JOptionPane.showMessageDialog(null, " No se pueden  cargar Registros \n"
-                    + " debido a un problema de Conexion a la BD. ");          
+                    + " debido a un problema de Conexion a la BD. ");
         }
     }
 
@@ -45,24 +46,26 @@ public class fProducto {
     public DefaultTableModel mostrar(String buscar) { //para mostrar registros de la tabla galpon
         DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente
         establecerConexion();
-        String[] titulos = {"ID Producto", "Nombre", "Uni. Medida", "Descripcion", "Precio Uni. Medida"};//vector para los titulos para las columnas del Jtable
+        String[] titulos = {"ID", "NOMBRE", "UNI. MEDIDA", "DESCRIPCION", "PRECIO UNI. MEDIDA", "ID STOCK", "CATEGORIA"};//vector para los titulos para las columnas del Jtable
 
-        String[] registro = new String[5];//almacenar registros de cada uno de los titulos
+        String[] registro = new String[7];//almacenar registros de cada uno de los titulos
         //totalregistros=0;
         //modelo=new DefaultTableModel(titulos, ABORT);
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
-        sSQL = "select * from \"producto\" where \"nombre\" like '%" + buscar + "%' order by \"idproducto\" ";
+        sSQL = "select * from \"producto\" where \"nombre_producto\" like '%" + buscar + "%' order by \"id_producto\" ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
 
             while (rs.next()) {//navegacion de todos los registros
-                registro[0] = rs.getString("idproducto");
-                registro[1] = rs.getString("nombre");
-                registro[2] = rs.getString("unimedida");
-                registro[3] = rs.getString("descripcion");
-                registro[4] = rs.getString("preciounimed");
+                registro[0] = rs.getString("id_producto");
+                registro[1] = rs.getString("nombre_producto");
+                registro[2] = rs.getString("uni_medida_producto");
+                registro[3] = rs.getString("descripcion_producto");
+                registro[4] = rs.getString("precio_uni_producto");
+                registro[5] = rs.getString("id_stock_producto");
+                registro[6] = rs.getString("categoria_producto");
 
                 //  totalregistros=totalregistros+1;
                 modelo.addRow(registro);
@@ -82,25 +85,25 @@ public class fProducto {
         DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente
         establecerConexion();
 
-        String[] titulos = {"ID Producto", "Nombre", "Stock"};//vector para los titulos para las columnas del Jtable
+        String[] titulos = {"ID ", "NOMBRE", "STOCK"};//vector para los titulos para las columnas del Jtable
 
         String[] registro = new String[3];//almacenar registros de cada uno de los titulos
         //totalregistros=0;
         //modelo=new DefaultTableModel(titulos, ABORT);
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
-        sSQL = "select * from \"producto\" where \"nombre\" like '%" + buscar + "%' order by \"idproducto\" ";
+        sSQL = "select * from \"producto\" inner join \"stock_producto\" on \"stock_producto\".\"id_stock_producto\"=\"producto\".\"id_stock_producto\" where \"nombre_producto\" like '%" + buscar + "%' order by \"id_producto\" ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
 
             while (rs.next()) {//navegacion de todos los registros
-                registro[0] = rs.getString("idproducto");
-                registro[1] = rs.getString("nombre");
+                registro[0] = rs.getString("id_producto");
+                registro[1] = rs.getString("nombre_producto");
                 //  registro[2] = rs.getString("unimedida");
                 //   registro[3] = rs.getString("descripcion");
                 // registro[4] = rs.getString("preciounimed");
-                registro[2] = rs.getString("stock");
+                registro[2] = rs.getString("cantidad_stock");
 
                 //  totalregistros=totalregistros+1;
                 modelo.addRow(registro);
@@ -118,11 +121,10 @@ public class fProducto {
 
     public boolean insertar(mProducto dato) {// metodo INSERTAR
         establecerConexion();
-
-        sSQL = "insert into \"producto\" (\"nombre\",\"unimedida\",\"descripcion\",\"preciounimed\",\"stock\")"
-                + //NumGalpon no se incluye por ser llave primaria
-                "values (?,?,?,?,?)";
-
+        sSQL
+                = "insert into \"stock_producto\"  (\"cantidad_stock\") values ('0');"
+                + "insert into \"producto\" (\"nombre_producto\",\"uni_medida_producto\",\"descripcion_producto\",\"precio_uni_producto\",\"categoria_producto\")"
+                + "values (?,?,?,?,?);";
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             //pst.setInt(1, dato.getIdProducto());
@@ -131,10 +133,40 @@ public class fProducto {
             pst.setString(2, dato.getUniMedida());
             pst.setString(3, dato.getDescripcion());
             pst.setInt(4, dato.getPrecioUniMed());
-            pst.setInt(5, 0);//inicia el stock del producto en catidad = 0
+            pst.setString(5, dato.getCategoria());
+            //   pst.setInt(5, 0);//inicia el stock del producto en catidad = 0
 
             int n = pst.executeUpdate();
 
+            if (n != 0) {//si n diferente de cero entonces se ingreso registros
+                desconectarse();
+               insertarhistorial(dato);//para agregar al historial
+                return true;
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocurrio un error al Guardar los Datos");
+                //si ocurre un error entonces envia el mensaje de error
+                return false;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            return false;
+        }
+
+    }//cierre de metodo
+    
+    public boolean insertarhistorial(mProducto dato) {// metodo INSERTAR
+        establecerConexion();
+String a="(select \"id_producto\" from \"producto\" where nombre_producto like '%" + dato.getNombre() + "%')";
+JOptionPane.showMessageDialog(null, "valor de a: "+a);
+        sSQL= "insert into \"stock_historial\" (id_stock_producto, fecha_modificado, nombre_usuario, cantidad_previa) values ("+a+",'"+ dato.getFecha() + "','" + frmInicio.usuarioActual + "','" + 0 + "')";
+
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+           
+            int n = pst.executeUpdate();            
+            
             if (n != 0) {//si n diferente de cero entonces se ingreso registros
                 desconectarse();
                 return true;
@@ -156,10 +188,13 @@ public class fProducto {
         //
         establecerConexion();
         //JOptionPane.showMessageDialog(rootPane, "el galpon es  : "+galpon+" y el ave es :"+ave);
-        // String a = "(select idave from tipo_ave where nombre like '%" + ave + "%')";
-        sSQL = "update \"producto\" set \"stock\"=?"
-                + " WHERE \"nombre\"='" + dato.getNombre() + "'";
-
+        String a = "(select id_stock_producto from producto where nombre_producto like '%"+dato.getNombre()+"%')";
+        String b="(select cantidad_stock from stock_producto where id_stock_producto="+a+")";
+        sSQL = "insert into \"stock_historial\" (id_stock_producto,fecha_modificado, nombre_usuario,cantidad_previa)"
+                + " values ("+a+",'" + dato.getFecha() + "','" + frmInicio.usuarioActual + "'," + b + ");"
+                + "update \"stock_producto\" set \"cantidad_stock\"=?"
+                + " WHERE \"id_stock_producto\"=" + a+";";
+        JOptionPane.showMessageDialog(null, a);
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -182,8 +217,8 @@ public class fProducto {
         //
         establecerConexion();
 
-        sSQL = "update \"producto\" set \"nombre\"=?,\"unimedida\"=?,\"descripcion\"=?,\"preciounimed\"=?,\"stock\"=?"
-                + " WHERE \"idproducto\"=" + dato.getIdProducto();
+        sSQL = "update \"producto\" set \"nombre_producto\"=?,\"uni_medida_producto\"=?,\"descripcion_producto\"=?,\"precio_uni_producto\"=?"
+                + " WHERE \"id_producto\"=" + dato.getIdProducto();
 
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -191,7 +226,7 @@ public class fProducto {
             pst.setString(2, dato.getUniMedida());
             pst.setString(3, dato.getDescripcion());
             pst.setInt(4, dato.getPrecioUniMed());
-            pst.setInt(5, dato.getStock());
+            //pst.setInt(5, dato.getStock());
 
             int n = pst.executeUpdate();
             desconectarse();
@@ -209,25 +244,29 @@ public class fProducto {
         establecerConexion();
         String a = "";// para almacenar cadena de consulta
         String b = "";
-
+        String c = "(select id_stock_producto from producto where id_producto="+dato.getIdProducto()+")";
+         String d = "delete from stock_historial where id_stock_producto ="+c+";";
+        String e = "delete from stock_producto where id_stock_producto ='"+c+"';";
+       
         int confirmar = 0;
         int Prod = 0, Venta = 0;
         String msgProd = "", msgVenta = "";
         fContar contar = new fContar();
         //comprueba si hay producciones para ese producto
-        if (contar.Contar("idproducto", Integer.toString(dato.getIdProducto()), "produccion") > 0) {
+        if (contar.Contar("id_producto", Integer.toString(dato.getIdProducto()), "produccion") > 0) {
             Prod = 1;
             msgProd = "PRODUCCION";
-            a = "delete from \"produccion\" where \"idproducto\"=" + dato.getIdProducto() + ";";
+            a = "delete from \"produccion\" where \"id_producto\"=" + dato.getIdProducto() + ";";
         }
 
         //comprueba si hay ventas para ese producto
-        if (contar.Contar("idproducto", Integer.toString(dato.getIdProducto()), "detalle_venta") > 0) {
+        if (contar.Contar("id_producto", Integer.toString(dato.getIdProducto()), "detalle_venta") > 0) {
             Venta = 1;
             msgVenta = "VENTAS";
-            b = "delete from \"detalle_venta\" where \"idproducto\"=" + dato.getIdProducto() + ";";
+            b = "delete from \"detalle_venta\" where \"id_producto\"=" + dato.getIdProducto() + ";";
         }
-        sSQL = a + b + "delete from \"producto\" where \"idproducto\"=?";
+              
+        sSQL = a + b + d +"delete from \"producto\" where \"id_producto\"=? ;"+ e;
         if (Prod == 1 || Venta == 1) {
             confirmar = JOptionPane.showConfirmDialog(null, "El producto se encuentra en los "
                     + "\n registros  de " + msgProd + " , " + msgVenta
@@ -237,25 +276,26 @@ public class fProducto {
         }
 
         if (confirmar == 0) {
+            
             try {
-                PreparedStatement pst = cn.prepareStatement(sSQL);
+                 PreparedStatement pst = cn.prepareStatement(sSQL);
                 pst.setInt(1, dato.getIdProducto());
                 int n = pst.executeUpdate();
                 desconectarse();
                 return n != 0; //si n diferente de cero entonces se eliminó registros
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(null, ex);
                 desconectarse();
                 return false;
             }
+                      
         }
         return false;
     }//cierre de metodo
 
     public int contar_stock() {
         establecerConexion();
-        sSQL = "select sum(\"stock\") as cantidad from \"producto\"";
+        sSQL = "select sum(\"cantidad_stock\") as cantidad from \"stock_producto\"";
         //  + "select count(*) AS cantidad from \"" +tabla + "\" where  \""+campo+"\" ='"+ dato+"'";
 
         try {
@@ -283,7 +323,7 @@ public class fProducto {
             modelo.removeRow(0);
         }
 
-        sSQL = "SELECT * FROM \"producto\" ";
+        sSQL = "SELECT * FROM \"producto\" inner join \"stock_producto\" on \"stock_producto\".\"id_stock_producto\" = \"producto\".\"id_stock_producto\" ";
 
         String registro[] = new String[3];
         try {
@@ -291,9 +331,9 @@ public class fProducto {
             ResultSet rs = st.executeQuery(sSQL);
 
             while (rs.next()) {
-                registro[0] = rs.getString("idproducto");
-                registro[1] = rs.getString("nombre");
-                registro[2] = rs.getString("stock");
+                registro[0] = rs.getString("id_producto");
+                registro[1] = rs.getString("nombre_producto");
+                registro[2] = rs.getString("cantidad_stock");
                 modelo.addRow(registro);
             }
         } catch (SQLException ex) {
@@ -303,7 +343,7 @@ public class fProducto {
 
     public int cantidadProducto(mProducto dato) {
         establecerConexion();
-        sSQL = "select sum(\"stock\") as cantidad from \"producto\" where \"nombre\"='" + dato.getNombre() + "' ";
+        sSQL = "select sum(\"stock_producto\") as cantidad from \"producto\" where \"nombre_producto\"='" + dato.getNombre() + "' ";
         //  + "select count(*) AS cantidad from \"" +tabla + "\" where  \""+campo+"\" ='"+ dato+"'";
 
         try {

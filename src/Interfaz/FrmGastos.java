@@ -6,19 +6,35 @@
 package Interfaz;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import Consultas.fGasto;
+import Consultas.fGastoGalpon;
+import Estilos.estiloTabla;
 
 /**
  *
  * @author GIMORE
  */
 public class FrmGastos extends javax.swing.JInternalFrame {
-public String [] datostabla=new String[6];
-public static String accion="";
+
+    public String[] datostabla = new String[6];
+    public static String accion = "";
+
     /**
      * Creates new form FrmGastos
      */
     public FrmGastos() {
         initComponents();
+         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        mostrar("");
+        mostrarGastos("");
+         jScrollPane1.getViewport().setBackground(new java.awt.Color(255, 255, 255));
+         jScrollPane2.getViewport().setBackground(new java.awt.Color(255, 255, 255));
+        estiloTabla diseño = new estiloTabla();
+        diseño.tabla(tblGastos);
+        diseño.tabla(tblGastosGalpon);
+
     }
 
     /**
@@ -246,21 +262,46 @@ public static String accion="";
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mostrar(){
-        
-    }
+    public void mostrar(String buscar) { //para mostrar registros de la tabla galpon
+        //DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente
+
+        try {
+            DefaultTableModel modelo;
+            fGasto func = new fGasto();
+            modelo = func.mostrar(buscar);
+            tblGastos.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }    // cierre de metodo  
+    
+      public void mostrarGastos(String buscar) { //para mostrar registros de la tabla galpon
+        //DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente
+
+        try {
+            DefaultTableModel modelo;
+            fGastoGalpon func = new fGastoGalpon();
+            modelo = func.mostrar(buscar);
+            tblGastosGalpon.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }    // cierre de metodo  
+    
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        accion="editar";
-        DiagGasto gasto = new DiagGasto(new JFrame(),true);
+        accion = "editar";
+        DiagGasto gasto = new DiagGasto(new JFrame(), true);
         gasto.lblTitulo.setText("EDITAR TIPO DE GASTO");
         gasto.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        accion="nuevo";
-        DiagGasto gasto = new DiagGasto(new JFrame(),true);
+        accion = "nuevo";
+        DiagGasto gasto = new DiagGasto(new JFrame(), true);
         gasto.lblTitulo.setText("REGISTRAR NUEVO TIPO DE GASTO");
         gasto.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -273,28 +314,27 @@ public static String accion="";
         // TODO add your handling code here:
         btnEditar.setEnabled(true);
         btnEliminar.setEnabled(true);
-        int filasel =tblGastos.rowAtPoint(evt.getPoint());
-        datostabla[0]=tblGastos.getValueAt(filasel, 0).toString();
-        datostabla[1]=tblGastos.getValueAt(filasel, 1).toString();
-        datostabla[2]=tblGastos.getValueAt(filasel, 2).toString();
-        datostabla[3]=tblGastos.getValueAt(filasel, 3).toString();
-        datostabla[4]=tblGastos.getValueAt(filasel, 4).toString();
+        int filasel = tblGastos.rowAtPoint(evt.getPoint());
+        datostabla[0] = tblGastos.getValueAt(filasel, 0).toString();
+        datostabla[1] = tblGastos.getValueAt(filasel, 1).toString();
+        datostabla[2] = tblGastos.getValueAt(filasel, 2).toString();
+        datostabla[3] = tblGastos.getValueAt(filasel, 3).toString();
+        datostabla[4] = tblGastos.getValueAt(filasel, 4).toString();
 
-        
-        
+
     }//GEN-LAST:event_tblGastosMouseClicked
 
     private void tblGastosGalponMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGastosGalponMouseClicked
         // TODO add your handling code here:
-           btnEditar.setEnabled(true);
+        btnEditar.setEnabled(true);
         btnEliminar.setEnabled(true);
-        int filasel =tblGastosGalpon.rowAtPoint(evt.getPoint());
-        datostabla[0]=tblGastosGalpon.getValueAt(filasel, 0).toString();
-        datostabla[1]=tblGastosGalpon.getValueAt(filasel, 1).toString();
-        datostabla[2]=tblGastosGalpon.getValueAt(filasel, 2).toString();
-        datostabla[3]=tblGastosGalpon.getValueAt(filasel, 3).toString();
-        datostabla[4]=tblGastosGalpon.getValueAt(filasel, 4).toString();
-        datostabla[5]=tblGastosGalpon.getValueAt(filasel, 5).toString();
+        int filasel = tblGastosGalpon.rowAtPoint(evt.getPoint());
+        datostabla[0] = tblGastosGalpon.getValueAt(filasel, 0).toString();
+        datostabla[1] = tblGastosGalpon.getValueAt(filasel, 1).toString();
+        datostabla[2] = tblGastosGalpon.getValueAt(filasel, 2).toString();
+        datostabla[3] = tblGastosGalpon.getValueAt(filasel, 3).toString();
+        datostabla[4] = tblGastosGalpon.getValueAt(filasel, 4).toString();
+        datostabla[5] = tblGastosGalpon.getValueAt(filasel, 5).toString();
     }//GEN-LAST:event_tblGastosGalponMouseClicked
 
     /**

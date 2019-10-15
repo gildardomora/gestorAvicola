@@ -5,11 +5,11 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[SELECT
-     venta."idventa" AS venta_idventa,
-     venta."cantidad" AS venta_cantidad,
-     venta."descripcion" AS venta_descripcion,
-     venta."valorventa" AS venta_valorventa,
-     venta."fecha" AS venta_fecha
+     venta."id_venta" AS venta_idventa,
+     venta."cantidad_venta" AS venta_cantidad,
+     venta."descripcion_venta" AS venta_descripcion,
+     venta."valor_venta" AS venta_valorventa,
+     venta."fecha_venta" AS venta_fecha
 FROM
      "public"."venta" venta]]>
 	</queryString>

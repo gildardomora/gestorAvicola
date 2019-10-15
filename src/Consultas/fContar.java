@@ -36,7 +36,7 @@ public class fContar {
 
     public int Contar(String campo, String dato, String tabla) {
        establecerConexion();
-        sSQL = "select count(*) AS cantidad from \"" + tabla + "\" where  \"" + campo + "\" ='" + dato + "'";
+        sSQL = "select count(*) AS cantidad from "+tabla+" where "+campo+" ='" + dato + "'";
 
         try {
             int cantidad = 0;
@@ -58,7 +58,7 @@ public class fContar {
        public int existencia(String campo ,String tabla) {
        establecerConexion();
 
-        sSQL = "select Count(\""+campo+"\") AS cantidad from " + tabla;
+        sSQL = "select Count("+campo+") AS cantidad from "+tabla;
 
         try {
             int cantidad = 0;

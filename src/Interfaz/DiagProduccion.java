@@ -222,8 +222,8 @@ public class DiagProduccion extends javax.swing.JDialog {
 
     void cargarinformacion() {
         // lblNumGalpon.setText(frmProduccion.datostabla[1]);
-        llenarCombo(comboGalpon, "idgalpon", "galpon");
-        llenarCombo(comboProducto, "nombre", "producto");
+        llenarCombo(comboGalpon, "id_galpon", "galpon");
+        llenarCombo(comboProducto, "nombre_producto", "producto");
         Calendar actual = new GregorianCalendar();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = null;

@@ -10,6 +10,10 @@ import Consultas.fProducto;
 import Modelos.mProducto;
 import java.awt.Color;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +29,7 @@ public class DiagProducto extends javax.swing.JDialog {
     // private Connection cn = postsql.conectar();
     private String sSQL = "";//para almacenar cadena de conexion 
   String [] medida= new String [6];
+  String [] categoria= new String [2];
     /**
      * Creates new form frmDiagProducto
      */
@@ -61,6 +66,9 @@ public class DiagProducto extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         lblidProducto = new javax.swing.JLabel();
         comboUniMedida = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        comboCategoria = new javax.swing.JComboBox<>();
+        txtCategoria = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -99,6 +107,9 @@ public class DiagProducto extends javax.swing.JDialog {
             }
         });
         txtUniMed.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUniMedKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtUniMedKeyTyped(evt);
             }
@@ -181,6 +192,43 @@ public class DiagProducto extends javax.swing.JDialog {
             }
         });
 
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("CATEGORIA");
+
+        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
+        comboCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboCategoriaItemStateChanged(evt);
+            }
+        });
+        comboCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboCategoriaMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                comboCategoriaMousePressed(evt);
+            }
+        });
+        comboCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCategoriaActionPerformed(evt);
+            }
+        });
+
+        txtCategoria.setBackground(new java.awt.Color(255, 255, 255));
+        txtCategoria.setForeground(new java.awt.Color(9, 66, 66));
+        txtCategoria.setEnabled(false);
+        txtCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCategoriaActionPerformed(evt);
+            }
+        });
+        txtCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCategoriaKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -203,11 +251,14 @@ public class DiagProducto extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
-                                    .addComponent(comboUniMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(comboUniMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtPrecioUni, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(txtUniMed))))
+                                    .addComponent(txtUniMed)
+                                    .addComponent(txtCategoria))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(15, 15, 15))))
@@ -247,9 +298,16 @@ public class DiagProducto extends javax.swing.JDialog {
                             .addComponent(comboUniMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(txtPrecioUni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(jLabel11)
                         .addGap(4, 4, 4)))
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,7 +326,7 @@ public class DiagProducto extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -298,6 +356,12 @@ public class DiagProducto extends javax.swing.JDialog {
                 }
                 }           
                               
+                for (int i = 0; i < categoria.length; i++) {
+                     if(frmProducto.datostabla[6].equals(categoria[i])){                                                             
+                          comboCategoria.setSelectedItem(frmProducto.datostabla[6]);                  
+                }
+                }           
+                              
                 txtUniMed.setText(frmProducto.datostabla[2]); 
                 AtxtDescripcion.setText(frmProducto.datostabla[3]);
                 txtPrecioUni.setText(frmProducto.datostabla[4]);               
@@ -315,10 +379,23 @@ public class DiagProducto extends javax.swing.JDialog {
         medida [2]="Unidad";
         medida [3]="Docena";
         medida [4]="Cubeta";
-        medida [5]="Otro";        
+        medida [5]="Otro";   
+        
+        categoria [0]="CARNICOS";
+        categoria [1]="Otro";
+              
+        
+        
+        
         for (int i = 0; i < medida.length; i++) {
             comboUniMedida.addItem(medida[i]);          
         } 
+        
+        for (int i = 0; i < categoria.length; i++) {
+            comboCategoria.addItem(categoria[i]);          
+        } 
+        
+        
     }//cierre metodo
 
 
@@ -352,8 +429,8 @@ public class DiagProducto extends javax.swing.JDialog {
         // TODO add your handling code here:
         mProducto datos = new mProducto();
         fProducto func = new fProducto();
-
-        if (txtNombre.getText().equals("")) {//validar que se seleccione Ave
+        
+               if (txtNombre.getText().equals("")) {//validar que se seleccione Ave
             JOptionPane.showMessageDialog(rootPane, "Debes asignar un nombre al producto");
             txtNombre.requestFocus();
             return;// para que salte y no siga el codigo
@@ -368,11 +445,24 @@ public class DiagProducto extends javax.swing.JDialog {
             txtPrecioUni.requestFocus();
             return;// para que salte y no siga el codigo
         }
-
+        if (txtCategoria.getText().equals("")) {//validar que se seleccione Ave
+            JOptionPane.showMessageDialog(rootPane, "Debes asignar una Categoria");
+            txtCategoria.requestFocus();
+            return;// para que salte y no siga el codigo
+        }
+  
+   
+     java.util.Date fechaactual = new Date();//almacena la fecha actual en formato Date
+        long fecha = fechaactual.getTime();
+        java.sql.Date fechaSQL = new java.sql.Date(fecha);//establece el formato compatible con sql
+        
         datos.setNombre(txtNombre.getText());
         datos.setUniMedida(txtUniMed.getText());
+        datos.setCategoria(txtCategoria.getText());
         datos.setDescripcion(AtxtDescripcion.getText());
         datos.setPrecioUniMed(Integer.parseInt(txtPrecioUni.getText()));
+        datos.setFecha(fechaSQL.toString());
+        
         validarDatoTipoNumero(txtPrecioUni.getText());
         switch (frmProducto.accion) {
             case "nuevo":
@@ -494,6 +584,42 @@ public class DiagProducto extends javax.swing.JDialog {
 
     }//GEN-LAST:event_comboUniMedidaItemStateChanged
 
+    private void comboCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCategoriaItemStateChanged
+        // TODO add your handling code here:
+          String seleccionado = (String) comboCategoria.getSelectedItem();
+        if (seleccionado.equals("Otro")) {
+            txtCategoria.setText("");
+            txtCategoria.setEnabled(true);
+        } else {
+            txtCategoria.setEnabled(false);
+            txtCategoria.setText(seleccionado);
+        }
+    }//GEN-LAST:event_comboCategoriaItemStateChanged
+
+    private void comboCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboCategoriaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCategoriaMouseClicked
+
+    private void comboCategoriaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboCategoriaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCategoriaMousePressed
+
+    private void comboCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCategoriaActionPerformed
+
+    private void txtCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCategoriaActionPerformed
+
+    private void txtCategoriaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCategoriaKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCategoriaKeyTyped
+
+    private void txtUniMedKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUniMedKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUniMedKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -540,10 +666,12 @@ public class DiagProducto extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea AtxtDescripcion;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JComboBox<String> comboUniMedida;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -551,6 +679,7 @@ public class DiagProducto extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     public static javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblidProducto;
+    private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecioUni;
     private javax.swing.JTextField txtUniMed;

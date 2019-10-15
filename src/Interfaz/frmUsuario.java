@@ -295,7 +295,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
         }
         
 
-        datos.setUsuario(lblUsuario.getText());
+        datos.setLogin_usuario(lblUsuario.getText());
         int confirmar=JOptionPane.showConfirmDialog(rootPane, "Seguro que quiere eliminar \n el usuario "+lblUsuario.getText()+" ?","Confirmar",2);
         if(confirmar==0){
         if(func.eliminar(datos)){

@@ -12,6 +12,7 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Modelos.mProducto;
+import java.util.Date;
 import javax.swing.ImageIcon;
 
 /**
@@ -336,12 +337,20 @@ public class frmStock extends javax.swing.JInternalFrame {
             txtCantStock.setEnabled(false);
             lblNombre.setEnabled(false);
             
-
+            if (txtCantStock.getText()=="") {
+                JOptionPane.showMessageDialog(rootPane, "No se ingreso una Cantidad Valida");
+                return;
+            }
+             java.util.Date fechaactual = new Date();//almacena la fecha actual en formato Date
+        long fecha = fechaactual.getTime();
+        java.sql.Date fechaSQL = new java.sql.Date(fecha);//establece el formato compatible con sql
+        
             fProducto func =new fProducto();
             mProducto datos = new mProducto();            
             datos.setIdProducto(Integer.parseInt(lblidProducto.getText()));
             datos.setNombre(lblNombre.getText());
             datos.setStock(Integer.parseInt(txtCantStock.getText()));
+            datos.setFecha(fechaSQL.toString());
             func.editarStock(datos);
             func.listarStock("");
         }

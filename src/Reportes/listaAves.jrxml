@@ -5,13 +5,13 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[SELECT
-     tipo_ave."idave" AS tipo_ave_idave,
-     tipo_ave."nombre" AS tipo_ave_nombre
+     tipo_ave."id_ave" AS tipo_ave_id_ave,
+     tipo_ave."nombre_ave" AS tipo_ave_nombre_ave
 FROM
      "public"."tipo_ave" tipo_ave]]>
 	</queryString>
-	<field name="tipo_ave_idave" class="java.lang.Integer"/>
-	<field name="tipo_ave_nombre" class="java.lang.String"/>
+	<field name="tipo_ave_id_ave" class="java.lang.Integer"/>
+	<field name="tipo_ave_nombre_ave" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -30,26 +30,26 @@ FROM
 		<band height="31" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="40" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<staticText>
-				<reportElement x="12" y="12" width="100" height="20" uuid="03ccfb17-33d3-4ac3-ab23-b44b8c8af60d"/>
+				<reportElement x="31" y="0" width="100" height="20" uuid="763828d0-3191-4b78-99a9-b89b30141034"/>
 				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="127" y="12" width="100" height="20" uuid="e5ad764b-1781-4fb3-b83f-d3b5effbaedf"/>
-				<text><![CDATA[NOMBRE]]></text>
+				<reportElement x="240" y="0" width="100" height="20" uuid="f43d9891-f027-4b38-b790-bd767215548c"/>
+				<text><![CDATA[NOMBRE DEL AVE]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="46" splitType="Stretch">
+		<band height="37" splitType="Stretch">
 			<textField>
-				<reportElement x="12" y="12" width="100" height="20" uuid="9a4143a8-db49-4f16-82db-f9cc554ad2f3"/>
-				<textFieldExpression><![CDATA[$F{tipo_ave_idave}]]></textFieldExpression>
+				<reportElement x="31" y="14" width="100" height="20" uuid="9a2228f9-dacc-43bb-88f1-07979759fd1c"/>
+				<textFieldExpression><![CDATA[$F{tipo_ave_id_ave}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="127" y="12" width="100" height="20" uuid="8097839d-e687-4657-a65f-3cd015599137"/>
-				<textFieldExpression><![CDATA[$F{tipo_ave_nombre}]]></textFieldExpression>
+				<reportElement x="240" y="14" width="100" height="20" uuid="9fc64f66-7027-4d86-9642-b9f9b2940d95"/>
+				<textFieldExpression><![CDATA[$F{tipo_ave_nombre_ave}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

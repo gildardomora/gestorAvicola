@@ -5,15 +5,15 @@
 	<property name="ireport.y" value="16"/>
 	<queryString>
 		<![CDATA[SELECT
-     produccion."idproduccion" AS produccion_idproduccion,
-     produccion."idgalpon" AS produccion_idgalpon,
-     produccion."idproducto" AS produccion_idproducto,
-     produccion."cantidad" AS produccion_cantidad,
-     produccion."fecha" AS produccion_fecha,
-     producto."idproducto" AS producto_idproducto,
-     producto."nombre" AS producto_nombre
+     produccion."id_produccion" AS produccion_idproduccion,
+     produccion."id_galpon" AS produccion_idgalpon,
+     produccion."id_producto" AS produccion_idproducto,
+     produccion."cantidad_producto" AS produccion_cantidad,
+     produccion."fecha_produccion" AS produccion_fecha,
+     producto."id_producto" AS producto_idproducto,
+     producto."nombre_producto" AS producto_nombre
 FROM
-     "public"."producto" producto INNER JOIN "public"."produccion" produccion ON producto."idproducto" = produccion."idproducto"]]>
+     "public"."producto" producto INNER JOIN "public"."produccion" produccion ON producto."id_producto" = produccion."id_producto"]]>
 	</queryString>
 	<field name="produccion_idproduccion" class="java.lang.Integer"/>
 	<field name="produccion_idgalpon" class="java.lang.Integer"/>

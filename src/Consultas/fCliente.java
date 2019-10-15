@@ -38,7 +38,7 @@ public class fCliente {
         //modelo=new DefaultTableModel(titulos, ABORT);
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
-        sSQL = "select \"cod_cliente\", \"persona\".\"nombre_persona\",\"persona\".\"apellido_persona\",\"persona\".\"cedula_persona\",\"direccion\",\"celular\",\"email\",\"sexo\" from \"cliente\" "
+        sSQL = "select \"cod_cliente\", \"persona\".\"nombre_persona\",\"persona\".\"apellido_persona\",\"persona\".\"cedula_persona\",\"direccion_persona\",\"celular_persona\",\"email_persona\",\"sexo_persona\" from \"cliente\" "
                 + "inner join \"persona\" on \"cliente\".\"cedula_persona\" =\"persona\".\"cedula_persona\" where \"nombre_persona\"  like '%" + buscar + "%' order by \"cod_cliente\" ";
         try {
             Statement st = cn.createStatement();
@@ -51,10 +51,10 @@ public class fCliente {
                 registro[2] = rs.getString("apellido_persona");
                 registro[3] = rs.getString("cedula_persona");
 
-                registro[4] = rs.getString("direccion");
-                registro[5] = rs.getString("celular");
-                registro[6] = rs.getString("email");
-                registro[7] = rs.getString("sexo");
+                registro[4] = rs.getString("direccion_persona");
+                registro[5] = rs.getString("celular_persona");
+                registro[6] = rs.getString("email_persona");
+                registro[7] = rs.getString("sexo_persona");
 
                 //  totalregistros=totalregistros+1;
                 modelo.addRow(registro);
@@ -82,11 +82,7 @@ public class fCliente {
           
             int n = pst.executeUpdate();
 
-            if (n != 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return n != 0;
 
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
@@ -99,28 +95,23 @@ public class fCliente {
       public boolean editar (mPersona datos,String id){
         cn = postsql.conectar();
         
-            sSQL = "update \"persona\" set \"nombre_persona\"=?, \"apellido_persona\"=?, \"cedula_persona\"="+datos.getCedula_persona() +",\"direccion\"=?, \"celular\"=?,"
-                + " \"email\"=?, \"sexo\"=? WHERE \"cedula_persona\"=" + id;
+            sSQL = "update \"persona\" set \"nombre_persona\"=?, \"apellido_persona\"=?, \"cedula_persona\"="+datos.getCedula_persona() +",\"direccion_persona\"=?, \"celular_persona\"=?,"
+                + " \"email_persona\"=?, \"sexo_persona\"=? WHERE \"cedula_persona\"=" + id;
                
        try {
 
            PreparedStatement pst=cn.prepareStatement(sSQL);
            pst.setString(1, datos.getNombre_persona());
            pst.setString(2, datos.getApellido_persona());
-           pst.setString(3, datos.getDireccion());
-           pst.setString(4, datos.getCelular());
-           pst.setString(5, datos.getEmail());
-           pst.setString(6, datos.getSexo());
+           pst.setString(3, datos.getDireccion_persona());
+           pst.setString(4, datos.getCelular_persona());
+           pst.setString(5, datos.getEmail_persona());
+           pst.setString(6, datos.getSexo_persona());
          
            
            int n=pst.executeUpdate();
            
-           if (n!=0){
-               return true;
-           }
-           else {
-               return false;
-           }
+            return n!=0;
            
        } catch (Exception e) {
            JOptionPane.showConfirmDialog(null, e);
@@ -135,18 +126,11 @@ public class fCliente {
               sSQL = "delete from \"cliente\" where \"cedula_persona\"=?";
        try {
            
-           PreparedStatement pst=cn.prepareStatement(sSQL);
-           
+           PreparedStatement pst=cn.prepareStatement(sSQL);           
            pst.setString(1, datos.getCedula_persona());
            
-           int n=pst.executeUpdate();
-           
-           if (n!=0){
-               return true;
-           }
-           else {
-               return false;
-           }
+           int n=pst.executeUpdate();           
+                 return n!=0;
            
        } catch (Exception e) {
            JOptionPane.showConfirmDialog(null, e);

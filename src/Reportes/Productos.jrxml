@@ -5,12 +5,12 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[SELECT
-     producto."idproducto" AS producto_idproducto,
-     producto."nombre" AS producto_nombre,
-     producto."unimedida" AS producto_unimedida,
-     producto."descripcion" AS producto_descripcion,
-     producto."preciounimed" AS producto_preciounimed,
-     producto."stock" AS producto_stock
+     producto."id_producto" AS producto_idproducto,
+     producto."nombre_producto" AS producto_nombre,
+     producto."uni_medida_producto" AS producto_unimedida,
+     producto."descripcion_producto" AS producto_descripcion,
+     producto."precio_uni_producto" AS producto_preciounimed,
+     producto."id_stock_producto" AS producto_stock
 FROM
      "public"."producto" producto]]>
 	</queryString>

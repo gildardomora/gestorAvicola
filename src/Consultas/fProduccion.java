@@ -49,18 +49,18 @@ public class fProduccion {
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
         // sSQL = "select * from produccion order by idproduccion ";
-        sSQL = "select \"idproduccion\",\"produccion\".\"idgalpon\",\"nombre\",\"cantidad\",\"fecha\" from \"produccion\""
-                + " inner join \"galpon\" on \"produccion\".\"idgalpon\"=\"galpon\".\"idgalpon\" inner join \"producto\" on \"produccion\".\"idproducto\"=\"producto\".\"idproducto\"";
+        sSQL = "select \"id_produccion\",\"produccion\".\"id_galpon\",\"nombre_producto\",\"cantidad_producto\",\"fecha_produccion\" from \"produccion\""
+                + " inner join \"galpon\" on \"produccion\".\"id_galpon\"=\"galpon\".\"id_galpon\" inner join \"producto\" on \"produccion\".\"id_producto\"=\"producto\".\"id_producto\"";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
 
             while (rs.next()) {//navegacion de todos los registros
-                registro[0] = rs.getString("idproduccion");
-                registro[1] = rs.getString("idgalpon");
-                registro[2] = rs.getString("nombre");
-                registro[3] = rs.getString("cantidad");
-                registro[4] = rs.getString("fecha");
+                registro[0] = rs.getString("id_produccion");
+                registro[1] = rs.getString("id_galpon");
+                registro[2] = rs.getString("nombre_producto");
+                registro[3] = rs.getString("cantidad_producto");
+                registro[4] = rs.getString("fecha_produccion");
 
                 //  totalregistros=totalregistros+1;
                 modelo.addRow(registro);
@@ -79,9 +79,9 @@ public class fProduccion {
 
     public boolean insertar(mProduccion dato, String producto) {// metodo INSERTAR
         establecerConexion();
-        String a = "(select \"idproducto\" from \"producto\" where \"nombre\" like '%" + producto + "%')";
+        String a = "(select \"id_producto\" from \"producto\" where \"nombre_producto\" like '%" + producto + "%')";
 
-        sSQL = "insert into \"produccion\" (\"idgalpon\",\"idproducto\",\"cantidad\",\"fecha\")"
+        sSQL = "insert into \"produccion\" (\"id_galpon\",\"id_producto\",\"cantidad_producto\",\"fecha_produccion\")"
                 + "values (" + dato.getIdGalpon() + "," + a + ",?,?)";
 
         try {
@@ -116,9 +116,9 @@ public class fProduccion {
       establecerConexion();
         //JOptionPane.showMessageDialog(rootPane, "el galpon es  : "+galpon+" y el ave es :"+ave);
 
-        String a = "(select \"idproducto\" from \"producto\" where \"nombre\" like '%" + producto + "%')";
-        sSQL = "update \"produccion\" set \"idgalpon\"=?,\"idproducto\"=" + a + ",\"cantidad\"=?,\"fecha\"=?"
-                + " WHERE \"idproduccion\"=" + dato.getIdProduccion();
+        String a = "(select \"id_producto\" from \"producto\" where \"nombre_producto\" like '%" + producto + "%')";
+        sSQL = "update \"produccion\" set \"id_galpon\"=?,\"id_producto\"=" + a + ",\"cantidad_producto\"=?,\"fecha_produccion\"=?"
+                + " WHERE \"id_produccion\"=" + dato.getIdProduccion();
 
         try {
 

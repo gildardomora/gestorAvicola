@@ -17,6 +17,7 @@ public class DiagGasto extends javax.swing.JDialog {
     public DiagGasto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+         this.setLocationRelativeTo(null);
     }
 
     /**

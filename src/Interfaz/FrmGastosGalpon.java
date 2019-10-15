@@ -18,6 +18,7 @@ public class FrmGastosGalpon extends javax.swing.JInternalFrame {
      */
     public FrmGastosGalpon() {
         initComponents();
+         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         cargarinformacion();
     }
 

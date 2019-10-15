@@ -7,6 +7,7 @@ package Interfaz;
 
 import Conexion.Conexion;
 import Consultas.fAdminGalpon;
+import Consultas.fContar;
 import Estilos.estiloTabla;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -294,7 +295,9 @@ public class frmAdminGalpon extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public void dimensioncols() {
+
+    
+        public void dimensioncols() {
         tablaAdminGalpon.getColumnModel().getColumn(0).setPreferredWidth(25);//ancho para la primer columna
         tablaAdminGalpon.getColumnModel().getColumn(5).setPreferredWidth(15);//ancho para la primer columna
     }
@@ -315,6 +318,11 @@ public void dimensioncols() {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // BOTON NUEVO
+       fContar contar = new fContar(); 
+    if (contar.existencia("id_ave", "tipo_ave")==0){
+        JOptionPane.showMessageDialog(rootPane, "No hay aves registradas");
+     return;
+    }
         accion = "nuevo";
         DiagGalpon datosgalpon = new DiagGalpon(new JFrame(), true);
         datosgalpon.lblTitulo.setText("REGISTRAR NUEVO GALPON");

@@ -23,7 +23,7 @@ public class fPersona {
 
       public boolean insertar(mPersona dato) {
         cn = postsql.conectar();
-        sSQL = "insert into \"persona\" (\"cedula_persona\", \"nombre_persona\",\"apellido_persona\",\"direccion\",\"celular\",\"email\",\"sexo\")"
+        sSQL = "insert into \"persona\" (\"cedula_persona\", \"nombre_persona\",\"apellido_persona\",\"direccion_persona\",\"celular_persona\",\"email_persona\",\"sexo_persona\")"
                 + //NumGalpon no se incluye por ser llave primaria
                 "values (?,?,?,?,?,?,?);";
 
@@ -31,22 +31,17 @@ public class fPersona {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
 
-            pst.setString(1, dato.getCedula_persona());
+            pst.setString(1, dato.getCedula_persona());//metodos
             pst.setString(2, dato.getNombre_persona());
             pst.setString(3, dato.getApellido_persona());
-            pst.setString(4, dato.getDireccion());
-            pst.setString(5, dato.getCelular());
-            pst.setString(6, dato.getEmail());
-            pst.setString(7, dato.getSexo());
-           
+            pst.setString(4, dato.getDireccion_persona());
+            pst.setString(5, dato.getCelular_persona());
+            pst.setString(6, dato.getEmail_persona());
+            pst.setString(7, dato.getSexo_persona());           
 
             int n = pst.executeUpdate();
 
-            if (n != 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return n != 0;
 
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);

@@ -231,11 +231,11 @@ public static  String accion="";
     private void btnNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaActionPerformed
         fContar existencia =new fContar();       
         
-        if (existencia.existencia("idgalpon","galpon") == 0) {
+        if (existencia.existencia("id_galpon","galpon") == 0) {
                 JOptionPane.showMessageDialog(rootPane, "No existen galpones registrados para Produccion");
                 return;
             }
-        if (existencia.existencia("idproducto","producto") == 0) {
+        if (existencia.existencia("id_producto","producto") == 0) {
                 JOptionPane.showMessageDialog(rootPane, "No existen Productos registrados para Produccion");
                 return;
             }
@@ -244,7 +244,7 @@ public static  String accion="";
         produccion.lblTitulo.setText("REGISTRAR PRODUCCION");
         produccion.setVisible(true);
          btnEditar.setEnabled(false);
-        mostrar("");       
+        //mostrar("");       
     }//GEN-LAST:event_btnNuevaActionPerformed
 
     public void mostrar(String buscar) { //para mostrar registros de la tabla galpon

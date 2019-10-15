@@ -30,6 +30,7 @@ public class DiagGalpon extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+     
         cargarinformacion();
     }
 
@@ -241,6 +242,7 @@ public class DiagGalpon extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void cargarinformacion() {
         //SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");  //Ajusta el formato del DateChooser
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");

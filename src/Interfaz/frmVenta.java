@@ -47,14 +47,15 @@ public class frmVenta extends javax.swing.JInternalFrame {
     public frmVenta() {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setEastPane(null);
+      
         mostrar("");         
         jScrollPane1.getViewport().setBackground(new java.awt.Color(255, 255, 255));//fondo blanco detras de la tabla
+        jScrollPane3.getViewport().setBackground(new java.awt.Color(255, 255, 255));//fondo blanco detras de la tabla
         cargarCombos();
         estiloTabla diseño = new estiloTabla();
         diseño.tabla(tablaVentas);
-  
-       
+        diseño.tabla(tablaProducto);
+        
     }
 
     /**
@@ -165,6 +166,11 @@ public class frmVenta extends javax.swing.JInternalFrame {
 
         btnSelProducto.setText("+");
         btnSelProducto.setEnabled(false);
+        btnSelProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSelProductoMouseClicked(evt);
+            }
+        });
         btnSelProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelProductoActionPerformed(evt);
@@ -459,14 +465,11 @@ public class frmVenta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
   
-    
     public void mostrar(String buscar) { //para mostrar registros de la tabla galpon
-        DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente
-       
+        DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente       
         try {
             fVenta func = new fVenta();
             modelo = func.mostrar(buscar);
-
             tablaVentas.setModel(modelo);
             // return modelo;
         } catch (Exception e) {
@@ -481,14 +484,12 @@ public class frmVenta extends javax.swing.JInternalFrame {
         comboProducto.addItem("Seleccionar");
        fCargarCombo consulta = new fCargarCombo();
         ArrayList<String> listaProducto = new ArrayList<String>();
-        listaProducto = consulta.llenar_combo("nombre", "producto") ;        
+        listaProducto = consulta.llenar_combo("nombre_producto", "producto") ;        
         for (int i = 0; i < listaProducto.size(); i++) {
             comboProducto.addItem(listaProducto.get(i));
         }    
     }
-
    
-
     private void habilitarcampos() {
         //txtIdVenta.setEnabled(true);
         btnSelProducto.setEnabled(true);
@@ -499,7 +500,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
         jDateFecha.setEnabled(true);
         AtxtDescripcion.setEnabled(true);
     }
-
+ 
     private void deshabilitarcampos() {
         lblidVenta.setEnabled(false);
         btnSelProducto.setEnabled(false);
@@ -510,9 +511,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
         jDateFecha.setEnabled(false);
         AtxtDescripcion.setEnabled(false);
     }
-
   
-
     private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCantidadActionPerformed
@@ -520,7 +519,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
     private void btnNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaVentaActionPerformed
 fContar contar=new fContar();
         try {
-            if (contar.existencia("idproducto","producto") == 0) {//verifica si hay productos para venta
+            if (contar.existencia("id_producto","producto") == 0) {//verifica si hay productos para venta
                 JOptionPane.showMessageDialog(rootPane, "No existen Productos registrados para la Venta");
                 return;
             }
@@ -547,7 +546,6 @@ fContar contar=new fContar();
             txtCantidad.setText("");
             Calendar actual = new GregorianCalendar();
             jDateFecha.setCalendar(actual);
-
             AtxtDescripcion.setText("");
             btnNuevaVenta.setLabel("Procesar");
             btnEditar.setLabel("Cancelar");
@@ -575,7 +573,6 @@ fContar contar=new fContar();
             java.util.Date fecha = jDateFecha.getDate();//almacena la fecha en formato Date
             long fechaV = fecha.getTime();
             java.sql.Date fechaVenta = new java.sql.Date(fechaV);//establece el formato compatible con sql
-
             datos.setCantidad(Integer.parseInt(txtCantidad.getText()));
             datos.setDescripcion(AtxtDescripcion.getText());
             datos.setFecha(fechaVenta.toString());
@@ -583,7 +580,7 @@ fContar contar=new fContar();
             //viendo la cantidad disponible para la venta        
             //JOptionPane.showMessageDialog(null,func.verCantidad(comboProducto.getSelectedItem().toString()));  
             fContar func2 = new fContar();
-            int disponible = func2.Contabilizar("\"producto\" where \"nombre\" = '" + comboProducto.getSelectedItem().toString() + "'");
+            int disponible = func2.Contabilizar("\"producto\" where \"nombre_producto\" = '" + comboProducto.getSelectedItem().toString() + "'");
             if (disponible < Integer.parseInt(txtCantidad.getText())) {
                 JOptionPane.showMessageDialog(null, "Solo hay Disponible para la venta : " + disponible);
                 return;
@@ -595,7 +592,6 @@ fContar contar=new fContar();
             }
             mProducto dato = new mProducto();
             //dato.setIdProducto(disponible);// ajustando para que actualice 
-
             dato.setNombre(comboProducto.getSelectedItem().toString());
             dato.setStock(disponible - Integer.parseInt(txtCantidad.getText()));
             validar.editarStock(dato);
@@ -606,7 +602,6 @@ fContar contar=new fContar();
             txtCantidad.setText("");
             jDateFecha.setDate(null);
             AtxtDescripcion.setText("");
-
             btnNuevaVenta.setText("Nueva");
             btnEditar.setEnabled(false);
             btnEditar.setText("Editar");
@@ -631,9 +626,7 @@ fContar contar=new fContar();
             btnEditar.setText("Editar");
             mostrar("");
             deshabilitarcampos();
-
         }
-
 
     }//GEN-LAST:event_btnNuevaVentaActionPerformed
 
@@ -662,25 +655,19 @@ fContar contar=new fContar();
         // acciones al dar clic sobre la tabla ventas
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date fecha;
-
         int filaSel = tablaVentas.rowAtPoint(evt.getPoint());// guarda en la variable filaSel la ila que se selecciono en la tabla
-
         btnEditar.setEnabled(true);
         lblidVenta.setText(tablaVentas.getValueAt(filaSel, 0).toString());
         AtxtDescripcion.setText(tablaVentas.getValueAt(filaSel, 6).toString());
         comboProducto.setSelectedItem(tablaVentas.getValueAt(filaSel, 1).toString());
-
         txtCantidad.setText(tablaVentas.getValueAt(filaSel, 2).toString());
-
         try {
             fecha = formatoFecha.parse((String) tablaVentas.getValueAt(filaSel, 3));
             jDateFecha.setDate(fecha);
         } catch (ParseException ex) {
             Logger.getLogger(frmVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         // txtCantidad.setText(tablaVentas.getValueAt(filaSel, 2).toString());
-
     }//GEN-LAST:event_tablaVentasMouseClicked
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
@@ -698,7 +685,6 @@ fContar contar=new fContar();
     private void AtxtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AtxtDescripcionKeyTyped
         // TODO add your handling code here:
         if (AtxtDescripcion.getText().length() == 100) {//para que el maximo de caracteres ingresados sea 100
-
             evt.consume();
         }
     }//GEN-LAST:event_AtxtDescripcionKeyTyped
@@ -706,7 +692,6 @@ fContar contar=new fContar();
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
         // txtNumGalpon.setText("");
-
         mostrar(txtBuscar.getText());
         //dimensioncols();
     }//GEN-LAST:event_txtBuscarKeyReleased
@@ -752,6 +737,10 @@ fContar contar=new fContar();
        txtCantidad.setText("");
        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnSelProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelProductoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSelProductoMouseClicked
 
     /**
      * @param args the command line arguments

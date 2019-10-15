@@ -39,28 +39,28 @@ public class fVenta {
        public DefaultTableModel mostrar(String buscar) { //para mostrar registros de la tabla galpon
         DefaultTableModel modelo; //=(DefaultTableModel) tablaAdminGalpon.getModel(); // parte para obtener el modelo de tabla existente
        establecerConexion();
-        String[] titulos = {"ID Venta", "Producto", "Cantidad", "Fecha", "Uni. Medida", "Precio Uni. Med.", "Descripcion", "Total"};//vector para los titulos para las columnas del Jtable
+        String[] titulos = {"ID Venta", "PRODUCTO", "CANTIDAD", "FECHA", "Uni. Medida", "Precio Uni. Med.", "Descripcion", "Total"};//vector para los titulos para las columnas del Jtable
 
         String[] registro = new String[8];//almacenar registros de cada uno de los titulos
 
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
         // sSQL = "select * from venta order by idventa ";
-        sSQL = "select \"detalle_venta\".\"idventa\",\"venta\".\"descripcion\", \"nombre\",\"cantidad\",\"fecha\",\"unimedida\",\"preciounimed\",\"valorventa\" from \"detalle_venta\" "
-                + "inner join \"producto\" on \"detalle_venta\".\"idproducto\"=\"producto\".\"idproducto\" inner join \"venta\" on \"detalle_venta\".\"idventa\"=\"venta\".\"idventa\" where \"nombre\" like '%" + buscar + "%' or \"fecha\" like '%"+buscar+"%' order by \"idventa\" ";
+        sSQL = "select \"detalle_venta\".\"id_venta\",\"venta\".\"descripcion_venta\", \"nombre_producto\",\"cantidad_venta\",\"fecha_venta\",\"uni_medida_producto\",\"precio_uni_producto\",\"valor_venta\" from \"detalle_venta\" "
+                + "inner join \"producto\" on \"detalle_venta\".\"id_producto\"=\"producto\".\"id_producto\" inner join \"venta\" on \"detalle_venta\".\"id_venta\"=\"venta\".\"id_venta\" where \"nombre_producto\" like '%" + buscar + "%' or \"fecha_venta\" like '%"+buscar+"%' order by \"id_venta\" ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
 
             while (rs.next()) {//navegacion de todos los registros
-                registro[0] = rs.getString("idventa");
-                registro[1] = rs.getString("nombre");
-                registro[2] = rs.getString("cantidad");
-                registro[3] = rs.getString("fecha");
-                registro[4] = rs.getString("unimedida");
-                registro[5] = rs.getString("preciounimed");
-                registro[6] = rs.getString("descripcion");
-                registro[7] = rs.getString("valorventa");
+                registro[0] = rs.getString("id_venta");
+                registro[1] = rs.getString("nombre_producto");
+                registro[2] = rs.getString("cantidad_venta");
+                registro[3] = rs.getString("fecha_venta");
+                registro[4] = rs.getString("uni_medida_producto");
+                registro[5] = rs.getString("precio_uni_producto");
+                registro[6] = rs.getString("descripcion_venta");
+                registro[7] = rs.getString("valor_venta");
                 modelo.addRow(registro);
 
             }
@@ -77,8 +77,8 @@ public class fVenta {
        
           public boolean insertar(mVenta dato,String producto, String usuario, String cliente) {// metodo INSERTAR
     establecerConexion();
-        String a = "(select sum (\"preciounimed\" *" + dato.getCantidad() + ") from \"producto\" where \"nombre\" like '%" + producto + "%')";
-        String b = "(select \"idproducto\" from \"producto\" where \"nombre\" like '%" + producto + "%')";
+        String a = "(select sum (\"precio_uni_producto\" *" + dato.getCantidad() + ") from \"producto\" where \"nombre_producto\" like '%" + producto + "%')";
+        String b = "(select \"id_producto\" from \"producto\" where \"nombre_producto\" like '%" + producto + "%')";
         String c=null;
         if(!(cliente.isEmpty() || cliente.equals(""))){
             c=cliente;
@@ -91,10 +91,10 @@ public class fVenta {
         //String fechaInicio = (txtFechaApe.getText());
 
         
-        sSQL = "insert into \"venta\" (\"cantidad\",\"descripcion\",\"valorventa\",\"fecha\")"
+        sSQL = "insert into \"venta\" (\"cantidad_venta\",\"descripcion_venta\",\"valor_venta\",\"fecha_venta\")"
                 + //NumGalpon no se incluye por ser llave primaria
                 "values (?,?," + a + ",?); "
-                + "insert into \"detalle_venta\" (\"idproducto\",\"cod_usuario\",\"cod_cliente\") values (" + b +","+ d +","+ c +");";
+                + "insert into \"detalle_venta\" (\"id_producto\",\"cod_usuario\",\"cod_cliente\") values (" + b +","+ d +","+ c +");";
 
         // insert into detalle_venta (iddetalle,idproducto,idventa) values ('03',(select idproducto from producto where nombre like '%Huevo%'),'7')
         try {
@@ -133,9 +133,9 @@ public class fVenta {
         //JOptionPane.showMessageDialog(rootPane, "el galpon es  : "+galpon+" y el ave es :"+ave);
         
 
-        String a = "(select \"idproducto\" from \"producto\" where \"nombre\" like '%" + producto + "%')";
-        sSQL = "update \"venta\" set \"cantidad\"=?,\"fecha\"=?,\"descripcion\"=?"
-                + " WHERE \"idventa\"=" + dato.getIdVenta() + "; update \"detalle_venta\" set \"idproducto\"=" + a;
+        String a = "(select \"id_producto\" from \"producto\" where \"nombre_producto\" like '%" + producto + "%')";
+        sSQL = "update \"venta\" set \"cantidad_venta\"=?,\"fecha\"=?,\"descripcion_venta\"=?"
+                + " WHERE \"id_venta\"=" + dato.getIdVenta() + "; update \"detalle_venta\" set \"id_producto\"=" + a;
 
         try {
 

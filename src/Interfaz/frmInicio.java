@@ -29,33 +29,10 @@ public class frmInicio extends javax.swing.JFrame {
     public FrmGalponEnSal galpon =null;
     public static String  usuarioActual="";
 
-    public frmInicio() {
-       
+    public frmInicio() {       
         initComponents();
-
         this.setExtendedState(MAXIMIZED_BOTH);// maximizar el formulario
 
-//        iniescritorio = new frmInicioEscritorio();
-//        int ancho = escritorio.getWidth();
-//        int altura = escritorio.getHeight();
-//        iniescritorio.setSize(ancho, altura);
-//        escritorio.add(iniescritorio);
-////
-//        try {//para que maximize el formulario en el escritorio
-//            iniescritorio.setMaximum(true);
-//            
-//            iniescritorio.toFront();
-//        iniescritorio.setVisible(true);
-//        
-//              
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "ERROR ");
-//        }
-                 
-       
-        //JOptionPane.showMessageDialog(rootPane, "la etiqueta tiene esto" +lblTipo.getText());
-         
-//JOptionPane.showMessageDialog(rootPane, acceso);
     }
 
     
@@ -85,6 +62,7 @@ public class frmInicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         escritorio.setBackground(new java.awt.Color(255, 255, 255));
+        escritorio.setAlignmentX(0.1F);
         escritorio.setName(""); // NOI18N
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
@@ -99,6 +77,7 @@ public class frmInicio extends javax.swing.JFrame {
         );
 
         jPanel1.setBackground(new java.awt.Color(9, 66, 66));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 66, 66)));
         jPanel1.setAlignmentX(0.1F);
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
@@ -228,7 +207,7 @@ public class frmInicio extends javax.swing.JFrame {
         jLabel5.setBackground(new java.awt.Color(51, 51, 51));
         jLabel5.setForeground(new java.awt.Color(102, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/user32pxblanco.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/usersverde32px.png"))); // NOI18N
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 8, 161, 70));
 

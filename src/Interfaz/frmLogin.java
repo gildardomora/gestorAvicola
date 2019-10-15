@@ -19,11 +19,10 @@ import Modelos.mUsuario;
  */
 public class frmLogin extends javax.swing.JFrame {
 
-    public static String version = "ver 1.4"; // indica la version del programa  
+    public static String version = "ver 1.5"; // indica la version del programa  
 // Recordatorio GIMORE--- mover despues a una clase
  
     
-
     /**
      * Creates new form frmLogin
      */
@@ -110,10 +109,10 @@ public class frmLogin extends javax.swing.JFrame {
             fUsuario func = new fUsuario();
             mUsuario datos = new mUsuario();
 
-            datos.setUsuario(txtUsuario.getText());
-            datos.setPassword(txtContraseña.getText());
+            datos.setLogin_usuario(txtUsuario.getText());
+            datos.setPassword_usuario(txtContraseña.getText());
 
-            modelo = func.sesion(datos.getUsuario(), datos.getPassword());//ajusta los datos de acceso en el modelo de la tabla
+            modelo = func.sesion(datos.getLogin_usuario(), datos.getPassword_usuario());//ajusta los datos de acceso en el modelo de la tabla
 
             //JOptionPane.showMessageDialog(rootPane, "usuario : " + datos.getUsuario());
             //JOptionPane.showMessageDialog(rootPane, "pass : " + datos.getPassword());

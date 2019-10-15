@@ -430,17 +430,17 @@ public class frmRegUsuario extends javax.swing.JFrame {
                 datosP.setCedula_persona(this.txtCedula.getText());
                 datosP.setNombre_persona(this.txtNombre.getText());
                 datosP.setApellido_persona(this.txtApellido.getText());
-                datosP.setDireccion(this.txtDireccion.getText());
-                datosP.setCelular(txtCelular.getText());
-                datosP.setEmail(txtCorreo.getText());
-                datosP.setSexo(comboSexo.getSelectedItem().toString());
+                datosP.setDireccion_persona(this.txtDireccion.getText());
+                datosP.setCelular_persona(txtCelular.getText());
+                datosP.setEmail_persona(txtCorreo.getText());
+                datosP.setSexo_persona(comboSexo.getSelectedItem().toString());
                 
                 
                 datos.setCedula_persona(this.txtCedula.getText());
-                datos.setUsuario(this.txtUsuario.getText());
-                datos.setPassword(this.txtPassword.getText());
+                datos.setLogin_usuario(this.txtUsuario.getText());
+                datos.setPassword_usuario(this.txtPassword.getText());
                 datos.setNombre_persona(this.txtNombre.getText());
-                datos.setEstado(comboEstado.getSelectedItem().toString());
+                datos.setEstado_usuario(comboEstado.getSelectedItem().toString());
                 datos.setTipo_Usuario(comboTipo.getSelectedItem().toString());
 
                 if (funcionP.insertar(datosP) && funcion.agregar(datos)) {

@@ -53,14 +53,14 @@ public class fTipo_ave {
         //modelo=new DefaultTableModel(titulos, ABORT);
         modelo = new DefaultTableModel(null, titulos);//original que funciona
 
-        sSQL = "select * from \"tipo_ave\" where \"nombre\"  like '%" + buscar + "%' order by \"idave\" ";
+        sSQL = "select * from \"tipo_ave\" where \"nombre_ave\"  like '%" + buscar + "%' order by \"id_ave\" ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
             while (rs.next()) {//navegacion de todos los registros
-                registro[0] = rs.getString("idave");
-                registro[1] = rs.getString("nombre");
-                registro[2] = "";//PENDIENTE: --> ARREGLAR
+                registro[0] = rs.getString("id_ave");
+                registro[1] = rs.getString("nombre_ave");
+                registro[2] = rs.getString("descripcion_ave");//PENDIENTE: --> ARREGLAR
 
                 //  totalregistros=totalregistros+1;
                 modelo.addRow(registro);
@@ -78,13 +78,14 @@ public class fTipo_ave {
 
     public boolean insertar(mTipo_ave dato) {
         establecerConexion();
-        sSQL = "insert into \"tipo_ave\" (nombre)"
+        sSQL = "insert into \"tipo_ave\" (nombre_ave,descripcion_ave)"
                 + //NumGalpon no se incluye por ser llave primaria
-                "values (?)";
+                "values (?,?)";
 
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setString(1, dato.getNombre());
+            pst.setString(2, dato.getDescripcion());
 
             int n = pst.executeUpdate();
             desconectarse();
@@ -100,12 +101,13 @@ public class fTipo_ave {
     public boolean editar(mTipo_ave datos) {
         establecerConexion();
 
-        sSQL = "update \"tipo_ave\" set \"nombre\"=?"
-                + " WHERE \"idave\"=" + datos.getIdAve();
+        sSQL = "update \"tipo_ave\" set \"nombre_ave\"=?, \"descripcion_ave\"=? "
+                + " WHERE \"id_ave\"=" + datos.getIdAve();
 
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setString(1, datos.getNombre());
+            pst.setString(2, datos.getDescripcion());
 
             int n = pst.executeUpdate();
             desconectarse();
@@ -120,7 +122,7 @@ public class fTipo_ave {
 
     public boolean eliminar(mTipo_ave datos) {
         establecerConexion();
-        sSQL = "delete from \"tipo_ave\" where \"idave\"=?";
+        sSQL = "delete from \"tipo_ave\" where \"id_ave\"=?";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -139,7 +141,7 @@ public class fTipo_ave {
     
     //PENDIENTE: --> establecer validaciones para verificar si ya existe el tipo de AVE en la BD..
         private void validar() {
-        sSQL = "select count (*) from galpon where idave='1'";
+        sSQL = "select count (*) from galpon where id_ave='1'";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
