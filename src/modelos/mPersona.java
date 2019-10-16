@@ -15,19 +15,19 @@ public class mPersona {
     private String cedula_persona;
     private String nombre_persona;
     private String apellido_persona;
-    private String direccion;
-    private String celular;
-    private String email;
-    private String sexo;
+    private String direccion_persona;
+    private String celular_persona;
+    private String email_persona;
+    private String sexo_persona;
 
     public mPersona(String cedula_persona, String nombre_persona, String apellido_persona, String direccion, String celular, String email, String sexo) {
         this.cedula_persona = cedula_persona;
         this.nombre_persona = nombre_persona;
         this.apellido_persona = apellido_persona;
-        this.direccion = direccion;
-        this.celular = celular;
-        this.email = email;
-        this.sexo = sexo;
+        this.direccion_persona = direccion;
+        this.celular_persona = celular;
+        this.email_persona = email;
+        this.sexo_persona = sexo;
     }
 
     public mPersona() {
@@ -57,36 +57,36 @@ public class mPersona {
         this.apellido_persona = apellido_persona;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getDireccion_persona() {
+        return direccion_persona;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setDireccion_persona(String direccion) {
+        this.direccion_persona = direccion;
     }
 
-    public String getCelular() {
-        return celular;
+    public String getCelular_persona() {
+        return celular_persona;
     }
 
-    public void setCelular(String celular) {
-        this.celular = celular;
+    public void setCelular_persona(String celular) {
+        this.celular_persona = celular;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmail_persona() {
+        return email_persona;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail_persona(String email) {
+        this.email_persona = email;
     }
 
-    public String getSexo() {
-        return sexo;
+    public String getSexo_persona() {
+        return sexo_persona;
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public void setSexo_persona(String sexo) {
+        this.sexo_persona = sexo;
     }
 
     
