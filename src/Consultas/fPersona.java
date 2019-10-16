@@ -9,7 +9,7 @@ import Conexion.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
-import Modelos.mPersona;
+import modelos.mPersona;
 
 /**
  *

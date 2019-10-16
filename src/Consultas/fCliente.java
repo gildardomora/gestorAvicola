@@ -13,8 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Modelos.mCliente;
-import Modelos.mPersona;
+import modelos.mCliente;
+import modelos.mPersona;
 
 /**
  *

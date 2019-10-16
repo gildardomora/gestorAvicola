@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Modelos.mAdminGalpon;
+import modelos.mAdminGalpon;
 import javax.swing.JFrame;
 
 /**

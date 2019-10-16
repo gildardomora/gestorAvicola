@@ -9,8 +9,8 @@ import Consultas.fPersona;
 import Consultas.fUsuario;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import Modelos.mPersona;
-import Modelos.mUsuario;
+import modelos.mPersona;
+import modelos.mUsuario;
 
 /**
  *

@@ -139,7 +139,7 @@ public class fGalpon {
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setString(1, datoEnt.getFecha());
-            pst.setInt(2, datoEnt.getSaldo_aves());
+            pst.setInt(2, datoEnt.getsaldo_aves());
 
             pst.setInt(3, datoEnt.getCantidad());
             pst.setString(4, datoEnt.getDescripcion());
@@ -195,7 +195,7 @@ public class fGalpon {
             PreparedStatement pst = cn.prepareStatement(sSQL);
 
             pst.setString(1, datoSal.getFecha());
-            pst.setInt(2, datoSal.getSaldo_aves());
+            pst.setInt(2, datoSal.getsaldo_aves());
             pst.setInt(3, datoSal.getCantidad());
             pst.setString(4, datoSal.getDescripcion());
             int n = pst.executeUpdate();
@@ -243,7 +243,7 @@ public class fGalpon {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setString(1, datos.getFecha());
-            pst.setInt(2, datos.getSaldo_aves());
+            pst.setInt(2, datos.getsaldo_aves());
             pst.setInt(3, datos.getCantidad());
             pst.setString(4, datos.getDescripcion());
 
@@ -289,7 +289,7 @@ public class fGalpon {
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setString(1, dato.getFecha());
-            pst.setInt(2, dato.getSaldo_aves());
+            pst.setInt(2, dato.getsaldo_aves());
             pst.setInt(3, dato.getCantidad());
             pst.setString(4, dato.getDescripcion());
 

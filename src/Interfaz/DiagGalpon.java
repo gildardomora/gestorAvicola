@@ -7,7 +7,7 @@ package Interfaz;
 
 import Consultas.fAdminGalpon;
 import Consultas.fContar;
-import Modelos.mAdminGalpon;
+import modelos.mAdminGalpon;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

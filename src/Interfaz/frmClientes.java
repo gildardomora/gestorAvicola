@@ -13,8 +13,8 @@ import java.sql.Connection;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Modelos.mCliente;
-import Modelos.mPersona;
+import modelos.mCliente;
+import modelos.mPersona;
 
 /**
  *

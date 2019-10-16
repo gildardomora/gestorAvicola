@@ -7,7 +7,7 @@ package Consultas;
 
 import Conexion.Conexion;
 import java.sql.Connection;
-import Modelos.mTipo_ave;
+import modelos.mTipo_ave;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

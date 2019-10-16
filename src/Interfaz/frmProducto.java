@@ -12,7 +12,7 @@ import java.sql.Connection;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Modelos.mProducto;
+import modelos.mProducto;
 import javax.swing.JFrame;
 
 /**

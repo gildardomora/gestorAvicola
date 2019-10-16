@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Modelos.mProduccion;
+import modelos.mProduccion;
 
 /**
  *

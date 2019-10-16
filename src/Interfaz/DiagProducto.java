@@ -7,14 +7,13 @@ package Interfaz;
 
 import Conexion.Conexion;
 import Consultas.fProducto;
-import Modelos.mProducto;
+import modelos.mProducto;
 import java.awt.Color;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,7 +37,6 @@ public class DiagProducto extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         cargar_acciones();
-
     }
 
     /**
@@ -343,11 +341,9 @@ public class DiagProducto extends javax.swing.JDialog {
                 lblTitulo.setText("EDITAR PRODUCTO");
                 lblidProducto.setForeground(Color.white);
                 // frmProducto.
-
                 lblidProducto.setText(frmProducto.datostabla[0]);
                 txtNombre.setText(frmProducto.datostabla[1]);
-                //
-              
+                //              
                 txtUniMed.setText(frmProducto.datostabla[2]);
                 txtUniMed.setEnabled(true);
                 for (int i = 0; i < medida.length; i++) {
@@ -380,12 +376,8 @@ public class DiagProducto extends javax.swing.JDialog {
         medida [3]="Docena";
         medida [4]="Cubeta";
         medida [5]="Otro";   
-        
         categoria [0]="CARNICOS";
         categoria [1]="Otro";
-              
-        
-        
         
         for (int i = 0; i < medida.length; i++) {
             comboUniMedida.addItem(medida[i]);          
