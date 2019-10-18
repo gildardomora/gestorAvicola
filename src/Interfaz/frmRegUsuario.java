@@ -7,6 +7,7 @@ package Interfaz;
 
 import Consultas.fPersona;
 import Consultas.fUsuario;
+import ReconocimientoFacial.frmRegistroFacial;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelos.mPersona;
@@ -87,6 +88,7 @@ public class frmRegUsuario extends javax.swing.JFrame {
         comboSexo = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jToolBar1.setRollover(true);
 
@@ -360,6 +362,15 @@ public class frmRegUsuario extends javax.swing.JFrame {
         jLabel17.setText("Desarollado por Gildardo Mora");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 470, -1, -1));
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Archivos/icons8_Facial_Recognition_25px_1.png"))); // NOI18N
+        jButton1.setText("REGISTRAR FACIAL");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 220, 70));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -591,6 +602,12 @@ public class frmRegUsuario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_comboTipoActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        frmRegistroFacial cara = new frmRegistroFacial();
+        cara.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -633,6 +650,7 @@ public class frmRegUsuario extends javax.swing.JFrame {
     public static javax.swing.JComboBox<String> comboEstado;
     private javax.swing.JComboBox<String> comboSexo;
     public static javax.swing.JComboBox<String> comboTipo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
