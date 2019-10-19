@@ -1,11 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Author: Taha Emara
-// WebSite : www.Emaraic.com
-// E-mail  : taha@emaraic.com
-//
-//                   Realtime face detection using OpenCV with Java
-//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 package ReconocimientoFacial;
 
@@ -31,7 +23,7 @@ import org.opencv.objdetect.CascadeClassifier;
 
 /**
  *
- * @author gimore
+ * @author GIMORE
  */
 public class FaceDetection extends javax.swing.JFrame {
 ///
@@ -67,7 +59,7 @@ public class FaceDetection extends javax.swing.JFrame {
                             BufferedImage buff = (BufferedImage) im;
                             if (g.drawImage(buff, 0, 0, getWidth(), getHeight() -150 , 0, 0, buff.getWidth(), buff.getHeight(), null)) {
                                 if (runnable == false) {
-                                    System.out.println("Paused ..... ");
+                                    System.out.println("Pausado ..... ");
                                     this.wait();
                                 }
                             }
@@ -232,15 +224,7 @@ public class FaceDetection extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        webSource = new VideoCapture(0); // video capture from default cam
-        myThread = new DaemonThread(); //create object of threat class
-        Thread t = new Thread(myThread);
-        t.setDaemon(true);
-        myThread.runnable = true;
-        t.start();                 //start thrad
-        jButton1.setEnabled(false);  // deactivate start button
-        jButton2.setEnabled(true);  //  activate stop button
-        this.dispose();
+       this.dispose();
         frmLogin login = new frmLogin();
         login.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed

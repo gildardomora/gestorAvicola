@@ -1,16 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ReconocimientoFacial;
 
+import Interfaz.frmRegUsuario;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.nio.IntBuffer;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import org.opencv.core.Core;
+import static org.opencv.core.CvType.CV_32SC1;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.MatOfRect;
@@ -19,6 +21,8 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.highgui.Highgui;
+import static org.opencv.highgui.Highgui.CV_LOAD_IMAGE_GRAYSCALE;
+import static org.opencv.highgui.Highgui.imread;
 import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
@@ -30,7 +34,7 @@ import org.opencv.objdetect.CascadeClassifier;
 public class frmRegistroFacial extends javax.swing.JFrame {
 
     /**
-     * Creates new form frmRegistroFacial
+     * Crea el formulario  frmRegistroFacial
      */
     private DaemonThread myThread = null;
     int count = 0;
@@ -99,14 +103,39 @@ public class frmRegistroFacial extends javax.swing.JFrame {
     }
 
     void desactivarCamara() {
-        myThread.runnable = false;            // stop thread
-        // jButton2.setEnabled(false);   // activate start button 
-        // jButton1.setEnabled(true);     // deactivate stop button
+        myThread.runnable = false;   // Detener thread      
 
-        webSource.release();  // stop caturing fron cam
+        webSource.release();  // Detener captura de camara
 
     }
-
+    
+    
+    // en pruebas para guardado de capturas
+    public void generarArchivos(){
+    File directory = new File("D:\\deteccion\\rostros");
+    FilenameFilter filter = new FilenameFilter() {
+        @Override
+        public boolean accept(File dir, String name) {
+        return name.endsWith(".jpg") || name.endsWith(".png");
+        
+        }
+    };
+    
+    File [] files = directory.listFiles(filter); // solo nuestro filtro
+   // MatVector photos = new MatVector(files.length);
+    Mat labels = new  Mat(files.length, 1, CV_32SC1);
+   // IntBuffer labelsBuffer = labels.createBuffer();
+    
+    int counter=0;
+    for(File image : files){
+       Mat photo= imread(image.getAbsolutePath(), CV_LOAD_IMAGE_GRAYSCALE);
+        int idPerson=Integer.parseInt(image.getName().split("\\.")[1]);
+       // opencv_imgproc.resize(photo, photo, new Size (160, 160));
+        
+    }
+    
+}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -190,12 +219,20 @@ public class frmRegistroFacial extends javax.swing.JFrame {
             sample++;
         }
         if (sample > 25) {
-
             System.out.println("Archivo Generado");
             desactivarCamara();
             lblResultado.setText("Proceso Completado");
+            btnCapturar.setText("CONTINUAR");
         }
-
+        if (btnCapturar.getText().equals("CONTINUAR")) {
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "Registro Facial Completado \n Registre sus datos personales");
+            frmRegUsuario registrar = new frmRegUsuario();
+            registrar.setVisible(true);
+             registrar.Habilitar();
+            registrar.txtNombre.requestFocus();
+            registrar.btnNuevo.setText("Guardar");
+        }
 
     }//GEN-LAST:event_btnCapturarActionPerformed
 
