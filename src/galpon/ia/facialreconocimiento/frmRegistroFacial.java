@@ -1,0 +1,283 @@
+
+package galpon.ia.facialreconocimiento;
+
+import galpon.ui.usuarios.RegistrarUsuarioForm;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.nio.IntBuffer;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
+import org.opencv.core.Core;
+import static org.opencv.core.CvType.CV_32SC1;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.highgui.Highgui;
+import static org.opencv.highgui.Highgui.CV_LOAD_IMAGE_GRAYSCALE;
+import static org.opencv.highgui.Highgui.imread;
+import org.opencv.highgui.VideoCapture;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
+
+/**
+ *
+ * @author GIMORE
+ */
+public class frmRegistroFacial extends javax.swing.JFrame {
+
+    /**
+     * Crea el formulario  frmRegistroFacial
+     */
+    private DaemonThread myThread = null;
+    int count = 0;
+    VideoCapture webSource = null;
+    Mat frame = new Mat();
+    MatOfByte mem = new MatOfByte();
+    CascadeClassifier faceDetector = new CascadeClassifier(FaceDetection.class.getResource("haarcascade_frontalface_alt.xml").getPath().substring(1));
+    MatOfRect faceDetections = new MatOfRect();
+
+    int numSamples = 25, sample = 1;
+///    
+
+    // clase deteccion
+    class DaemonThread implements Runnable {
+
+        protected volatile boolean runnable = false;
+
+        @Override
+        public void run() {
+            synchronized (this) {
+                while (runnable) {
+                    if (webSource.grab()) {
+                        try {
+                            webSource.retrieve(frame);
+                            Graphics g = pnlCamara.getGraphics();
+                            faceDetector.detectMultiScale(frame, faceDetections);
+                            for (Rect rect : faceDetections.toArray()) {
+                                // System.out.println("ttt");
+                                Core.rectangle(frame, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
+                                        new Scalar(0, 255, 0));//recuadro de deteccion
+
+                            }
+                            Highgui.imencode(".bmp", frame, mem);
+                            Image im = ImageIO.read(new ByteArrayInputStream(mem.toArray()));
+                            BufferedImage buff = (BufferedImage) im;
+                            if (g.drawImage(buff, 0, 0, getWidth(), getHeight() - 90, 0, 0, buff.getWidth(), buff.getHeight(), null)) {
+                                if (runnable == false) {
+                                    System.out.println("PAUSADO ..... ");
+                                    this.wait();
+                                }
+                            }
+                        } catch (Exception ex) {
+                            System.out.println("Error!!");
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //
+    public frmRegistroFacial() {
+        initComponents();
+        System.out.println(FaceDetection.class.getResource("haarcascade_frontalface_alt.xml").getPath().substring(1));
+        activarCamara();
+    }
+
+    void activarCamara() {
+        webSource = new VideoCapture(0); // video capture from default cam
+        myThread = new DaemonThread(); //create object of threat class
+        Thread t = new Thread(myThread);
+        t.setDaemon(true);
+        myThread.runnable = true;
+        t.start();
+    }
+
+    void desactivarCamara() {
+        myThread.runnable = false;   // Detener thread      
+
+        webSource.release();  // Detener captura de camara
+
+    }
+    
+    
+    // en pruebas para guardado de capturas
+    public void generarArchivos(){
+    File directory = new File("D:\\deteccion\\rostros");
+    FilenameFilter filter = new FilenameFilter() {
+        @Override
+        public boolean accept(File dir, String name) {
+        return name.endsWith(".jpg") || name.endsWith(".png");
+        
+        }
+    };
+    
+    File [] files = directory.listFiles(filter); // solo nuestro filtro
+  // MatVector photos = new MatVector(files.length);
+    Mat labels = new  Mat(files.length, 1, CV_32SC1);
+   // IntBuffer labelsBuffer = labels.createBuffer();
+    
+    int counter=0;
+    for(File image : files){
+       Mat photo= imread(image.getAbsolutePath(), CV_LOAD_IMAGE_GRAYSCALE);
+        int idPerson=Integer.parseInt(image.getName().split("\\.")[1]);
+       // opencv_imgproc.resize(photo, photo, new Size (160, 160));
+        
+    }
+    
+}
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        btnCapturar = new javax.swing.JButton();
+        pnlCamara = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        lblContador = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblResultado = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnCapturar.setText("CAPTURAR");
+        btnCapturar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapturarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCapturar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, 101, 48));
+
+        javax.swing.GroupLayout pnlCamaraLayout = new javax.swing.GroupLayout(pnlCamara);
+        pnlCamara.setLayout(pnlCamaraLayout);
+        pnlCamaraLayout.setHorizontalGroup(
+            pnlCamaraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+        pnlCamaraLayout.setVerticalGroup(
+            pnlCamaraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 340, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(pnlCamara, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 380, 340));
+
+        jLabel1.setForeground(new java.awt.Color(9, 66, 66));
+        jLabel1.setText("CAPTURA DE IMAGENES");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
+
+        lblContador.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblContador.setForeground(new java.awt.Color(9, 66, 66));
+        lblContador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblContador.setText("00");
+        jPanel1.add(lblContador, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 30, 20));
+
+        jLabel3.setForeground(new java.awt.Color(9, 66, 66));
+        jLabel3.setText("DE 25");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, -1, 20));
+
+        lblResultado.setForeground(new java.awt.Color(0, 102, 102));
+        lblResultado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblResultado.setText("PROCESANDO RECONOCIMIENTO...");
+        jPanel1.add(lblResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 270, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCapturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapturarActionPerformed
+        // TODO add your handling code here:           
+        if (sample <= numSamples) {
+            lblContador.setText(String.valueOf(sample));
+            sample++;
+        }
+        if (sample > 25) {
+            System.out.println("Archivo Generado");
+            desactivarCamara();
+            lblResultado.setText("Proceso Completado");
+            btnCapturar.setText("CONTINUAR");
+        }
+        if (btnCapturar.getText().equals("CONTINUAR")) {
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "Registro Facial Completado \n Registre sus datos personales");
+            RegistrarUsuarioForm registrar = new RegistrarUsuarioForm();
+            registrar.setVisible(true);
+            // registrar.Habilitar();
+            registrar.txtNombre.requestFocus();
+            registrar.btnNuevo.setText("Guardar");
+        }
+
+    }//GEN-LAST:event_btnCapturarActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(frmRegistroFacial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(frmRegistroFacial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(frmRegistroFacial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(frmRegistroFacial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new frmRegistroFacial().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCapturar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblContador;
+    private javax.swing.JLabel lblResultado;
+    private javax.swing.JPanel pnlCamara;
+    // End of variables declaration//GEN-END:variables
+}
